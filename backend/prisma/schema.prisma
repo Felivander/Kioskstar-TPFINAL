@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EMPLEADO
+  CLIENTE
+}
+
+enum PaymentMethod {
+  EFECTIVO
+  MERCADOPAGO
+  DEBITO
+  CREDITO
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(CLIENTE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  kiosks Kiosk[]
+  sales  Sale[]
+
+  @@map("users")
+}
+
+model Kiosk {
+  id        Int      @id @default(autoincrement())
+  name      String
+  ownerId   Int
+  address   String
+  lat       Float
+  lng       Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner    User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  branches Branch[]
+
+  @@map("kiosks")
+}
+
+model Branch {
+  id        Int      @id @default(autoincrement())
+  kioskId   Int
+  name      String
+  address   String
+  lat       Float
+  lng       Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  kiosk Kiosk   @relation(fields: [kioskId], references: [id], onDelete: Cascade)
+  stock Stock[]
+  sales Sale[]
+
+  @@map("branches")
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  barcode     String?  @unique
+  categoryId  Int
+  imageUrl    String?
+  description String?
+  price       Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category  Category   @relation(fields: [categoryId], references: [id])
+  stock     Stock[]
+  saleItems SaleItem[]
+
+  @@map("products")
+}
+
+model Stock {
+  id        Int      @id @default(autoincrement())
+  branchId  Int
+  productId Int
+  quantity  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  branch  Branch  @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([branchId, productId])
+  @@map("stock")
+}
+
+model Sale {
+  id            Int           @id @default(autoincrement())
+  branchId      Int
+  userId        Int
+  total         Float
+  paymentMethod PaymentMethod @default(EFECTIVO)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  branch Branch     @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  user   User       @relation(fields: [userId], references: [id])
+  items  SaleItem[]
+
+  @@map("sales")
+}
+
+model SaleItem {
+  id        Int   @id @default(autoincrement())
+  saleId    Int
+  productId Int
+  quantity  Int
+  unitPrice Float
+
+  sale    Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("sale_items")
+}

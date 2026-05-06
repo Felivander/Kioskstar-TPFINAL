@@ -1,0 +1,249 @@
+================================================================
+        TRABAJO INTEGRADOR FINAL (TIF) - SISTEMA FULL-STACK
+              INFORME DE PRESENTACIÓN Y ESTUDIO DE FACTIBILIDAD
+================================================================
+
+NOMBRE DEL PROYECTO: KioskStar
+INSTITUCIÓN:         [Nombre de la institución]
+MATERIA:             [Nombre de la materia]
+EQUIPO:
+  - Julián   → Plus: Integración de APIs Externas (Google Maps + IA + MercadoPago)
+  - Patricia → Plus: Seguridad Avanzada (Zod + Roles + JWT)
+  - Felicitas → Plus: UX/UI y Estado Global (Redux + Accesibilidad + Responsive)
+
+================================================================
+1. DESCRIPCIÓN DEL PROBLEMA
+================================================================
+
+Los kioscos en Argentina son uno de los comercios más numerosos y de
+menor digitalización del país. La gran mayoría opera sin ningún sistema
+de gestión: el stock se controla a mano, las ventas no se registran
+digitalmente y el dueño no tiene visibilidad real de su negocio en
+tiempo real.
+
+Esto genera tres problemas concretos:
+
+  a) PARA EL ENCARGADO O DUEÑO:
+     - No sabe cuánto stock real tiene en cada momento.
+     - La carga de productos es lenta y tediosa.
+     - Si tiene más de una sucursal, la gestión se vuelve caótica.
+     - No tiene reportes de ventas ni rentabilidad.
+
+  b) PARA EL EMPLEADO:
+     - Herramientas poco intuitivas o inexistentes.
+     - Pérdida de tiempo cargando productos manualmente.
+     - No tiene una forma rápida de registrar una venta.
+
+  c) PARA EL CLIENTE:
+     - No sabe si el kiosko más cercano tiene el producto que busca.
+     - Pierde tiempo yendo a un kiosko que no tiene lo que necesita.
+     - No existe transparencia de stock en el canal kiosco.
+
+================================================================
+2. SOLUCIÓN PROPUESTA: KioskStar
+================================================================
+
+KioskStar es una plataforma web y mobile-first de gestión integral
+para kioscos, compuesta por dos módulos principales:
+
+  [A] PANEL DE GESTIÓN (para dueños y empleados)
+      - Registro y administración de kioscos y sucursales.
+      - Gestión de stock por sucursal en tiempo real.
+      - Carga de productos acelerada mediante IA: el empleado saca
+        una foto del producto y la IA reconoce el nombre, categoría
+        y código de barras, prellenando el formulario automáticamente.
+      - Registro de ventas con integración a MercadoPago para cobros
+        online o en persona (QR).
+      - Sistema de roles: Admin (dueño), Empleado, Cliente.
+      - Dashboard con métricas de ventas y movimientos de stock.
+
+  [B] MAPA PÚBLICO PARA CLIENTES
+      - Vista de mapa interactivo con todos los kioscos de la red
+        KioskStar cercanos al usuario (Google Maps API).
+      - El cliente puede buscar un producto y ver qué kioscos
+        cercanos lo tienen disponible en stock real.
+      - Perfil público de cada kiosko con dirección, horario y
+        productos disponibles.
+
+================================================================
+3. OBJETIVO DEL TRABAJO
+================================================================
+
+El objetivo del TIF es diseñar, desarrollar y desplegar KioskStar
+como una aplicación Full-Stack funcional que resuelva un problema
+real del sector comercio minorista en Argentina, cumpliendo los
+siguientes objetivos específicos:
+
+  - Construir un backend robusto en Node.js + Express + TypeScript
+    con arquitectura en capas (controllers, routes, middlewares, services).
+
+  - Modelar y gestionar una base de datos relacional con Prisma ORM,
+    representando la lógica de negocio multi-sucursal.
+
+  - Implementar autenticación segura con JWT, encriptación con Bcrypt
+    y validación estricta con Zod, con sistema de roles diferenciados.
+
+  - Desarrollar un frontend en React + TypeScript que consuma la API
+    propia, con estado global manejado por Redux y diseño 100%
+    responsive y accesible.
+
+  - Integrar APIs externas: Google Maps para geolocalización, una API
+    de visión por IA para reconocimiento de productos, y MercadoPago
+    para procesamiento de pagos.
+
+  - Desplegar la aplicación en producción: backend en Render y
+    frontend en Vercel.
+
+================================================================
+4. ESTUDIO DE FACTIBILIDAD
+================================================================
+
+4.1 FACTIBILIDAD TÉCNICA
+------------------------
+El stack elegido (Node.js + TypeScript + Express + Prisma + React)
+es ampliamente soportado, con documentación extensa y comunidad
+activa. Todas las APIs a integrar tienen SDKs o REST APIs bien
+documentadas:
+
+  - Google Maps API: SDK de JavaScript para frontend + API de
+    Geocoding para backend. Cuenta gratuita con $200 de crédito
+    mensual, suficiente para un TIF.
+
+  - IA para reconocimiento de imágenes: se utilizará la API de
+    Claude (Anthropic) con visión, o Google Cloud Vision API,
+    ambas con tier gratuito viable para el proyecto.
+
+  - MercadoPago: SDK oficial para Node.js y documentación en
+    español, ideal para el contexto regional.
+
+  - Prisma ORM: compatible con PostgreSQL, base de datos a usar
+    en Render (tier gratuito disponible).
+
+Conclusión: FACTIBLE. El equipo tiene las herramientas y el
+entorno necesario para implementar el proyecto.
+
+4.2 FACTIBILIDAD OPERATIVA
+--------------------------
+El proyecto se ajusta perfectamente a los requisitos del TIF:
+
+  ✓ Backend Node.js + Express + TypeScript con arquitectura de carpetas.
+  ✓ Más de 4 tablas relacionadas en la DB (ver sección 5).
+  ✓ Uso de Prisma ORM obligatorio.
+  ✓ Autenticación con JWT + Bcrypt.
+  ✓ CRUD completo desde el frontend (Productos, Stock).
+  ✓ Deploy en Render (backend) + Vercel (frontend).
+  ✓ Tres Plus Individuales claramente distribuidos y diferenciados.
+
+Conclusión: FACTIBLE. El proyecto cumple el 100% de los requisitos
+de regularidad y promoción.
+
+4.3 FACTIBILIDAD ECONÓMICA
+--------------------------
+Todos los servicios a usar tienen planes gratuitos suficientes para
+el alcance del TIF:
+
+  - Render:       Plan gratuito para backend (PostgreSQL incluido).
+  - Vercel:       Plan gratuito para frontend React.
+  - Google Maps:  $200 USD de crédito gratuito mensual.
+  - MercadoPago:  Sin costo de integración; comisión solo en ventas reales.
+  - Anthropic/Vision IA: tier gratuito disponible.
+
+Costo estimado del proyecto: $0 (cero pesos).
+
+Conclusión: FACTIBLE. No se requiere inversión económica para
+desarrollar y desplegar el TIF.
+
+4.4 FACTIBILIDAD TEMPORAL
+--------------------------
+El proyecto se puede dividir en 4 fases de desarrollo:
+
+  Fase 1 — Diseño y arquitectura (1 semana):
+    Base de datos, DER, endpoints API, wireframes UI.
+
+  Fase 2 — Backend core (2 semanas):
+    Auth, CRUD de productos, stock, sucursales, ventas.
+
+  Fase 3 — Frontend + integraciones (2 semanas):
+    UI completa, Redux, integración Maps, IA, MercadoPago.
+
+  Fase 4 — Testing, deploy y documentación (1 semana):
+    Deploy Render + Vercel, README, video demo, ajustes finales.
+
+Total estimado: 6 semanas de desarrollo colaborativo.
+
+Conclusión: FACTIBLE dentro de los plazos académicos habituales.
+
+================================================================
+5. MODELO DE DATOS (TABLAS PRINCIPALES)
+================================================================
+
+  1. Users         → id, name, email, password, role, createdAt
+  2. Kiosks        → id, name, ownerId (→ Users), address, lat, lng
+  3. Branches      → id, kioskId (→ Kiosks), name, address, lat, lng
+  4. Categories    → id, name, description
+  5. Products      → id, name, barcode, categoryId, imageUrl, description
+  6. Stock         → id, branchId (→ Branches), productId (→ Products), quantity
+  7. Sales         → id, branchId, userId, total, paymentMethod, createdAt
+  8. SaleItems     → id, saleId (→ Sales), productId, quantity, unitPrice
+
+Total: 8 tablas con relaciones bien definidas.
+Supera ampliamente el mínimo de 4 tablas requerido.
+
+================================================================
+6. ROLES DE USUARIO
+================================================================
+
+  - ADMIN (dueño del kiosko):
+    Gestiona kioscos, sucursales, productos, empleados y ve reportes.
+
+  - EMPLEADO:
+    Registra ventas, actualiza stock, usa la carga por IA de productos.
+
+  - CLIENTE:
+    Visualiza el mapa, busca productos, ve stock disponible por sucursal.
+
+================================================================
+7. DISTRIBUCIÓN DE PLUS INDIVIDUALES
+================================================================
+
+  JULIÁN — Integración de APIs Externas:
+    · Google Maps API: mapa interactivo de kioscos + geolocalización.
+    · IA (Claude Vision / Google Vision): reconocimiento de productos
+      por foto para acelerar la carga de stock.
+    · MercadoPago SDK: integración de pagos en el flujo de ventas.
+    · Manejo de errores robusto en cada integración.
+
+  PATRICIA — Seguridad Avanzada:
+    · Validación estricta de todos los inputs con Zod en backend.
+    · Sistema de roles (Admin / Empleado / Cliente) con permisos
+      diferenciados en cada endpoint mediante middleware JWT.
+    · Protección de rutas sensibles y manejo de errores de autenticación.
+
+  FELICITAS — UX/UI y Estado Global:
+    · Gestión de estado global con Redux Toolkit.
+    · Diseño 100% responsive y mobile-first (prioritario para empleados).
+    · Accesibilidad (ARIA, contraste, navegación por teclado).
+    · Feedback visual: Skeletons, Spinners, Toast notifications.
+
+================================================================
+8. PROPUESTA DE VALOR Y VISIÓN DE PRODUCTO
+================================================================
+
+KioskStar no es solo un TIF. Es la base de una red de kioscos
+digitalizados, donde cada comercio que adopta el sistema aporta
+transparencia al ecosistema y los clientes se benefician de poder
+encontrar lo que buscan sin perder tiempo.
+
+La visión a futuro incluye:
+  - App nativa mobile (React Native).
+  - Sistema de fidelización para clientes frecuentes.
+  - Integración con proveedores mayoristas para reposición automática.
+  - Analítica de demanda por zona geográfica.
+
+Para el TIF, el foco está en la solución funcional que valide la
+hipótesis central: un kiosko digitalizado es más eficiente y un
+cliente informado es más fiel.
+
+================================================================
+FIN DEL INFORME
+================================================================
