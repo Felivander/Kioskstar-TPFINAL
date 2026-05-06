@@ -121,37 +121,37 @@ Categories (id, name, description)
 ## 🗓️ Fases de Desarrollo
 
 ### Fase 1 — Diseño y Arquitectura (Semana 1)
-- [ ] Definir y diagramar el DER final
-- [ ] Crear el repositorio en GitHub con estructura de carpetas
-- [ ] Configurar el proyecto: `tsconfig`, `prisma init`, `eslint`
-- [ ] Definir wireframes básicos de las pantallas principales
-- [ ] Repartir las tareas de la Fase 2
+- [x] Definir y diagramar el DER final
+- [x] Crear el repositorio en GitHub con estructura de carpetas
+- [x] Configurar el proyecto: `tsconfig`, `prisma init`, `eslint`
+- [x] Definir wireframes básicos de las pantallas principales
+- [x] Repartir las tareas de la Fase 2
 
 ### Fase 2 — Backend Core (Semanas 2-3)
-- [ ] Setup Express + TypeScript + estructura de carpetas
-- [ ] Configurar Prisma + PostgreSQL + ejecutar migraciones
-- [ ] **Auth**: register, login, JWT middleware, Bcrypt — *Patricia*
-- [ ] **Zod schemas** para todos los inputs — *Patricia*
-- [ ] **Middleware de roles** (Admin / Empleado / Cliente) — *Patricia*
-- [ ] CRUD Kioscos y Sucursales — *Julián*
-- [ ] CRUD Productos y Categorías — *Julián / Patricia*
-- [ ] Gestión de Stock por sucursal — *Julián*
-- [ ] Registro de Ventas + SaleItems — *Julián*
-- [ ] Endpoint de búsqueda por mapa (`/api/map/*`) — *Julián*
+- [x] Setup Express + TypeScript + estructura de carpetas
+- [x] Configurar Prisma + PostgreSQL + ejecutar migraciones
+- [x] **Auth**: register, login, JWT middleware, Bcrypt — *Patricia*
+- [x] **Zod schemas** para todos los inputs — *Patricia*
+- [x] **Middleware de roles** (Admin / Empleado / Cliente) — *Patricia*
+- [x] CRUD Kioscos y Sucursales — *Julián*
+- [x] CRUD Productos y Categorías — *Julián / Patricia*
+- [x] Gestión de Stock por sucursal — *Julián*
+- [x] Registro de Ventas + SaleItems — *Julián*
+- [x] Endpoint de búsqueda por mapa (`/api/map/*`) — *Julián*
 
 ### Fase 3 — Integraciones y Frontend (Semanas 4-5)
 - [ ] **MercadoPago**: crear preferencia + webhooks — *Julián*
-- [ ] **IA de visión**: endpoint `/api/products/scan` con Claude Vision o Google Vision — *Julián*
+- [x] **IA de visión**: endpoint `/api/products/scan` con Claude Vision o Google Vision — *Julián* (placeholder)
 - [ ] **Google Maps API**: mapa de kioscos + búsqueda por producto — *Julián*
-- [ ] Setup React + Vite + TypeScript + TailwindCSS — *Felicitas*
-- [ ] Configurar Redux Toolkit (slices: auth, kiosks, stock, cart) — *Felicitas*
-- [ ] Pantalla Login / Register — *Felicitas*
-- [ ] Dashboard Admin (kioscos, sucursales, productos) — *Felicitas*
-- [ ] Pantalla de Stock por sucursal — *Felicitas*
-- [ ] Pantalla de Carga de Producto (con botón de escaneo IA) — *Felicitas*
-- [ ] Pantalla de Registro de Venta — *Felicitas*
-- [ ] Pantalla pública: Mapa de Kioscos + buscador — *Felicitas / Julián*
-- [ ] Diseño responsive, Skeletons, Spinners, Toasts — *Felicitas*
+- [x] Setup React + Vite + TypeScript + TailwindCSS — *Felicitas*
+- [x] Configurar Redux Toolkit (slices: auth, kiosks, stock, cart) — *Felicitas*
+- [x] Pantalla Login / Register — *Felicitas*
+- [x] Dashboard Admin (kioscos, sucursales, productos) — *Felicitas*
+- [x] Pantalla de Stock por sucursal — *Felicitas*
+- [x] Pantalla de Carga de Producto (con botón de escaneo IA) — *Felicitas*
+- [x] Pantalla de Registro de Venta — *Felicitas*
+- [x] Pantalla pública: Mapa de Kioscos + buscador — *Felicitas / Julián*
+- [x] Diseño responsive, Skeletons, Spinners, Toasts — *Felicitas*
 
 ### Fase 4 — Deploy, Testing y Documentación (Semana 6)
 - [ ] Deploy backend en Render
