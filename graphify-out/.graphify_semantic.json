@@ -1,0 +1,125 @@
+{
+  "nodes": [
+    {
+      "id": "plan_kioskstar_kioskstar",
+      "label": "KioskStar",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "id": "plan_kioskstar_julian",
+      "label": "Julián",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "id": "plan_kioskstar_patricia",
+      "label": "Patricia",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "id": "plan_kioskstar_felicitas",
+      "label": "Felicitas",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "id": "plan_kioskstar_google_maps",
+      "label": "Google Maps API",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "id": "plan_kioskstar_claude_vision",
+      "label": "Claude Vision",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "id": "plan_kioskstar_mercadopago",
+      "label": "MercadoPago SDK",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "id": "plan_kioskstar_zod",
+      "label": "Zod",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "id": "plan_kioskstar_jwt",
+      "label": "JWT",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "id": "plan_kioskstar_redux",
+      "label": "Redux Toolkit",
+      "file_type": "rationale",
+      "source_file": "plan_kioskstar.md"
+    }
+  ],
+  "edges": [
+    {
+      "source": "plan_kioskstar_julian",
+      "target": "plan_kioskstar_google_maps",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "source": "plan_kioskstar_julian",
+      "target": "plan_kioskstar_claude_vision",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "source": "plan_kioskstar_julian",
+      "target": "plan_kioskstar_mercadopago",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "source": "plan_kioskstar_patricia",
+      "target": "plan_kioskstar_zod",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "source": "plan_kioskstar_patricia",
+      "target": "plan_kioskstar_jwt",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "source": "plan_kioskstar_felicitas",
+      "target": "plan_kioskstar_redux",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "plan_kioskstar.md"
+    },
+    {
+      "source": "plan_kioskstar_kioskstar",
+      "target": "plan_kioskstar_google_maps",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "plan_kioskstar.md"
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

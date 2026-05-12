@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Onboarding from './pages/Onboarding';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Stock from './pages/Stock';
@@ -11,16 +12,28 @@ import Sales from './pages/Sales';
 import MapView from './pages/MapView';
 
 export default function App() {
-  const { token } = useAppSelector((s) => s.auth);
+  const { token, user } = useAppSelector((s) => s.auth);
+  const needsOnboarding = token && user && !user.onboarded;
 
   return (
     <Routes>
       {/* Public routes */}
-      <Route path="/login" element={token ? <Navigate to="/dashboard" /> : <Login />} />
-      <Route path="/register" element={token ? <Navigate to="/dashboard" /> : <Register />} />
+      <Route path="/login" element={token ? <Navigate to={needsOnboarding ? '/onboarding' : '/dashboard'} /> : <Login />} />
+      <Route path="/register" element={token ? <Navigate to={needsOnboarding ? '/onboarding' : '/dashboard'} /> : <Register />} />
 
-      {/* Protected routes */}
-      <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+      {/* Onboarding — solo si está logueado y no onboarded */}
+      <Route path="/onboarding" element={
+        !token ? <Navigate to="/login" /> :
+        user?.onboarded ? <Navigate to="/dashboard" /> :
+        <Onboarding />
+      } />
+
+      {/* Protected routes — requieren onboarding completado */}
+      <Route element={
+        <ProtectedRoute requireOnboarded>
+          <Layout />
+        </ProtectedRoute>
+      }>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={
           <ProtectedRoute allowedRoles={['ADMIN', 'EMPLEADO']}><Products /></ProtectedRoute>
@@ -35,7 +48,9 @@ export default function App() {
       </Route>
 
       {/* Fallback */}
-      <Route path="*" element={<Navigate to={token ? '/dashboard' : '/login'} />} />
+      <Route path="*" element={
+        <Navigate to={!token ? '/login' : needsOnboarding ? '/onboarding' : '/dashboard'} />
+      } />
     </Routes>
   );
 }

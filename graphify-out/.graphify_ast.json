@@ -1,0 +1,5538 @@
+{
+  "nodes": [
+    {
+      "id": "backend_prisma_seed_ts",
+      "label": "seed.ts",
+      "file_type": "code",
+      "source_file": "backend\\prisma\\seed.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "prisma_seed_prisma",
+      "label": "prisma",
+      "file_type": "code",
+      "source_file": "backend\\prisma\\seed.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "prisma_seed_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "backend\\prisma\\seed.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "backend_src_index_ts",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_index_app",
+      "label": "app",
+      "file_type": "code",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "backend_src_controllers_auth_controller_ts",
+      "label": "auth.controller.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "controllers_auth_controller_register",
+      "label": "register()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "controllers_auth_controller_login",
+      "label": "login()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L52"
+    },
+    {
+      "id": "controllers_auth_controller_getme",
+      "label": "getMe()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L93"
+    },
+    {
+      "id": "controllers_auth_controller_updateuser",
+      "label": "updateUser()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "backend_src_controllers_kiosk_controller_ts",
+      "label": "kiosk.controller.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "controllers_kiosk_controller_getallkiosks",
+      "label": "getAllKiosks()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "controllers_kiosk_controller_getkioskbyid",
+      "label": "getKioskById()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "controllers_kiosk_controller_createkiosk",
+      "label": "createKiosk()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L50"
+    },
+    {
+      "id": "controllers_kiosk_controller_updatekiosk",
+      "label": "updateKiosk()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L76"
+    },
+    {
+      "id": "controllers_kiosk_controller_deletekiosk",
+      "label": "deleteKiosk()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L111"
+    },
+    {
+      "id": "controllers_kiosk_controller_getbranches",
+      "label": "getBranches()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L137"
+    },
+    {
+      "id": "controllers_kiosk_controller_createbranch",
+      "label": "createBranch()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L156"
+    },
+    {
+      "id": "controllers_kiosk_controller_updatebranch",
+      "label": "updateBranch()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L190"
+    },
+    {
+      "id": "controllers_kiosk_controller_deletebranch",
+      "label": "deleteBranch()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L207"
+    },
+    {
+      "id": "backend_src_controllers_map_controller_ts",
+      "label": "map.controller.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\map.controller.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "controllers_map_controller_getkiosksnearby",
+      "label": "getKiosksNearby()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\map.controller.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "controllers_map_controller_searchproductinmap",
+      "label": "searchProductInMap()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\map.controller.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "backend_src_controllers_payment_controller_ts",
+      "label": "payment.controller.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "controllers_payment_controller_createpreference",
+      "label": "createPreference()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "controllers_payment_controller_paymentsuccess",
+      "label": "paymentSuccess()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "controllers_payment_controller_paymentfailure",
+      "label": "paymentFailure()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "backend_src_controllers_product_controller_ts",
+      "label": "product.controller.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "controllers_product_controller_getallproducts",
+      "label": "getAllProducts()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "controllers_product_controller_getproductbyid",
+      "label": "getProductById()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "controllers_product_controller_createproduct",
+      "label": "createProduct()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L58"
+    },
+    {
+      "id": "controllers_product_controller_updateproduct",
+      "label": "updateProduct()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L78"
+    },
+    {
+      "id": "controllers_product_controller_deleteproduct",
+      "label": "deleteProduct()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L99"
+    },
+    {
+      "id": "controllers_product_controller_getallcategories",
+      "label": "getAllCategories()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L118"
+    },
+    {
+      "id": "controllers_product_controller_createcategory",
+      "label": "createCategory()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L132"
+    },
+    {
+      "id": "controllers_product_controller_updatecategory",
+      "label": "updateCategory()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L151"
+    },
+    {
+      "id": "controllers_product_controller_deletecategory",
+      "label": "deleteCategory()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L171"
+    },
+    {
+      "id": "controllers_product_controller_scanproduct",
+      "label": "scanProduct()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L190"
+    },
+    {
+      "id": "backend_src_controllers_sale_controller_ts",
+      "label": "sale.controller.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\sale.controller.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "controllers_sale_controller_createsale",
+      "label": "createSale()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\sale.controller.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "controllers_sale_controller_getsalesbybranch",
+      "label": "getSalesByBranch()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\sale.controller.ts",
+      "source_location": "L71"
+    },
+    {
+      "id": "backend_src_controllers_stock_controller_ts",
+      "label": "stock.controller.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\stock.controller.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "controllers_stock_controller_getstockbybranch",
+      "label": "getStockByBranch()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\stock.controller.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "controllers_stock_controller_updatestock",
+      "label": "updateStock()",
+      "file_type": "code",
+      "source_file": "backend\\src\\controllers\\stock.controller.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "backend_src_lib_prisma_ts",
+      "label": "prisma.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\lib\\prisma.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "lib_prisma_prisma",
+      "label": "prisma",
+      "file_type": "code",
+      "source_file": "backend\\src\\lib\\prisma.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "backend_src_middlewares_auth_middleware_ts",
+      "label": "auth.middleware.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "middlewares_auth_middleware_authrequest",
+      "label": "AuthRequest",
+      "file_type": "code",
+      "source_file": "backend\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "middlewares_auth_middleware_authmiddleware",
+      "label": "authMiddleware()",
+      "file_type": "code",
+      "source_file": "backend\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_src_middlewares_role_middleware_ts",
+      "label": "role.middleware.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\middlewares\\role.middleware.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "middlewares_role_middleware_rolemiddleware",
+      "label": "roleMiddleware()",
+      "file_type": "code",
+      "source_file": "backend\\src\\middlewares\\role.middleware.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "backend_src_middlewares_validate_middleware_ts",
+      "label": "validate.middleware.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\middlewares\\validate.middleware.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "middlewares_validate_middleware_validate",
+      "label": "validate()",
+      "file_type": "code",
+      "source_file": "backend\\src\\middlewares\\validate.middleware.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "middlewares_validate_middleware_validateparams",
+      "label": "validateParams()",
+      "file_type": "code",
+      "source_file": "backend\\src\\middlewares\\validate.middleware.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "middlewares_validate_middleware_validatequery",
+      "label": "validateQuery()",
+      "file_type": "code",
+      "source_file": "backend\\src\\middlewares\\validate.middleware.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "backend_src_routes_auth_routes_ts",
+      "label": "auth.routes.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "routes_auth_routes_router",
+      "label": "router",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "backend_src_routes_branch_routes_ts",
+      "label": "branch.routes.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "routes_branch_routes_router",
+      "label": "router",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "backend_src_routes_kiosk_routes_ts",
+      "label": "kiosk.routes.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "routes_kiosk_routes_router",
+      "label": "router",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_src_routes_map_routes_ts",
+      "label": "map.routes.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\map.routes.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "routes_map_routes_router",
+      "label": "router",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\map.routes.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "backend_src_routes_payment_routes_ts",
+      "label": "payment.routes.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "routes_payment_routes_router",
+      "label": "router",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "backend_src_routes_product_routes_ts",
+      "label": "product.routes.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "routes_product_routes_router",
+      "label": "router",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "backend_src_routes_sale_routes_ts",
+      "label": "sale.routes.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "routes_sale_routes_router",
+      "label": "router",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "backend_src_routes_stock_routes_ts",
+      "label": "stock.routes.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "routes_stock_routes_router",
+      "label": "router",
+      "file_type": "code",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "backend_src_schemas_auth_schema_ts",
+      "label": "auth.schema.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "schemas_auth_schema_registerschema",
+      "label": "registerSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "schemas_auth_schema_loginschema",
+      "label": "loginSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "schemas_auth_schema_registerinput",
+      "label": "RegisterInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "schemas_auth_schema_logininput",
+      "label": "LoginInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "backend_src_schemas_branch_schema_ts",
+      "label": "branch.schema.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "schemas_branch_schema_createbranchschema",
+      "label": "createBranchSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "schemas_branch_schema_updatebranchschema",
+      "label": "updateBranchSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "schemas_branch_schema_createbranchinput",
+      "label": "CreateBranchInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "schemas_branch_schema_updatebranchinput",
+      "label": "UpdateBranchInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "backend_src_schemas_kiosk_schema_ts",
+      "label": "kiosk.schema.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "schemas_kiosk_schema_createkioskschema",
+      "label": "createKioskSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "schemas_kiosk_schema_updatekioskschema",
+      "label": "updateKioskSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "schemas_kiosk_schema_createkioskinput",
+      "label": "CreateKioskInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "schemas_kiosk_schema_updatekioskinput",
+      "label": "UpdateKioskInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "backend_src_schemas_payment_schema_ts",
+      "label": "payment.schema.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\payment.schema.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "schemas_payment_schema_createpaymentschema",
+      "label": "createPaymentSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\payment.schema.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "schemas_payment_schema_createpaymentinput",
+      "label": "CreatePaymentInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\payment.schema.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "backend_src_schemas_product_schema_ts",
+      "label": "product.schema.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "schemas_product_schema_createproductschema",
+      "label": "createProductSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "schemas_product_schema_updateproductschema",
+      "label": "updateProductSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "schemas_product_schema_createcategoryschema",
+      "label": "createCategorySchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "schemas_product_schema_updatecategoryschema",
+      "label": "updateCategorySchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "schemas_product_schema_createproductinput",
+      "label": "CreateProductInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L21"
+    },
+    {
+      "id": "schemas_product_schema_updateproductinput",
+      "label": "UpdateProductInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "schemas_product_schema_createcategoryinput",
+      "label": "CreateCategoryInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "schemas_product_schema_updatecategoryinput",
+      "label": "UpdateCategoryInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "backend_src_schemas_sale_schema_ts",
+      "label": "sale.schema.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\sale.schema.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "schemas_sale_schema_createsaleschema",
+      "label": "createSaleSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\sale.schema.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "schemas_sale_schema_createsaleinput",
+      "label": "CreateSaleInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\sale.schema.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "backend_src_schemas_stock_schema_ts",
+      "label": "stock.schema.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\stock.schema.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "schemas_stock_schema_updatestockschema",
+      "label": "updateStockSchema",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\stock.schema.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "schemas_stock_schema_updatestockinput",
+      "label": "UpdateStockInput",
+      "file_type": "code",
+      "source_file": "backend\\src\\schemas\\stock.schema.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "backend_src_services_ai_service_ts",
+      "label": "ai.service.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\services\\ai.service.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "services_ai_service_analyzeproductimage",
+      "label": "analyzeProductImage()",
+      "file_type": "code",
+      "source_file": "backend\\src\\services\\ai.service.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "backend_src_services_maps_service_ts",
+      "label": "maps.service.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\services\\maps.service.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "services_maps_service_geocodeaddress",
+      "label": "geocodeAddress()",
+      "file_type": "code",
+      "source_file": "backend\\src\\services\\maps.service.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "services_maps_service_calculatedistance",
+      "label": "calculateDistance()",
+      "file_type": "code",
+      "source_file": "backend\\src\\services\\maps.service.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_src_services_payment_service_ts",
+      "label": "payment.service.ts",
+      "file_type": "code",
+      "source_file": "backend\\src\\services\\payment.service.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "services_payment_service_createpaymentpreference",
+      "label": "createPaymentPreference()",
+      "file_type": "code",
+      "source_file": "backend\\src\\services\\payment.service.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "frontend_vite_config_ts",
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "frontend\\vite.config.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_app_tsx",
+      "label": "App.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_app_app",
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "frontend_src_main_tsx",
+      "label": "main.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_vite_env_d_ts",
+      "label": "vite-env.d.ts",
+      "file_type": "code",
+      "source_file": "frontend\\src\\vite-env.d.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_layout_tsx",
+      "label": "Layout.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_layout_navitems",
+      "label": "navItems",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "components_layout_layout",
+      "label": "Layout()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "frontend_src_components_protectedroute_tsx",
+      "label": "ProtectedRoute.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_protectedroute_protectedrouteprops",
+      "label": "ProtectedRouteProps",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "components_protectedroute_protectedroute",
+      "label": "ProtectedRoute()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_components_skeleton_tsx",
+      "label": "Skeleton.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Skeleton.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_skeleton_skeletonprops",
+      "label": "SkeletonProps",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Skeleton.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_skeleton_skeleton",
+      "label": "Skeleton()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Skeleton.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "components_skeleton_skeletoncard",
+      "label": "SkeletonCard()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Skeleton.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "components_skeleton_skeletontable",
+      "label": "SkeletonTable()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Skeleton.tsx",
+      "source_location": "L27"
+    },
+    {
+      "id": "frontend_src_components_spinner_tsx",
+      "label": "Spinner.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Spinner.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_spinner_spinnerprops",
+      "label": "SpinnerProps",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Spinner.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_spinner_sizes",
+      "label": "sizes",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Spinner.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "components_spinner_spinner",
+      "label": "Spinner()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\components\\Spinner.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "frontend_src_hooks_useappdispatch_ts",
+      "label": "useAppDispatch.ts",
+      "file_type": "code",
+      "source_file": "frontend\\src\\hooks\\useAppDispatch.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_useappdispatch_useappdispatch",
+      "label": "useAppDispatch()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\hooks\\useAppDispatch.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "frontend_src_hooks_useappselector_ts",
+      "label": "useAppSelector.ts",
+      "file_type": "code",
+      "source_file": "frontend\\src\\hooks\\useAppSelector.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_dashboard_tsx",
+      "label": "Dashboard.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_dashboard_dashboardstats",
+      "label": "DashboardStats",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "pages_dashboard_dashboard",
+      "label": "Dashboard()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "frontend_src_pages_login_tsx",
+      "label": "Login.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_login_login",
+      "label": "Login()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "frontend_src_pages_mapview_tsx",
+      "label": "MapView.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\MapView.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_mapview_mapkiosk",
+      "label": "MapKiosk",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\MapView.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "pages_mapview_mapview",
+      "label": "MapView()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\MapView.tsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "frontend_src_pages_products_tsx",
+      "label": "Products.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_products_products",
+      "label": "Products()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_pages_register_tsx",
+      "label": "Register.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_register_register",
+      "label": "Register()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "frontend_src_pages_sales_tsx",
+      "label": "Sales.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_sales_cartitem",
+      "label": "CartItem",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "pages_sales_sales",
+      "label": "Sales()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L19"
+    },
+    {
+      "id": "frontend_src_pages_stock_tsx",
+      "label": "Stock.tsx",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_stock_stock",
+      "label": "Stock()",
+      "file_type": "code",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "frontend_src_services_api_ts",
+      "label": "api.ts",
+      "file_type": "code",
+      "source_file": "frontend\\src\\services\\api.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "services_api_api",
+      "label": "api",
+      "file_type": "code",
+      "source_file": "frontend\\src\\services\\api.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "services_api_token",
+      "label": "token",
+      "file_type": "code",
+      "source_file": "frontend\\src\\services\\api.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "frontend_src_store_authslice_ts",
+      "label": "authSlice.ts",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "store_authslice_authstate",
+      "label": "AuthState",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "store_authslice_initialstate",
+      "label": "initialState",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "store_authslice_loginuser",
+      "label": "loginUser",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "store_authslice_registeruser",
+      "label": "registerUser",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L33"
+    },
+    {
+      "id": "store_authslice_authslice",
+      "label": "authSlice",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "frontend_src_store_index_ts",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "store_index_store",
+      "label": "store",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "store_index_rootstate",
+      "label": "RootState",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "store_index_appdispatch",
+      "label": "AppDispatch",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "frontend_src_store_kioskslice_ts",
+      "label": "kioskSlice.ts",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "store_kioskslice_kioskstate",
+      "label": "KioskState",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "store_kioskslice_initialstate",
+      "label": "initialState",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "store_kioskslice_fetchkiosks",
+      "label": "fetchKiosks",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "store_kioskslice_fetchbranches",
+      "label": "fetchBranches",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "store_kioskslice_kioskslice",
+      "label": "kioskSlice",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "frontend_src_store_stockslice_ts",
+      "label": "stockSlice.ts",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "store_stockslice_stockstate",
+      "label": "StockState",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "store_stockslice_initialstate",
+      "label": "initialState",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "store_stockslice_fetchstock",
+      "label": "fetchStock",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "store_stockslice_stockslice",
+      "label": "stockSlice",
+      "file_type": "code",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "frontend_src_types_index_ts",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_index_user",
+      "label": "User",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "types_index_authresponse",
+      "label": "AuthResponse",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "types_index_kiosk",
+      "label": "Kiosk",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "types_index_branch",
+      "label": "Branch",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L26"
+    },
+    {
+      "id": "types_index_category",
+      "label": "Category",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "types_index_product",
+      "label": "Product",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L44"
+    },
+    {
+      "id": "types_index_stockitem",
+      "label": "StockItem",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L55"
+    },
+    {
+      "id": "types_index_saleitem",
+      "label": "SaleItem",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L63"
+    },
+    {
+      "id": "types_index_sale",
+      "label": "Sale",
+      "file_type": "code",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L72"
+    }
+  ],
+  "edges": [
+    {
+      "source": "backend_prisma_seed_ts",
+      "target": "client",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\prisma\\seed.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_prisma_seed_ts",
+      "target": "bcrypt",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\prisma\\seed.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_prisma_seed_ts",
+      "target": "prisma_seed_prisma",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\prisma\\seed.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_prisma_seed_ts",
+      "target": "prisma_seed_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\prisma\\seed.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "cors",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "dotenv",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "backend_src_routes_auth_routes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "backend_src_routes_kiosk_routes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "backend_src_routes_branch_routes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "backend_src_routes_product_routes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "backend_src_routes_stock_routes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "backend_src_routes_sale_routes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "backend_src_routes_payment_routes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "backend_src_routes_map_routes_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_index_ts",
+      "target": "src_index_app",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\index.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "bcrypt",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "jsonwebtoken",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "backend_src_lib_prisma_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "middlewares_auth_middleware_authrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "controllers_auth_controller_register",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "controllers_auth_controller_login",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "controllers_auth_controller_getme",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_auth_controller_ts",
+      "target": "controllers_auth_controller_updateuser",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\auth.controller.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "backend_src_lib_prisma_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "middlewares_auth_middleware_authrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "controllers_kiosk_controller_getallkiosks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "controllers_kiosk_controller_getkioskbyid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "controllers_kiosk_controller_createkiosk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "controllers_kiosk_controller_updatekiosk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "controllers_kiosk_controller_deletekiosk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "controllers_kiosk_controller_getbranches",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "controllers_kiosk_controller_createbranch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L156",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "controllers_kiosk_controller_updatebranch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_kiosk_controller_ts",
+      "target": "controllers_kiosk_controller_deletebranch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\kiosk.controller.ts",
+      "source_location": "L207",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_map_controller_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\map.controller.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_map_controller_ts",
+      "target": "backend_src_lib_prisma_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\map.controller.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_map_controller_ts",
+      "target": "controllers_map_controller_getkiosksnearby",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\map.controller.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_map_controller_ts",
+      "target": "controllers_map_controller_searchproductinmap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\map.controller.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_payment_controller_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_payment_controller_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_payment_controller_ts",
+      "target": "middlewares_auth_middleware_authrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_payment_controller_ts",
+      "target": "controllers_payment_controller_createpreference",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_payment_controller_ts",
+      "target": "controllers_payment_controller_paymentsuccess",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_payment_controller_ts",
+      "target": "controllers_payment_controller_paymentfailure",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\payment.controller.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "backend_src_lib_prisma_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "middlewares_auth_middleware_authrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_getallproducts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_getproductbyid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_createproduct",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_updateproduct",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_deleteproduct",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_getallcategories",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_createcategory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_updatecategory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_deletecategory",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L171",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_product_controller_ts",
+      "target": "controllers_product_controller_scanproduct",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\product.controller.ts",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_sale_controller_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\sale.controller.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_sale_controller_ts",
+      "target": "backend_src_lib_prisma_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\sale.controller.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_sale_controller_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\sale.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_sale_controller_ts",
+      "target": "middlewares_auth_middleware_authrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\sale.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_sale_controller_ts",
+      "target": "controllers_sale_controller_createsale",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\sale.controller.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_sale_controller_ts",
+      "target": "controllers_sale_controller_getsalesbybranch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\sale.controller.ts",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_stock_controller_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\stock.controller.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_stock_controller_ts",
+      "target": "backend_src_lib_prisma_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\stock.controller.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_stock_controller_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\stock.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_stock_controller_ts",
+      "target": "middlewares_auth_middleware_authrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\stock.controller.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_stock_controller_ts",
+      "target": "controllers_stock_controller_getstockbybranch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\stock.controller.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_controllers_stock_controller_ts",
+      "target": "controllers_stock_controller_updatestock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\controllers\\stock.controller.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_lib_prisma_ts",
+      "target": "client",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\lib\\prisma.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_lib_prisma_ts",
+      "target": "lib_prisma_prisma",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\lib\\prisma.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_auth_middleware_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_auth_middleware_ts",
+      "target": "jsonwebtoken",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_auth_middleware_ts",
+      "target": "middlewares_auth_middleware_authrequest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_auth_middleware_ts",
+      "target": "middlewares_auth_middleware_authmiddleware",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_role_middleware_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\role.middleware.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_role_middleware_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\role.middleware.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_role_middleware_ts",
+      "target": "middlewares_auth_middleware_authrequest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\role.middleware.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_role_middleware_ts",
+      "target": "middlewares_role_middleware_rolemiddleware",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\role.middleware.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_validate_middleware_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\validate.middleware.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_validate_middleware_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\validate.middleware.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_validate_middleware_ts",
+      "target": "middlewares_validate_middleware_validate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\validate.middleware.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_validate_middleware_ts",
+      "target": "middlewares_validate_middleware_validateparams",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\validate.middleware.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_middlewares_validate_middleware_ts",
+      "target": "middlewares_validate_middleware_validatequery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\middlewares\\validate.middleware.ts",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "backend_src_controllers_auth_controller_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "controllers_auth_controller_register",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "controllers_auth_controller_login",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "controllers_auth_controller_getme",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "controllers_auth_controller_updateuser",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "middlewares_auth_middleware_authmiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "backend_src_middlewares_validate_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "middlewares_validate_middleware_validate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "backend_src_schemas_auth_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "schemas_auth_schema_registerschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "schemas_auth_schema_loginschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_auth_routes_ts",
+      "target": "routes_auth_routes_router",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\auth.routes.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "backend_src_controllers_kiosk_controller_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "controllers_kiosk_controller_updatebranch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "controllers_kiosk_controller_deletebranch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "middlewares_auth_middleware_authmiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "backend_src_middlewares_role_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "middlewares_role_middleware_rolemiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "backend_src_middlewares_validate_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "middlewares_validate_middleware_validate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "backend_src_schemas_branch_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "schemas_branch_schema_updatebranchschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_branch_routes_ts",
+      "target": "routes_branch_routes_router",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\branch.routes.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "backend_src_controllers_kiosk_controller_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "controllers_kiosk_controller_getallkiosks",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "controllers_kiosk_controller_getkioskbyid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "controllers_kiosk_controller_createkiosk",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "controllers_kiosk_controller_updatekiosk",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "controllers_kiosk_controller_deletekiosk",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "controllers_kiosk_controller_getbranches",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "controllers_kiosk_controller_createbranch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "controllers_kiosk_controller_updatebranch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "controllers_kiosk_controller_deletebranch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "middlewares_auth_middleware_authmiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "backend_src_middlewares_role_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "middlewares_role_middleware_rolemiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "backend_src_middlewares_validate_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "middlewares_validate_middleware_validate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "backend_src_schemas_kiosk_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "schemas_kiosk_schema_createkioskschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "schemas_kiosk_schema_updatekioskschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "backend_src_schemas_branch_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "schemas_branch_schema_createbranchschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "schemas_branch_schema_updatebranchschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_kiosk_routes_ts",
+      "target": "routes_kiosk_routes_router",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\kiosk.routes.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_map_routes_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\map.routes.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_map_routes_ts",
+      "target": "backend_src_controllers_map_controller_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\map.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_map_routes_ts",
+      "target": "controllers_map_controller_getkiosksnearby",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\map.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_map_routes_ts",
+      "target": "controllers_map_controller_searchproductinmap",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\map.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_map_routes_ts",
+      "target": "routes_map_routes_router",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\map.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "backend_src_controllers_payment_controller_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "controllers_payment_controller_createpreference",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "controllers_payment_controller_paymentsuccess",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "controllers_payment_controller_paymentfailure",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "middlewares_auth_middleware_authmiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "backend_src_middlewares_validate_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "middlewares_validate_middleware_validate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "backend_src_schemas_payment_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "schemas_payment_schema_createpaymentschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_payment_routes_ts",
+      "target": "routes_payment_routes_router",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\payment.routes.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "backend_src_controllers_product_controller_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_getallproducts",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_getproductbyid",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_createproduct",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_updateproduct",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_deleteproduct",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_getallcategories",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_createcategory",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_updatecategory",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_deletecategory",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "controllers_product_controller_scanproduct",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "middlewares_auth_middleware_authmiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "backend_src_middlewares_role_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "middlewares_role_middleware_rolemiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "backend_src_middlewares_validate_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "middlewares_validate_middleware_validate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "backend_src_schemas_product_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "schemas_product_schema_createproductschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "schemas_product_schema_updateproductschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "schemas_product_schema_createcategoryschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "schemas_product_schema_updatecategoryschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_product_routes_ts",
+      "target": "routes_product_routes_router",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\product.routes.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "backend_src_controllers_sale_controller_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "controllers_sale_controller_createsale",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "controllers_sale_controller_getsalesbybranch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "middlewares_auth_middleware_authmiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "backend_src_middlewares_role_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "middlewares_role_middleware_rolemiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "backend_src_middlewares_validate_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "middlewares_validate_middleware_validate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "backend_src_schemas_sale_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "schemas_sale_schema_createsaleschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_sale_routes_ts",
+      "target": "routes_sale_routes_router",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\sale.routes.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "backend_src_controllers_stock_controller_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "controllers_stock_controller_getstockbybranch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "controllers_stock_controller_updatestock",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "backend_src_middlewares_auth_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "middlewares_auth_middleware_authmiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "backend_src_middlewares_role_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "middlewares_role_middleware_rolemiddleware",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "backend_src_middlewares_validate_middleware_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "middlewares_validate_middleware_validate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "backend_src_schemas_stock_schema_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "schemas_stock_schema_updatestockschema",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_routes_stock_routes_ts",
+      "target": "routes_stock_routes_router",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\routes\\stock.routes.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_auth_schema_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_auth_schema_ts",
+      "target": "schemas_auth_schema_registerschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_auth_schema_ts",
+      "target": "schemas_auth_schema_loginschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_auth_schema_ts",
+      "target": "schemas_auth_schema_registerinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_auth_schema_ts",
+      "target": "schemas_auth_schema_logininput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\auth.schema.ts",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_branch_schema_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_branch_schema_ts",
+      "target": "schemas_branch_schema_createbranchschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_branch_schema_ts",
+      "target": "schemas_branch_schema_updatebranchschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_branch_schema_ts",
+      "target": "schemas_branch_schema_createbranchinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_branch_schema_ts",
+      "target": "schemas_branch_schema_updatebranchinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\branch.schema.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_kiosk_schema_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_kiosk_schema_ts",
+      "target": "schemas_kiosk_schema_createkioskschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_kiosk_schema_ts",
+      "target": "schemas_kiosk_schema_updatekioskschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_kiosk_schema_ts",
+      "target": "schemas_kiosk_schema_createkioskinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_kiosk_schema_ts",
+      "target": "schemas_kiosk_schema_updatekioskinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\kiosk.schema.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_payment_schema_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\payment.schema.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_payment_schema_ts",
+      "target": "schemas_payment_schema_createpaymentschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\payment.schema.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_payment_schema_ts",
+      "target": "schemas_payment_schema_createpaymentinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\payment.schema.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_product_schema_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_product_schema_ts",
+      "target": "schemas_product_schema_createproductschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_product_schema_ts",
+      "target": "schemas_product_schema_updateproductschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_product_schema_ts",
+      "target": "schemas_product_schema_createcategoryschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_product_schema_ts",
+      "target": "schemas_product_schema_updatecategoryschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_product_schema_ts",
+      "target": "schemas_product_schema_createproductinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_product_schema_ts",
+      "target": "schemas_product_schema_updateproductinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_product_schema_ts",
+      "target": "schemas_product_schema_createcategoryinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_product_schema_ts",
+      "target": "schemas_product_schema_updatecategoryinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\product.schema.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_sale_schema_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\sale.schema.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_sale_schema_ts",
+      "target": "schemas_sale_schema_createsaleschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\sale.schema.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_sale_schema_ts",
+      "target": "schemas_sale_schema_createsaleinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\sale.schema.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_stock_schema_ts",
+      "target": "zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\stock.schema.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_stock_schema_ts",
+      "target": "schemas_stock_schema_updatestockschema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\stock.schema.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_schemas_stock_schema_ts",
+      "target": "schemas_stock_schema_updatestockinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\schemas\\stock.schema.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_services_ai_service_ts",
+      "target": "services_ai_service_analyzeproductimage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\services\\ai.service.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_services_maps_service_ts",
+      "target": "services_maps_service_geocodeaddress",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\services\\maps.service.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_services_maps_service_ts",
+      "target": "services_maps_service_calculatedistance",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\services\\maps.service.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_src_services_payment_service_ts",
+      "target": "services_payment_service_createpaymentpreference",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend\\src\\services\\payment.service.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_vite_config_ts",
+      "target": "vite",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\vite.config.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_vite_config_ts",
+      "target": "plugin_react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\vite.config.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_vite_config_ts",
+      "target": "vite",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\vite.config.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "react_router_dom",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_hooks_useappselector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "hooks_useappselector_useappselector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_components_layout_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_components_protectedroute_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_pages_login_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_pages_register_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_pages_dashboard_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_pages_products_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_pages_stock_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_pages_sales_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "frontend_src_pages_mapview_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_tsx",
+      "target": "src_app_app",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\App.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_main_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_main_tsx",
+      "target": "client",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_main_tsx",
+      "target": "react_redux",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_main_tsx",
+      "target": "react_router_dom",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_main_tsx",
+      "target": "react_hot_toast",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_main_tsx",
+      "target": "frontend_src_store_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_main_tsx",
+      "target": "store_index_store",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_main_tsx",
+      "target": "frontend_src_app_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_main_tsx",
+      "target": "c_users_patri_onedrive_escritorio_kioskstar_tpfinal_frontend_src_index_css",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\main.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "react_router_dom",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "frontend_src_hooks_useappselector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "hooks_useappselector_useappselector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "frontend_src_hooks_useappdispatch_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "frontend_src_store_authslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "store_authslice_logout",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "components_layout_navitems",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_layout_tsx",
+      "target": "components_layout_layout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_protectedroute_tsx",
+      "target": "react_router_dom",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_protectedroute_tsx",
+      "target": "frontend_src_hooks_useappselector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_protectedroute_tsx",
+      "target": "hooks_useappselector_useappselector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_protectedroute_tsx",
+      "target": "components_protectedroute_protectedrouteprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_protectedroute_tsx",
+      "target": "components_protectedroute_protectedroute",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_skeleton_tsx",
+      "target": "components_skeleton_skeletonprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Skeleton.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_skeleton_tsx",
+      "target": "components_skeleton_skeleton",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Skeleton.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_skeleton_tsx",
+      "target": "components_skeleton_skeletoncard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Skeleton.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_skeleton_tsx",
+      "target": "components_skeleton_skeletontable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Skeleton.tsx",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_spinner_tsx",
+      "target": "components_spinner_spinnerprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Spinner.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_spinner_tsx",
+      "target": "components_spinner_sizes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Spinner.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_spinner_tsx",
+      "target": "components_spinner_spinner",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\components\\Spinner.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_hooks_useappdispatch_ts",
+      "target": "react_redux",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\hooks\\useAppDispatch.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_hooks_useappdispatch_ts",
+      "target": "frontend_src_store_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\hooks\\useAppDispatch.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_hooks_useappdispatch_ts",
+      "target": "store_index_appdispatch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\hooks\\useAppDispatch.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_hooks_useappdispatch_ts",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\hooks\\useAppDispatch.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_hooks_useappselector_ts",
+      "target": "react_redux",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\hooks\\useAppSelector.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_hooks_useappselector_ts",
+      "target": "frontend_src_store_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\hooks\\useAppSelector.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_hooks_useappselector_ts",
+      "target": "store_index_rootstate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\hooks\\useAppSelector.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "frontend_src_hooks_useappselector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "hooks_useappselector_useappselector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "frontend_src_hooks_useappdispatch_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "frontend_src_store_kioskslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "store_kioskslice_fetchkiosks",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "frontend_src_components_skeleton_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "components_skeleton_skeletoncard",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "frontend_src_services_api_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "pages_dashboard_dashboardstats",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard_tsx",
+      "target": "pages_dashboard_dashboard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "react_router_dom",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "frontend_src_hooks_useappdispatch_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "frontend_src_hooks_useappselector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "hooks_useappselector_useappselector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "frontend_src_store_authslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "store_authslice_loginuser",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "store_authslice_clearerror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "frontend_src_components_spinner_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_login_tsx",
+      "target": "pages_login_login",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_mapview_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\MapView.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_mapview_tsx",
+      "target": "frontend_src_services_api_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\MapView.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_mapview_tsx",
+      "target": "frontend_src_components_spinner_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\MapView.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_mapview_tsx",
+      "target": "pages_mapview_mapkiosk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\MapView.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_mapview_tsx",
+      "target": "pages_mapview_mapview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\MapView.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "frontend_src_services_api_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "frontend_src_types_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "types_index_product",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "types_index_category",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "frontend_src_components_spinner_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "frontend_src_components_skeleton_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "components_skeleton_skeletontable",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "react_hot_toast",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "frontend_src_hooks_useappselector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "hooks_useappselector_useappselector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_products_tsx",
+      "target": "pages_products_products",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Products.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "react_router_dom",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "frontend_src_hooks_useappdispatch_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "frontend_src_hooks_useappselector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "hooks_useappselector_useappselector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "frontend_src_store_authslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "store_authslice_registeruser",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "store_authslice_clearerror",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "frontend_src_components_spinner_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_register_tsx",
+      "target": "pages_register_register",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "frontend_src_hooks_useappdispatch_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "frontend_src_hooks_useappselector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "hooks_useappselector_useappselector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "frontend_src_store_kioskslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "store_kioskslice_fetchkiosks",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "store_kioskslice_fetchbranches",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "frontend_src_store_stockslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "store_stockslice_fetchstock",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "frontend_src_components_spinner_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "frontend_src_services_api_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "react_hot_toast",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "frontend_src_types_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "types_index_product",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "pages_sales_cartitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_sales_tsx",
+      "target": "pages_sales_sales",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "react",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "frontend_src_hooks_useappdispatch_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "frontend_src_hooks_useappselector_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "hooks_useappselector_useappselector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "frontend_src_store_kioskslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "store_kioskslice_fetchkiosks",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "store_kioskslice_fetchbranches",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "frontend_src_store_stockslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "store_stockslice_fetchstock",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "frontend_src_components_skeleton_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "components_skeleton_skeletontable",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "frontend_src_components_spinner_tsx",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "frontend_src_services_api_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "react_hot_toast",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_stock_tsx",
+      "target": "pages_stock_stock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_services_api_ts",
+      "target": "axios",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\services\\api.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_services_api_ts",
+      "target": "services_api_api",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\services\\api.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_services_api_ts",
+      "target": "services_api_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\services\\api.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "toolkit",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "frontend_src_services_api_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "frontend_src_types_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "types_index_user",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "types_index_authresponse",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "store_authslice_authstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "store_authslice_initialstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "store_authslice_loginuser",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "store_authslice_registeruser",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_authslice_ts",
+      "target": "store_authslice_authslice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\authSlice.ts",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_index_ts",
+      "target": "toolkit",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_index_ts",
+      "target": "frontend_src_store_authslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_index_ts",
+      "target": "frontend_src_store_kioskslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_index_ts",
+      "target": "frontend_src_store_stockslice_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_index_ts",
+      "target": "store_index_store",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_index_ts",
+      "target": "store_index_rootstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_index_ts",
+      "target": "store_index_appdispatch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\index.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "toolkit",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "frontend_src_services_api_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "frontend_src_types_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "types_index_kiosk",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "types_index_branch",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "store_kioskslice_kioskstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "store_kioskslice_initialstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "store_kioskslice_fetchkiosks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "store_kioskslice_fetchbranches",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_kioskslice_ts",
+      "target": "store_kioskslice_kioskslice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\kioskSlice.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_stockslice_ts",
+      "target": "toolkit",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_stockslice_ts",
+      "target": "frontend_src_services_api_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_stockslice_ts",
+      "target": "frontend_src_types_index_ts",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_stockslice_ts",
+      "target": "types_index_stockitem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_stockslice_ts",
+      "target": "store_stockslice_stockstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_stockslice_ts",
+      "target": "store_stockslice_initialstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_stockslice_ts",
+      "target": "store_stockslice_fetchstock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_store_stockslice_ts",
+      "target": "store_stockslice_stockslice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\store\\stockSlice.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_types_index_ts",
+      "target": "types_index_user",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_types_index_ts",
+      "target": "types_index_authresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_types_index_ts",
+      "target": "types_index_kiosk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_types_index_ts",
+      "target": "types_index_branch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_types_index_ts",
+      "target": "types_index_category",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_types_index_ts",
+      "target": "types_index_product",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_types_index_ts",
+      "target": "types_index_stockitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_types_index_ts",
+      "target": "types_index_saleitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_types_index_ts",
+      "target": "types_index_sale",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend\\src\\types\\index.ts",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "components_layout_layout",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend\\src\\components\\Layout.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_dashboard_dashboard",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend\\src\\pages\\Dashboard.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_login_login",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend\\src\\pages\\Login.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_register_register",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend\\src\\pages\\Register.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_sales_sales",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend\\src\\pages\\Sales.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_stock_stock",
+      "target": "hooks_useappdispatch_useappdispatch",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend\\src\\pages\\Stock.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

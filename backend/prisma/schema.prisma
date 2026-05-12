@@ -24,16 +24,18 @@ enum PaymentMethod {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(CLIENTE)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  password   String
+  role       Role     @default(CLIENTE)
+  onboarded  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  kiosks Kiosk[]
-  sales  Sale[]
+  kiosks      Kiosk[]
+  sales       Sale[]
+  inviteCodes InviteCode[]
 
   @@map("users")
 }
@@ -50,6 +52,7 @@ model Kiosk {
 
   owner    User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   branches Branch[]
+  inviteCodes InviteCode[]
 
   @@map("kiosks")
 }
@@ -143,4 +146,20 @@ model SaleItem {
   product Product @relation(fields: [productId], references: [id])
 
   @@map("sale_items")
+}
+
+model InviteCode {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  kioskId   Int
+  createdBy Int
+  usedBy    Int?
+  usedAt    DateTime?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  kiosk   Kiosk @relation(fields: [kioskId], references: [id], onDelete: Cascade)
+  creator User  @relation(fields: [createdBy], references: [id])
+
+  @@map("invite_codes")
 }

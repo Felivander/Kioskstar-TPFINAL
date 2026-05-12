@@ -3,6 +3,7 @@ export interface User {
   name: string;
   email: string;
   role: 'ADMIN' | 'EMPLEADO' | 'CLIENTE';
+  onboarded: boolean;
   createdAt: string;
 }
 

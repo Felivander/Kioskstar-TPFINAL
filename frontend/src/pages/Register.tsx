@@ -9,24 +9,17 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('CLIENTE');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loading, error } = useAppSelector((state) => state.auth);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const result = await dispatch(registerUser({ name, email, password, role }));
+    const result = await dispatch(registerUser({ name, email, password }));
     if (registerUser.fulfilled.match(result)) {
-      navigate('/dashboard');
+      navigate('/onboarding');
     }
   };
-
-  const roles = [
-    { value: 'CLIENTE', label: 'Cliente', desc: 'Explorá el mapa', icon: '🗺️' },
-    { value: 'EMPLEADO', label: 'Empleado', desc: 'Gestioná ventas', icon: '🏪' },
-    { value: 'ADMIN', label: 'Admin', desc: 'Control total', icon: '👑' },
-  ];
 
   return (
     <div className="min-h-screen flex gradient-hero relative overflow-hidden">
@@ -117,31 +110,6 @@ export default function Register() {
                   placeholder="Mínimo 6 caracteres"
                 />
               </div>
-
-              {/* Role selector */}
-              <fieldset>
-                <legend className="block text-sm font-medium text-surface-700 mb-2">
-                  Tipo de cuenta
-                </legend>
-                <div className="grid grid-cols-3 gap-2">
-                  {roles.map((r) => (
-                    <label
-                      key={r.value}
-                      className={`cursor-pointer rounded-2xl border-2 text-center transition-all duration-200
-                        ${role === r.value
-                          ? 'border-primary-400 bg-primary-50 shadow-sm'
-                          : 'border-surface-200 bg-white hover:border-surface-300'}`}
-                      style={{ padding: '0.75rem 0.5rem' }}
-                    >
-                      <input type="radio" name="role" value={r.value} checked={role === r.value}
-                        onChange={(e) => setRole(e.target.value)} className="sr-only" />
-                      <span className="text-xl block mb-1">{r.icon}</span>
-                      <span className="text-xs font-semibold text-surface-900 block">{r.label}</span>
-                      <span className="text-[10px] text-surface-400 leading-tight block mt-0.5">{r.desc}</span>
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
 
               {/* Submit */}
               <button
