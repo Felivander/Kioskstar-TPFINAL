@@ -70,12 +70,18 @@ export interface SaleItem {
   product?: Product;
 }
 
+export interface PaymentEntry {
+  method: 'EFECTIVO' | 'DEBITO';
+  amount: number;
+}
+
 export interface Sale {
   id: number;
   branchId: number;
   userId: number;
   total: number;
-  paymentMethod: 'EFECTIVO' | 'MERCADOPAGO' | 'DEBITO' | 'CREDITO';
+  paymentMethod: 'EFECTIVO' | 'MERCADOPAGO' | 'DEBITO' | 'CREDITO' | 'MIXTO';
+  payments?: PaymentEntry[];
   createdAt: string;
   items?: SaleItem[];
   user?: { id: number; name: string; email: string };

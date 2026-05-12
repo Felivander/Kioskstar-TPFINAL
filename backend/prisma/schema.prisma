@@ -21,6 +21,7 @@ enum PaymentMethod {
   MERCADOPAGO
   DEBITO
   CREDITO
+  MIXTO
 }
 
 model User {
@@ -33,9 +34,10 @@ model User {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  kiosks      Kiosk[]
-  sales       Sale[]
-  inviteCodes InviteCode[]
+  kiosks         Kiosk[]
+  sales          Sale[]
+  inviteCodes    InviteCode[]
+  passwordResets PasswordReset[]
 
   @@map("users")
 }
@@ -125,6 +127,7 @@ model Sale {
   userId        Int
   total         Float
   paymentMethod PaymentMethod @default(EFECTIVO)
+  payments      Json?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
@@ -162,4 +165,17 @@ model InviteCode {
   creator User  @relation(fields: [createdBy], references: [id])
 
   @@map("invite_codes")
+}
+
+model PasswordReset {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("password_resets")
 }

@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import prisma from '../lib/prisma';
 import { AuthRequest } from '../middlewares/auth.middleware';
+import { sendPasswordResetEmail } from '../services/email.service';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -353,6 +354,88 @@ export const joinKiosk = async (req: AuthRequest, res: Response): Promise<void> 
     });
   } catch (error) {
     console.error('Error en joinKiosk:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+// ---- Password Reset ----
+
+export const forgotPassword = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      // No revelar si el email existe
+      res.json({ message: 'Si el email está registrado, recibirás un enlace de recuperación' });
+      return;
+    }
+
+    // Invalidar tokens anteriores
+    await prisma.passwordReset.updateMany({
+      where: { userId: user.id, usedAt: null },
+      data: { usedAt: new Date() },
+    });
+
+    const token = crypto.randomBytes(32).toString('hex');
+    await prisma.passwordReset.create({
+      data: {
+        userId: user.id,
+        token,
+        expiresAt: new Date(Date.now() + 60 * 60 * 1000), // 1 hora
+      },
+    });
+
+    await sendPasswordResetEmail(user.email, token, user.name);
+
+    res.json({ message: 'Si el email está registrado, recibirás un enlace de recuperación' });
+  } catch (error) {
+    console.error('Error en forgotPassword:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+export const resetPassword = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { token, password } = req.body;
+
+    const resetRecord = await prisma.passwordReset.findUnique({
+      where: { token },
+      include: { user: true },
+    });
+
+    if (!resetRecord) {
+      res.status(400).json({ error: 'Token inválido' });
+      return;
+    }
+
+    if (resetRecord.usedAt) {
+      res.status(400).json({ error: 'Este enlace ya fue utilizado' });
+      return;
+    }
+
+    if (new Date() > resetRecord.expiresAt) {
+      res.status(400).json({ error: 'Este enlace ha expirado' });
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await prisma.$transaction(async (tx) => {
+      await tx.user.update({
+        where: { id: resetRecord.userId },
+        data: { password: hashedPassword },
+      });
+
+      await tx.passwordReset.update({
+        where: { id: resetRecord.id },
+        data: { usedAt: new Date() },
+      });
+    });
+
+    res.json({ message: 'Contraseña actualizada correctamente' });
+  } catch (error) {
+    console.error('Error en resetPassword:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };

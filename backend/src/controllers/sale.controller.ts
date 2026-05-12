@@ -4,24 +4,22 @@ import { AuthRequest } from '../middlewares/auth.middleware';
 
 export const createSale = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { branchId, paymentMethod, items } = req.body;
+    const { branchId, paymentMethod, payments, items } = req.body;
 
-    // Calcular total
     const total = items.reduce(
       (sum: number, item: { quantity: number; unitPrice: number }) =>
         sum + item.quantity * item.unitPrice,
       0
     );
 
-    // Crear venta con items en una transacción
     const sale = await prisma.$transaction(async (tx) => {
-      // Crear la venta
       const newSale = await tx.sale.create({
         data: {
           branchId,
           userId: req.userId!,
           total,
           paymentMethod,
+          payments: paymentMethod === 'MIXTO' ? payments : undefined,
           items: {
             create: items.map((item: { productId: number; quantity: number; unitPrice: number }) => ({
               productId: item.productId,
@@ -43,7 +41,6 @@ export const createSale = async (req: AuthRequest, res: Response): Promise<void>
         },
       });
 
-      // Actualizar stock (restar cantidad vendida)
       for (const item of items) {
         await tx.stock.updateMany({
           where: {

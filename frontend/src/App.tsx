@@ -10,6 +10,8 @@ import Products from './pages/Products';
 import Stock from './pages/Stock';
 import Sales from './pages/Sales';
 import MapView from './pages/MapView';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 export default function App() {
   const { token, user } = useAppSelector((s) => s.auth);
@@ -20,6 +22,8 @@ export default function App() {
       {/* Public routes */}
       <Route path="/login" element={token ? <Navigate to={needsOnboarding ? '/onboarding' : '/dashboard'} /> : <Login />} />
       <Route path="/register" element={token ? <Navigate to={needsOnboarding ? '/onboarding' : '/dashboard'} /> : <Register />} />
+      <Route path="/forgot-password" element={token ? <Navigate to="/dashboard" /> : <ForgotPassword />} />
+      <Route path="/reset-password" element={token ? <Navigate to="/dashboard" /> : <ResetPassword />} />
 
       {/* Onboarding — solo si está logueado y no onboarded */}
       <Route path="/onboarding" element={

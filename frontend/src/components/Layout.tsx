@@ -6,9 +6,9 @@ import { logout } from '../store/authSlice';
 
 const navItems = [
   { to: '/dashboard', label: 'Dashboard', icon: '📊', roles: ['ADMIN', 'EMPLEADO'] },
+  { to: '/sales', label: 'Ventas', icon: '💰', roles: ['ADMIN', 'EMPLEADO'] },
   { to: '/products', label: 'Productos', icon: '📦', roles: ['ADMIN', 'EMPLEADO'] },
   { to: '/stock', label: 'Stock', icon: '🏪', roles: ['ADMIN', 'EMPLEADO'] },
-  { to: '/sales', label: 'Ventas', icon: '💰', roles: ['ADMIN', 'EMPLEADO'] },
   { to: '/map', label: 'Mapa', icon: '🗺️', roles: ['ADMIN', 'EMPLEADO', 'CLIENTE'] },
 ];
 
