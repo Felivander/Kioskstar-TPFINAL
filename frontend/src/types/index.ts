@@ -4,6 +4,7 @@ export interface User {
   email: string;
   role: 'ADMIN' | 'EMPLEADO' | 'CLIENTE';
   onboarded: boolean;
+  branchId: number | null;
   createdAt: string;
 }
 
@@ -22,6 +23,7 @@ export interface Kiosk {
   createdAt: string;
   owner?: { id: number; name: string; email: string };
   branches?: Branch[];
+  inviteCodes?: InviteCode[];
 }
 
 export interface Branch {
@@ -85,5 +87,15 @@ export interface Sale {
   createdAt: string;
   items?: SaleItem[];
   user?: { id: number; name: string; email: string };
+  branch?: { id: number; name: string };
+}
+
+export interface InviteCode {
+  id: number;
+  code: string;
+  kioskId: number;
+  branchId: number;
+  expiresAt: string;
+  usedBy: number | null;
   branch?: { id: number; name: string };
 }

@@ -1,14 +1,22 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'KioskStar <onboarding@resend.dev>';
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+
+let resend: Resend | null = null;
+function getResend(): Resend {
+  if (!resend) {
+    const key = process.env.RESEND_API_KEY;
+    if (!key) throw new Error('RESEND_API_KEY no configurada. Agregala en backend/.env');
+    resend = new Resend(key);
+  }
+  return resend;
+}
 
 export const sendPasswordResetEmail = async (email: string, token: string, userName: string) => {
   const resetUrl = `${FRONTEND_URL}/reset-password?token=${token}`;
 
-  await resend.emails.send({
+  await getResend().emails.send({
     from: FROM_EMAIL,
     to: email,
     subject: 'KioskStar — Restablecer contraseña',

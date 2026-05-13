@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import api from '../services/api';
-import { User, AuthResponse } from '../types';
+import { User, AuthResponse, Branch } from '../types';
 
 interface AuthState {
   user: User | null;
   token: string | null;
+  selectedBranch: Branch | null;
   loading: boolean;
   error: string | null;
 }
@@ -12,6 +13,7 @@ interface AuthState {
 const initialState: AuthState = {
   user: JSON.parse(localStorage.getItem('user') || 'null'),
   token: localStorage.getItem('token'),
+  selectedBranch: JSON.parse(localStorage.getItem('selectedBranch') || 'null'),
   loading: false,
   error: null,
 };
@@ -58,13 +60,16 @@ export const onboardUser = createAsyncThunk<AuthResponse, any>(
   }
 );
 
-export const joinKiosk = createAsyncThunk<AuthResponse, { code: string }>(
+export const joinKiosk = createAsyncThunk<AuthResponse & { branch?: Branch }, { code: string }>(
   'auth/joinKiosk',
   async (payload, { rejectWithValue }) => {
     try {
-      const { data } = await api.post<AuthResponse>('/auth/join-kiosk', payload);
+      const { data } = await api.post<AuthResponse & { branch?: Branch }>('/auth/join-kiosk', payload);
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
+      if (data.branch) {
+        localStorage.setItem('selectedBranch', JSON.stringify(data.branch));
+      }
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.error || 'Código inválido');
@@ -79,12 +84,22 @@ const authSlice = createSlice({
     logout(state) {
       state.user = null;
       state.token = null;
+      state.selectedBranch = null;
       state.error = null;
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('selectedBranch');
     },
     clearError(state) {
       state.error = null;
+    },
+    setSelectedBranch(state, action: PayloadAction<Branch | null>) {
+      state.selectedBranch = action.payload;
+      if (action.payload) {
+        localStorage.setItem('selectedBranch', JSON.stringify(action.payload));
+      } else {
+        localStorage.removeItem('selectedBranch');
+      }
     },
   },
   extraReducers: (builder) => {
@@ -94,6 +109,9 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
+        // Clear branch selection on new login to force re-selection
+        state.selectedBranch = null;
+        localStorage.removeItem('selectedBranch');
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -120,10 +138,13 @@ const authSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(joinKiosk.pending, (state) => { state.loading = true; state.error = null; })
-      .addCase(joinKiosk.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
+      .addCase(joinKiosk.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
+        if (action.payload.branch) {
+          state.selectedBranch = action.payload.branch;
+        }
       })
       .addCase(joinKiosk.rejected, (state, action) => {
         state.loading = false;
@@ -132,5 +153,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearError } = authSlice.actions;
+export const { logout, clearError, setSelectedBranch } = authSlice.actions;
 export default authSlice.reducer;

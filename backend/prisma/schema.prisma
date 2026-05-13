@@ -31,9 +31,11 @@ model User {
   password   String
   role       Role     @default(CLIENTE)
   onboarded  Boolean  @default(false)
+  branchId   Int?     // Sucursal asignada (solo EMPLEADO)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  branch         Branch?  @relation(fields: [branchId], references: [id], onDelete: SetNull)
   kiosks         Kiosk[]
   sales          Sale[]
   inviteCodes    InviteCode[]
@@ -69,9 +71,11 @@ model Branch {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  kiosk Kiosk   @relation(fields: [kioskId], references: [id], onDelete: Cascade)
-  stock Stock[]
-  sales Sale[]
+  kiosk       Kiosk        @relation(fields: [kioskId], references: [id], onDelete: Cascade)
+  stock       Stock[]
+  sales       Sale[]
+  employees   User[]
+  inviteCodes InviteCode[]
 
   @@map("branches")
 }
@@ -155,14 +159,16 @@ model InviteCode {
   id        Int      @id @default(autoincrement())
   code      String   @unique
   kioskId   Int
+  branchId  Int      // Sucursal específica a la que se invita
   createdBy Int
   usedBy    Int?
   usedAt    DateTime?
   expiresAt DateTime
   createdAt DateTime @default(now())
 
-  kiosk   Kiosk @relation(fields: [kioskId], references: [id], onDelete: Cascade)
-  creator User  @relation(fields: [createdBy], references: [id])
+  kiosk   Kiosk  @relation(fields: [kioskId], references: [id], onDelete: Cascade)
+  branch  Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  creator User   @relation(fields: [createdBy], references: [id])
 
   @@map("invite_codes")
 }

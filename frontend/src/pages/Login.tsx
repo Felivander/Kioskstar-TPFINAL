@@ -8,6 +8,7 @@ import Spinner from '../components/Spinner';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [failedAttempts, setFailedAttempts] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loading, error } = useAppSelector((state) => state.auth);
@@ -16,9 +17,14 @@ export default function Login() {
     e.preventDefault();
     const result = await dispatch(loginUser({ email, password }));
     if (loginUser.fulfilled.match(result)) {
+      setFailedAttempts(0);
       navigate('/dashboard');
+    } else {
+      setFailedAttempts((prev) => prev + 1);
     }
   };
+
+  const showRecovery = failedAttempts >= 5;
 
   return (
     <div className="min-h-screen flex gradient-hero relative overflow-hidden">
@@ -76,7 +82,26 @@ export default function Login() {
                 className="mb-5 rounded-2xl bg-red-50 border border-red-100 text-red-600 text-sm flex items-center gap-2 animate-scale-in"
                 style={{ padding: '0.75rem 1rem' }}
               >
-                <span>⚠️</span> {error}
+                <span>⚠️</span> <span className="font-bold">{error}</span>
+              </div>
+            )}
+
+            {/* Recuperación de contraseña — aparece tras 5 intentos fallidos */}
+            {showRecovery && (
+              <div
+                className="mb-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-sm animate-scale-in"
+                style={{ padding: '0.75rem 1rem' }}
+              >
+                <p className="font-semibold mb-1">¿Olvidaste tu contraseña?</p>
+                <p className="text-xs text-amber-700 mb-2">
+                  Llevás {failedAttempts} intentos fallidos.
+                </p>
+                <Link
+                  to="/forgot-password"
+                  className="inline-flex items-center gap-1 text-sm font-bold text-primary-600 hover:text-primary-700 transition-colors"
+                >
+                  Recuperar contraseña →
+                </Link>
               </div>
             )}
 

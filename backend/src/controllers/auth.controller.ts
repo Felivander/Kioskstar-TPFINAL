@@ -36,6 +36,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         role: true,
         onboarded: true,
         createdAt: true,
+        branchId: true,
       },
     });
 
@@ -86,6 +87,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         role: user.role,
         onboarded: user.onboarded,
         createdAt: user.createdAt,
+        branchId: user.branchId,
       },
       token,
     });
@@ -106,6 +108,7 @@ export const getMe = async (req: AuthRequest, res: Response): Promise<void> => {
         role: true,
         onboarded: true,
         createdAt: true,
+        branchId: true,
       },
     });
 
@@ -146,6 +149,7 @@ export const updateUser = async (req: AuthRequest, res: Response): Promise<void>
         role: true,
         onboarded: true,
         createdAt: true,
+        branchId: true,
       },
       data: updateData,
     });
@@ -179,7 +183,7 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
       const user = await prisma.user.update({
         where: { id: req.userId },
         data: { onboarded: true },
-        select: { id: true, name: true, email: true, role: true, onboarded: true, createdAt: true },
+        select: { id: true, name: true, email: true, role: true, onboarded: true, createdAt: true, branchId: true },
       });
 
       // Regenerar token con rol actualizado
@@ -196,12 +200,19 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
     // choice === 'KIOSK' — crear kiosco + sucursales + promover a ADMIN
     const { kioskName, kioskAddress, kioskLat, kioskLng, branches } = req.body;
 
+    // Restricción: 1 cuenta = 1 kiosco
+    const existingKiosk = await prisma.kiosk.findFirst({ where: { ownerId: req.userId } });
+    if (existingKiosk) {
+      res.status(400).json({ error: 'Ya tenés un kiosco registrado. Solo podés agregar sucursales.' });
+      return;
+    }
+
     const result = await prisma.$transaction(async (tx) => {
       // Promover usuario a ADMIN
       const user = await tx.user.update({
         where: { id: req.userId },
         data: { role: 'ADMIN', onboarded: true },
-        select: { id: true, name: true, email: true, role: true, onboarded: true, createdAt: true },
+        select: { id: true, name: true, email: true, role: true, onboarded: true, createdAt: true, branchId: true },
       });
 
       // Crear kiosco
@@ -263,6 +274,7 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
 export const generateInviteCode = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { kioskId } = req.params;
+    const { branchId } = req.body;
     const kioskIdNum = parseInt(kioskId);
 
     // Verificar que el kiosco pertenece al usuario
@@ -276,6 +288,19 @@ export const generateInviteCode = async (req: AuthRequest, res: Response): Promi
       return;
     }
 
+    // Verificar que la sucursal pertenece al kiosco
+    if (!branchId) {
+      res.status(400).json({ error: 'Debés seleccionar una sucursal' });
+      return;
+    }
+    const branch = await prisma.branch.findFirst({
+      where: { id: branchId, kioskId: kioskIdNum },
+    });
+    if (!branch) {
+      res.status(404).json({ error: 'Sucursal no encontrada en este kiosco' });
+      return;
+    }
+
     // Generar código único de 8 caracteres
     const code = crypto.randomBytes(4).toString('hex').toUpperCase();
 
@@ -283,6 +308,7 @@ export const generateInviteCode = async (req: AuthRequest, res: Response): Promi
       data: {
         code,
         kioskId: kioskIdNum,
+        branchId: branch.id,
         createdBy: req.userId!,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 días
       },
@@ -292,6 +318,7 @@ export const generateInviteCode = async (req: AuthRequest, res: Response): Promi
       code: inviteCode.code,
       expiresAt: inviteCode.expiresAt,
       kioskName: kiosk.name,
+      branchName: branch.name,
     });
   } catch (error) {
     console.error('Error en generateInviteCode:', error);
@@ -306,7 +333,7 @@ export const joinKiosk = async (req: AuthRequest, res: Response): Promise<void> 
     // Buscar código válido
     const inviteCode = await prisma.inviteCode.findUnique({
       where: { code },
-      include: { kiosk: true },
+      include: { kiosk: true, branch: true },
     });
 
     if (!inviteCode) {
@@ -324,12 +351,16 @@ export const joinKiosk = async (req: AuthRequest, res: Response): Promise<void> 
       return;
     }
 
-    // Promover usuario a EMPLEADO y marcar código como usado
+    // Promover usuario a EMPLEADO, asignar branch, y marcar código como usado
     const result = await prisma.$transaction(async (tx) => {
       const user = await tx.user.update({
         where: { id: req.userId },
-        data: { role: 'EMPLEADO', onboarded: true },
-        select: { id: true, name: true, email: true, role: true, onboarded: true, createdAt: true },
+        data: {
+          role: 'EMPLEADO',
+          onboarded: true,
+          branchId: inviteCode.branchId,
+        },
+        select: { id: true, name: true, email: true, role: true, onboarded: true, createdAt: true, branchId: true },
       });
 
       await tx.inviteCode.update({
@@ -351,6 +382,7 @@ export const joinKiosk = async (req: AuthRequest, res: Response): Promise<void> 
       user: result,
       token,
       kiosk: { id: inviteCode.kiosk.id, name: inviteCode.kiosk.name },
+      branch: { id: inviteCode.branch.id, name: inviteCode.branch.name },
     });
   } catch (error) {
     console.error('Error en joinKiosk:', error);
@@ -366,12 +398,10 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
 
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      // No revelar si el email existe
       res.json({ message: 'Si el email está registrado, recibirás un enlace de recuperación' });
       return;
     }
 
-    // Invalidar tokens anteriores
     await prisma.passwordReset.updateMany({
       where: { userId: user.id, usedAt: null },
       data: { usedAt: new Date() },
@@ -382,7 +412,7 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
       data: {
         userId: user.id,
         token,
-        expiresAt: new Date(Date.now() + 60 * 60 * 1000), // 1 hora
+        expiresAt: new Date(Date.now() + 60 * 60 * 1000),
       },
     });
 
@@ -436,6 +466,69 @@ export const resetPassword = async (req: Request, res: Response): Promise<void> 
     res.json({ message: 'Contraseña actualizada correctamente' });
   } catch (error) {
     console.error('Error en resetPassword:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+// ---- My Kiosk (para Admin) ----
+
+export const getMyKiosk = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const kiosk = await prisma.kiosk.findFirst({
+      where: { ownerId: req.userId },
+      include: {
+        branches: {
+          orderBy: { createdAt: 'asc' },
+        },
+        inviteCodes: {
+          where: {
+            expiresAt: { gt: new Date() },
+            usedBy: null,
+          },
+          include: {
+            branch: { select: { id: true, name: true } },
+          },
+          orderBy: { createdAt: 'desc' },
+        },
+      },
+    });
+
+    if (!kiosk) {
+      res.status(404).json({ error: 'No tenés un kiosco registrado' });
+      return;
+    }
+
+    res.json(kiosk);
+  } catch (error) {
+    console.error('Error en getMyKiosk:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+// ---- My Branch (para Empleado) ----
+
+export const getMyBranch = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.userId },
+      select: { branchId: true },
+    });
+
+    if (!user?.branchId) {
+      res.status(404).json({ error: 'No tenés una sucursal asignada' });
+      return;
+    }
+
+    const branch = await prisma.branch.findUnique({
+      where: { id: user.branchId },
+      include: {
+        kiosk: { select: { id: true, name: true } },
+      },
+    });
+
+    res.json(branch);
+  } catch (error) {
+    console.error('Error en getMyBranch:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };

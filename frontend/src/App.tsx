@@ -1,21 +1,36 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useAppSelector } from './hooks/useAppSelector';
+import { useAppDispatch } from './hooks/useAppDispatch';
+import { logout } from './store/authSlice';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Onboarding from './pages/Onboarding';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Stock from './pages/Stock';
 import Sales from './pages/Sales';
 import MapView from './pages/MapView';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
 
 export default function App() {
   const { token, user } = useAppSelector((s) => s.auth);
   const needsOnboarding = token && user && !user.onboarded;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  // Escuchar evento de logout desde el interceptor de API (sin refresh)
+  useEffect(() => {
+    const handleAuthLogout = () => {
+      dispatch(logout());
+      navigate('/login');
+    };
+    window.addEventListener('auth:logout', handleAuthLogout);
+    return () => window.removeEventListener('auth:logout', handleAuthLogout);
+  }, [dispatch, navigate]);
 
   return (
     <Routes>

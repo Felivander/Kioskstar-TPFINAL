@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { fetchKiosks, fetchBranches } from '../store/kioskSlice';
 import { fetchStock } from '../store/stockSlice';
 import Spinner from '../components/Spinner';
 import api from '../services/api';
@@ -18,10 +17,8 @@ interface CartItem {
 
 export default function Sales() {
   const dispatch = useAppDispatch();
-  const { kiosks, branches } = useAppSelector((s) => s.kiosks);
+  const { selectedBranch } = useAppSelector((s) => s.auth);
   const { items: stockItems, loading: stockLoading } = useAppSelector((s) => s.stock);
-  const [selectedKiosk, setSelectedKiosk] = useState<number | null>(null);
-  const [selectedBranch, setSelectedBranch] = useState<number | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [paymentMethod, setPaymentMethod] = useState('EFECTIVO');
   const [splitPayment, setSplitPayment] = useState(false);
@@ -30,9 +27,14 @@ export default function Sales() {
   const [submitting, setSubmitting] = useState(false);
   const [search, setSearch] = useState('');
 
-  useEffect(() => { dispatch(fetchKiosks()); }, [dispatch]);
-  useEffect(() => { if (selectedKiosk) { dispatch(fetchBranches(selectedKiosk)); setSelectedBranch(null); setCart([]); } }, [selectedKiosk, dispatch]);
-  useEffect(() => { if (selectedBranch) { dispatch(fetchStock(selectedBranch)); setCart([]); } }, [selectedBranch, dispatch]);
+  const branchId = selectedBranch?.id || null;
+
+  useEffect(() => {
+    if (branchId) {
+      dispatch(fetchStock(branchId));
+      setCart([]);
+    }
+  }, [branchId, dispatch]);
 
   const addToCart = (productId: number, product: Product, maxQty: number) => {
     setCart((prev) => {
@@ -81,7 +83,7 @@ export default function Sales() {
   }, [splitPayment, total]);
 
   const handleSubmitSale = async () => {
-    if (!selectedBranch || cart.length === 0) return;
+    if (!branchId || cart.length === 0) return;
     if (splitPayment && !splitValid) {
       toast.error('Los montos deben sumar el total');
       return;
@@ -89,7 +91,7 @@ export default function Sales() {
     setSubmitting(true);
     try {
       const body: Record<string, unknown> = {
-        branchId: selectedBranch,
+        branchId,
         paymentMethod: splitPayment ? 'MIXTO' : paymentMethod,
         items: cart.map((c) => ({ productId: c.productId, quantity: c.quantity, unitPrice: c.unitPrice })),
       };
@@ -105,7 +107,7 @@ export default function Sales() {
       setSplitPayment(false);
       setCashAmount('');
       setDebitAmount('');
-      dispatch(fetchStock(selectedBranch));
+      dispatch(fetchStock(branchId));
     } catch (err: any) {
       toast.error(err.response?.data?.error || 'Error al registrar venta');
     } finally { setSubmitting(false); }
@@ -121,30 +123,20 @@ export default function Sales() {
 
   return (
     <div className="space-y-6 animate-fade-in-up">
-      <h1 className="text-2xl font-bold text-surface-900">Registrar Venta</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="sale-kiosk" className="block text-sm font-medium text-surface-700 mb-1">Kiosco</label>
-          <select id="sale-kiosk" value={selectedKiosk || ''} onChange={(e) => setSelectedKiosk(Number(e.target.value) || null)}
-            className="w-full px-4 py-2.5 rounded-xl border border-surface-200 bg-white focus:ring-2 focus:ring-primary-500 outline-none text-sm">
-            <option value="">Seleccionar...</option>
-            {kiosks.map((k) => <option key={k.id} value={k.id}>{k.name}</option>)}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="sale-branch" className="block text-sm font-medium text-surface-700 mb-1">Sucursal</label>
-          <select id="sale-branch" value={selectedBranch || ''} onChange={(e) => setSelectedBranch(Number(e.target.value) || null)}
-            disabled={!selectedKiosk} className="w-full px-4 py-2.5 rounded-xl border border-surface-200 bg-white focus:ring-2 focus:ring-primary-500 outline-none text-sm disabled:opacity-50">
-            <option value="">Seleccionar...</option>
-            {branches.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
-          </select>
-        </div>
+      <div>
+        <h1 className="text-2xl font-bold text-surface-900">Registrar Venta</h1>
+        {selectedBranch ? (
+          <p className="text-surface-500 text-sm mt-1">📍 {selectedBranch.name}</p>
+        ) : (
+          <p className="text-surface-500 text-sm mt-1">Seleccioná una sucursal desde el Dashboard</p>
+        )}
       </div>
 
-      {!selectedBranch ? (
+      {!branchId ? (
         <div className="text-center py-16 bg-white rounded-2xl border border-surface-100">
           <span className="text-5xl block mb-3">💰</span>
-          <p className="text-surface-500">Seleccioná kiosco y sucursal</p>
+          <p className="text-surface-500 font-medium">No hay sucursal seleccionada</p>
+          <p className="text-surface-400 text-sm mt-1">Volvé al Dashboard para elegir una sucursal</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

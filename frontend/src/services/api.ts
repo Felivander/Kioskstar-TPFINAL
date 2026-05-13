@@ -18,10 +18,16 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // No redirigir en endpoints de auth (login/register devuelven 401 para creds inválidas)
+    const url = error.config?.url || '';
+    const isAuthEndpoint = url.includes('/auth/login') || url.includes('/auth/register');
+
+    if (error.response?.status === 401 && !isAuthEndpoint) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      localStorage.removeItem('selectedBranch');
+      // Dispatch custom event para que React maneje el redirect sin refresh
+      window.dispatchEvent(new CustomEvent('auth:logout'));
     }
     return Promise.reject(error);
   }

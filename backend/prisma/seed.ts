@@ -19,10 +19,12 @@ async function main() {
       email: 'admin@kioskstar.com',
       password: adminPassword,
       role: 'ADMIN',
+      onboarded: true,
     },
   });
 
-  const empleado = await prisma.user.upsert({
+  // Empleado se actualiza después de crear sucursales para asignar branchId
+  let empleado = await prisma.user.upsert({
     where: { email: 'empleado@kioskstar.com' },
     update: {},
     create: {
@@ -30,6 +32,7 @@ async function main() {
       email: 'empleado@kioskstar.com',
       password: empleadoPassword,
       role: 'EMPLEADO',
+      onboarded: true,
     },
   });
 
@@ -41,6 +44,7 @@ async function main() {
       email: 'cliente@kioskstar.com',
       password: clientePassword,
       role: 'CLIENTE',
+      onboarded: true,
     },
   });
 
@@ -84,6 +88,12 @@ async function main() {
       lat: -34.5875,
       lng: -58.4266,
     },
+  });
+
+  // Asignar empleado a sucursal 1
+  empleado = await prisma.user.update({
+    where: { id: empleado.id },
+    data: { branchId: sucursal1.id },
   });
 
   // Crear productos

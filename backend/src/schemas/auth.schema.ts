@@ -38,7 +38,30 @@ export const joinKioskSchema = z.object({
   code: z.string().min(1, 'El código es requerido'),
 });
 
+export const generateInviteCodeSchema = z.object({
+  branchId: z.number().int().positive('Debés seleccionar una sucursal'),
+});
+
+// Password recovery
+export const forgotPasswordSchema = z.object({
+  email: z.string().email('Email inválido'),
+});
+
+export const verifyResetCodeSchema = z.object({
+  email: z.string().email('Email inválido'),
+  code: z.string().length(6, 'El código debe tener 6 dígitos'),
+});
+
+export const resetPasswordSchema = z.object({
+  email: z.string().email('Email inválido'),
+  code: z.string().length(6, 'El código debe tener 6 dígitos'),
+  newPassword: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres').max(100),
+});
+
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
 export type OnboardInput = z.infer<typeof onboardSchema>;
 export type JoinKioskInput = z.infer<typeof joinKioskSchema>;
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+export type VerifyResetCodeInput = z.infer<typeof verifyResetCodeSchema>;
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;

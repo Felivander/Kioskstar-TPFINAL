@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { fetchKiosks, fetchBranches } from '../store/kioskSlice';
 import { fetchStock } from '../store/stockSlice';
 import { SkeletonTable } from '../components/Skeleton';
 import Spinner from '../components/Spinner';
@@ -10,39 +9,25 @@ import toast from 'react-hot-toast';
 
 export default function Stock() {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((s) => s.auth);
-  const { kiosks, branches, loading: kioskLoading } = useAppSelector((s) => s.kiosks);
+  const { user, selectedBranch } = useAppSelector((s) => s.auth);
   const { items, loading: stockLoading } = useAppSelector((s) => s.stock);
-
-  const [selectedKiosk, setSelectedKiosk] = useState<number | null>(null);
-  const [selectedBranch, setSelectedBranch] = useState<number | null>(null);
   const [updatingId, setUpdatingId] = useState<number | null>(null);
 
   const canEdit = user?.role === 'ADMIN' || user?.role === 'EMPLEADO';
+  const branchId = selectedBranch?.id || null;
 
   useEffect(() => {
-    dispatch(fetchKiosks());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (selectedKiosk) {
-      dispatch(fetchBranches(selectedKiosk));
-      setSelectedBranch(null);
+    if (branchId) {
+      dispatch(fetchStock(branchId));
     }
-  }, [selectedKiosk, dispatch]);
-
-  useEffect(() => {
-    if (selectedBranch) {
-      dispatch(fetchStock(selectedBranch));
-    }
-  }, [selectedBranch, dispatch]);
+  }, [branchId, dispatch]);
 
   const handleQuantityChange = async (productId: number, newQuantity: number) => {
-    if (!selectedBranch || newQuantity < 0) return;
+    if (!branchId || newQuantity < 0) return;
     setUpdatingId(productId);
     try {
-      await api.put(`/branches/${selectedBranch}/stock/${productId}`, { quantity: newQuantity });
-      dispatch(fetchStock(selectedBranch));
+      await api.put(`/branches/${branchId}/stock/${productId}`, { quantity: newQuantity });
+      dispatch(fetchStock(branchId));
       toast.success('Stock actualizado');
     } catch {
       toast.error('Error al actualizar stock');
@@ -53,46 +38,23 @@ export default function Stock() {
 
   return (
     <div className="space-y-6 animate-fade-in-up">
-      <div>
-        <h1 className="text-2xl font-bold text-surface-900">Stock por Sucursal</h1>
-        <p className="text-surface-500 text-sm mt-1">Seleccioná un kiosco y sucursal para ver el stock</p>
-      </div>
-
-      {/* Selectors */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="flex items-center justify-between">
         <div>
-          <label htmlFor="stock-kiosk" className="block text-sm font-medium text-surface-700 mb-1">Kiosco</label>
-          <select
-            id="stock-kiosk"
-            value={selectedKiosk || ''}
-            onChange={(e) => setSelectedKiosk(Number(e.target.value) || null)}
-            className="w-full px-4 py-2.5 rounded-xl border border-surface-200 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm"
-          >
-            <option value="">Seleccionar kiosco...</option>
-            {kiosks.map((k) => <option key={k.id} value={k.id}>{k.name}</option>)}
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="stock-branch" className="block text-sm font-medium text-surface-700 mb-1">Sucursal</label>
-          <select
-            id="stock-branch"
-            value={selectedBranch || ''}
-            onChange={(e) => setSelectedBranch(Number(e.target.value) || null)}
-            disabled={!selectedKiosk}
-            className="w-full px-4 py-2.5 rounded-xl border border-surface-200 bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm disabled:opacity-50"
-          >
-            <option value="">Seleccionar sucursal...</option>
-            {branches.map((b) => <option key={b.id} value={b.id}>{b.name} — {b.address}</option>)}
-          </select>
+          <h1 className="text-2xl font-bold text-surface-900">Stock por Sucursal</h1>
+          {selectedBranch ? (
+            <p className="text-surface-500 text-sm mt-1">📍 {selectedBranch.name}</p>
+          ) : (
+            <p className="text-surface-500 text-sm mt-1">Seleccioná una sucursal desde el Dashboard</p>
+          )}
         </div>
       </div>
 
       {/* Stock table */}
-      {!selectedBranch ? (
+      {!branchId ? (
         <div className="text-center py-16 bg-white rounded-2xl border border-surface-100">
           <span className="text-5xl block mb-3">🏪</span>
-          <p className="text-surface-500">Seleccioná un kiosco y sucursal para ver el stock</p>
+          <p className="text-surface-500 font-medium">No hay sucursal seleccionada</p>
+          <p className="text-surface-400 text-sm mt-1">Volvé al Dashboard para elegir una sucursal</p>
         </div>
       ) : stockLoading ? (
         <SkeletonTable rows={6} />

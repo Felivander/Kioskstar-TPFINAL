@@ -51,6 +51,13 @@ export const createKiosk = async (req: AuthRequest, res: Response): Promise<void
   try {
     const { name, address, lat, lng } = req.body;
 
+    // Restricción: 1 cuenta = 1 kiosco
+    const existingKiosk = await prisma.kiosk.findFirst({ where: { ownerId: req.userId } });
+    if (existingKiosk) {
+      res.status(400).json({ error: 'Ya tenés un kiosco registrado. Solo podés agregar sucursales.' });
+      return;
+    }
+
     const kiosk = await prisma.kiosk.create({
       data: {
         name,

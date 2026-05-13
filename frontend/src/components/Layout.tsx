@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { logout } from '../store/authSlice';
+import { logout, setSelectedBranch } from '../store/authSlice';
 
 const navItems = [
   { to: '/dashboard', label: 'Dashboard', icon: '📊', roles: ['ADMIN', 'EMPLEADO'] },
@@ -14,7 +14,7 @@ const navItems = [
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, selectedBranch } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -55,6 +55,12 @@ export default function Layout() {
               <p className="text-[10px] text-surface-500 tracking-wider uppercase">Panel de gestión</p>
             </div>
           </div>
+          {selectedBranch && (
+            <div className="mt-3 flex items-center gap-2 text-xs text-surface-400">
+              <span>📍</span>
+              <span className="truncate">{selectedBranch.name}</span>
+            </div>
+          )}
         </div>
 
         {/* Nav */}
