@@ -198,7 +198,7 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
     }
 
     // choice === 'KIOSK' — crear kiosco + sucursales + promover a ADMIN
-    const { kioskName, kioskAddress, kioskLat, kioskLng, branches } = req.body;
+    const { kioskName, kioskAddress, kioskCity, kioskPostalCode, kioskProvince, kioskLat, kioskLng, branches } = req.body;
 
     // Restricción: 1 cuenta = 1 kiosco
     const existingKiosk = await prisma.kiosk.findFirst({ where: { ownerId: req.userId } });
@@ -220,6 +220,9 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
         data: {
           name: kioskName,
           address: kioskAddress,
+          city: kioskCity || '',
+          postalCode: kioskPostalCode || '',
+          province: kioskProvince || '',
           lat: kioskLat,
           lng: kioskLng,
           ownerId: req.userId!,
@@ -398,7 +401,8 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
 
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      res.json({ message: 'Si el email está registrado, recibirás un enlace de recuperación' });
+      console.log(`⚠️ forgot-password: usuario no encontrado para ${email}`);
+      res.status(404).json({ error: 'No existe una cuenta con ese email' });
       return;
     }
 
@@ -416,7 +420,13 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
       },
     });
 
-    await sendPasswordResetEmail(user.email, token, user.name);
+    console.log(`📧 Enviando email de reset a ${user.email}...`);
+    try {
+      await sendPasswordResetEmail(user.email, token, user.name);
+      console.log('✅ Email enviado correctamente');
+    } catch (emailError) {
+      console.error('❌ Error enviando email:', emailError);
+    }
 
     res.json({ message: 'Si el email está registrado, recibirás un enlace de recuperación' });
   } catch (error) {

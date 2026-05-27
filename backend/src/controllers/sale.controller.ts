@@ -65,6 +65,68 @@ export const createSale = async (req: AuthRequest, res: Response): Promise<void>
   }
 };
 
+export const getTopProducts = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { branchId } = req.params;
+    const branchIdNum = parseInt(branchId);
+
+    // Top products by total quantity sold in this branch
+    const topProducts = await prisma.saleItem.groupBy({
+      by: ['productId'],
+      where: { sale: { branchId: branchIdNum } },
+      _sum: { quantity: true },
+      _count: { _all: true },
+      orderBy: { _sum: { quantity: 'desc' } },
+      take: 10,
+    });
+
+    // Fetch product details
+    const productIds = topProducts.map((t) => t.productId);
+    const products = await prisma.product.findMany({
+      where: { id: { in: productIds } },
+      include: { category: true },
+    });
+
+    const productMap = new Map(products.map((p) => [p.id, p]));
+
+    // Recent trending: most sold in the last 7 days
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const trending = await prisma.saleItem.groupBy({
+      by: ['productId'],
+      where: {
+        sale: { branchId: branchIdNum, createdAt: { gte: weekAgo } },
+      },
+      _sum: { quantity: true },
+      _count: { _all: true },
+      orderBy: { _sum: { quantity: 'desc' } },
+      take: 5,
+    });
+
+    const trendingIds = trending.map((t) => t.productId);
+    const trendingProducts = await prisma.product.findMany({
+      where: { id: { in: trendingIds } },
+      include: { category: true },
+    });
+    const trendingMap = new Map(trendingProducts.map((p) => [p.id, p]));
+
+    res.json({
+      topProducts: topProducts.map((t) => ({
+        product: productMap.get(t.productId),
+        totalSold: t._sum.quantity || 0,
+        salesCount: t._count._all,
+      })),
+      trending: trending.map((t) => ({
+        product: trendingMap.get(t.productId),
+        totalSold: t._sum.quantity || 0,
+        salesCount: t._count._all,
+      })),
+    });
+  } catch (error) {
+    console.error('Error en getTopProducts:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 export const getSalesByBranch = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { branchId } = req.params;

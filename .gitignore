@@ -28,3 +28,8 @@ yarn-error.log*
 
 # Prisma
 /backend/src/generated/
+
+# AI and Graphify tool outputs
+.claude/
+graphify-out/
+

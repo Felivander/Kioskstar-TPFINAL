@@ -18,6 +18,9 @@ export default function Onboarding() {
   const [step, setStep] = useState<Step>('choice');
   const [kioskName, setKioskName] = useState('');
   const [kioskAddress, setKioskAddress] = useState('');
+  const [kioskCity, setKioskCity] = useState('');
+  const [kioskPostalCode, setKioskPostalCode] = useState('');
+  const [kioskProvince, setKioskProvince] = useState('');
   const [branches, setBranches] = useState<BranchData[]>([]);
   const [branchName, setBranchName] = useState('');
   const [branchAddress, setBranchAddress] = useState('');
@@ -96,7 +99,10 @@ export default function Onboarding() {
       choice: 'KIOSK',
       kioskName,
       kioskAddress,
-      kioskLat: -34.6037, // Default Buenos Aires — se puede mejorar con geoloc
+      kioskCity,
+      kioskPostalCode,
+      kioskProvince,
+      kioskLat: -34.6037,
       kioskLng: -58.3816,
       branches,
     }));
@@ -308,7 +314,7 @@ export default function Onboarding() {
               <form onSubmit={handleKioskAddressNext} className="flex flex-col gap-4">
                 <div>
                   <label htmlFor="kiosk-address" className="block text-sm font-medium text-surface-700 mb-1.5">
-                    Dirección del kiosco
+                    Dirección
                   </label>
                   <input
                     id="kiosk-address"
@@ -318,8 +324,55 @@ export default function Onboarding() {
                     required
                     className="w-full rounded-2xl border border-surface-200 bg-surface-50 text-sm text-surface-900 placeholder-surface-400 transition-all focus:bg-white focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none"
                     style={{ padding: '0.875rem 1rem' }}
-                    placeholder="Ej: Av. Corrientes 1234, CABA"
+                    placeholder="Ej: Av. Corrientes 1234"
                     autoFocus
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label htmlFor="kiosk-city" className="block text-sm font-medium text-surface-700 mb-1.5">
+                      Ciudad
+                    </label>
+                    <input
+                      id="kiosk-city"
+                      type="text"
+                      value={kioskCity}
+                      onChange={(e) => setKioskCity(e.target.value)}
+                      className="w-full rounded-2xl border border-surface-200 bg-surface-50 text-sm text-surface-900 placeholder-surface-400 transition-all focus:bg-white focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none"
+                      style={{ padding: '0.875rem 1rem' }}
+                      placeholder="Ej: CABA"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="kiosk-province" className="block text-sm font-medium text-surface-700 mb-1.5">
+                      Provincia
+                    </label>
+                    <input
+                      id="kiosk-province"
+                      type="text"
+                      value={kioskProvince}
+                      onChange={(e) => setKioskProvince(e.target.value)}
+                      className="w-full rounded-2xl border border-surface-200 bg-surface-50 text-sm text-surface-900 placeholder-surface-400 transition-all focus:bg-white focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none"
+                      style={{ padding: '0.875rem 1rem' }}
+                      placeholder="Ej: Buenos Aires"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="kiosk-cp" className="block text-sm font-medium text-surface-700 mb-1.5">
+                    Código Postal
+                  </label>
+                  <input
+                    id="kiosk-cp"
+                    type="text"
+                    value={kioskPostalCode}
+                    onChange={(e) => setKioskPostalCode(e.target.value)}
+                    className="w-full rounded-2xl border border-surface-200 bg-surface-50 text-sm text-surface-900 placeholder-surface-400 transition-all focus:bg-white focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none"
+                    style={{ padding: '0.875rem 1rem' }}
+                    placeholder="Ej: C1043"
+                    maxLength={10}
                   />
                 </div>
 

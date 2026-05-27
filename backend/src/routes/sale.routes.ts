@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createSale, getSalesByBranch } from '../controllers/sale.controller';
+import { createSale, getSalesByBranch, getTopProducts } from '../controllers/sale.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { roleMiddleware } from '../middlewares/role.middleware';
 import { validate } from '../middlewares/validate.middleware';
@@ -9,5 +9,6 @@ const router = Router();
 
 router.post('/', authMiddleware, roleMiddleware('ADMIN', 'EMPLEADO'), validate(createSaleSchema), createSale);
 router.get('/branch/:branchId', authMiddleware, roleMiddleware('ADMIN', 'EMPLEADO'), getSalesByBranch);
+router.get('/branch/:branchId/top-products', authMiddleware, roleMiddleware('ADMIN', 'EMPLEADO'), getTopProducts);
 
 export default router;

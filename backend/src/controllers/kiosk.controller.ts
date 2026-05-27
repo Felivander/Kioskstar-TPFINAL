@@ -49,7 +49,7 @@ export const getKioskById = async (req: AuthRequest, res: Response): Promise<voi
 
 export const createKiosk = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { name, address, lat, lng } = req.body;
+    const { name, address, city, postalCode, province, lat, lng } = req.body;
 
     // Restricción: 1 cuenta = 1 kiosco
     const existingKiosk = await prisma.kiosk.findFirst({ where: { ownerId: req.userId } });
@@ -62,6 +62,9 @@ export const createKiosk = async (req: AuthRequest, res: Response): Promise<void
       data: {
         name,
         address,
+        city: city || '',
+        postalCode: postalCode || '',
+        province: province || '',
         lat,
         lng,
         ownerId: req.userId!,
@@ -83,7 +86,7 @@ export const createKiosk = async (req: AuthRequest, res: Response): Promise<void
 export const updateKiosk = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    const { name, address, lat, lng } = req.body;
+    const { name, address, city, postalCode, province, lat, lng } = req.body;
 
     const existingKiosk = await prisma.kiosk.findUnique({ where: { id: parseInt(id) } });
     if (!existingKiosk) {
@@ -97,9 +100,18 @@ export const updateKiosk = async (req: AuthRequest, res: Response): Promise<void
       return;
     }
 
+    const updateData: Record<string, unknown> = {};
+    if (name !== undefined) updateData.name = name;
+    if (address !== undefined) updateData.address = address;
+    if (city !== undefined) updateData.city = city;
+    if (postalCode !== undefined) updateData.postalCode = postalCode;
+    if (province !== undefined) updateData.province = province;
+    if (lat !== undefined) updateData.lat = lat;
+    if (lng !== undefined) updateData.lng = lng;
+
     const kiosk = await prisma.kiosk.update({
       where: { id: parseInt(id) },
-      data: { name, address, lat, lng },
+      data: updateData,
       include: {
         owner: {
           select: { id: true, name: true, email: true },

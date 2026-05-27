@@ -15,6 +15,12 @@ interface CartItem {
   maxQuantity: number;
 }
 
+interface TopProduct {
+  product: Product;
+  totalSold: number;
+  salesCount: number;
+}
+
 export default function Sales() {
   const dispatch = useAppDispatch();
   const { selectedBranch } = useAppSelector((s) => s.auth);
@@ -26,6 +32,10 @@ export default function Sales() {
   const [debitAmount, setDebitAmount] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [search, setSearch] = useState('');
+  // Trending
+  const [topProducts, setTopProducts] = useState<TopProduct[]>([]);
+  const [trending, setTrending] = useState<TopProduct[]>([]);
+  const [rankingLoading, setRankingLoading] = useState(false);
 
   const branchId = selectedBranch?.id || null;
 
@@ -33,8 +43,19 @@ export default function Sales() {
     if (branchId) {
       dispatch(fetchStock(branchId));
       setCart([]);
+      loadRanking(branchId);
     }
   }, [branchId, dispatch]);
+
+  const loadRanking = async (bId: number) => {
+    setRankingLoading(true);
+    try {
+      const { data } = await api.get(`/sales/branch/${bId}/top-products`);
+      setTopProducts(data.topProducts || []);
+      setTrending(data.trending || []);
+    } catch { /* silent */ }
+    setRankingLoading(false);
+  };
 
   const addToCart = (productId: number, product: Product, maxQty: number) => {
     setCart((prev) => {
@@ -139,6 +160,75 @@ export default function Sales() {
           <p className="text-surface-400 text-sm mt-1">Volvé al Dashboard para elegir una sucursal</p>
         </div>
       ) : (
+        <>
+        {/* Trending & Top Products */}
+        {(trending.length > 0 || topProducts.length > 0) && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Trending this week */}
+            {trending.length > 0 && (
+              <div className="bg-white rounded-2xl border border-surface-100 p-4 shadow-sm">
+                <h3 className="text-sm font-bold text-surface-900 mb-3 flex items-center gap-2">
+                  🔥 Trending esta semana
+                </h3>
+                <div className="space-y-2">
+                  {trending.map((t, i) => (
+                    <div key={t.product.id} className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-50 transition-colors">
+                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0
+                        ${i === 0 ? 'bg-gradient-to-br from-orange-400 to-red-500 text-white shadow-md' :
+                          i === 1 ? 'bg-gradient-to-br from-amber-300 to-orange-400 text-white' :
+                          i === 2 ? 'bg-gradient-to-br from-yellow-300 to-amber-400 text-white' :
+                          'bg-surface-100 text-surface-500'}`}>
+                        {i + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-surface-900 truncate">{t.product.name}</p>
+                        <p className="text-xs text-surface-400">{t.product.category?.name}</p>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <p className="text-sm font-bold text-surface-900">{t.totalSold}</p>
+                        <p className="text-[10px] text-surface-400">vendidos</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* All-time top products */}
+            {topProducts.length > 0 && (
+              <div className="bg-white rounded-2xl border border-surface-100 p-4 shadow-sm">
+                <h3 className="text-sm font-bold text-surface-900 mb-3 flex items-center gap-2">
+                  🏆 Más vendidos (histórico)
+                </h3>
+                <div className="space-y-2">
+                  {topProducts.slice(0, 5).map((t, i) => (
+                    <div key={t.product.id} className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-50 transition-colors">
+                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0
+                        ${i === 0 ? 'bg-gradient-to-br from-yellow-400 to-yellow-600 text-white shadow-md' :
+                          i === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-white' :
+                          i === 2 ? 'bg-gradient-to-br from-amber-600 to-amber-700 text-white' :
+                          'bg-surface-100 text-surface-500'}`}>
+                        {i + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-surface-900 truncate">{t.product.name}</p>
+                        <p className="text-xs text-surface-400">{t.salesCount} ventas</p>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <p className="text-sm font-bold text-surface-900">{t.totalSold}</p>
+                        <p className="text-[10px] text-surface-400">unidades</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        {rankingLoading && (
+          <div className="flex justify-center py-4"><Spinner size="sm" /></div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Product list */}
           <div className="lg:col-span-2 bg-white rounded-2xl border border-surface-100 p-5 shadow-sm">
@@ -296,6 +386,7 @@ export default function Sales() {
             )}
           </div>
         </div>
+        </>
       )}
     </div>
   );

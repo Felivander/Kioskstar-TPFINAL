@@ -18,6 +18,9 @@ export interface Kiosk {
   name: string;
   ownerId: number;
   address: string;
+  city: string;
+  postalCode: string;
+  province: string;
   lat: number;
   lng: number;
   createdAt: string;

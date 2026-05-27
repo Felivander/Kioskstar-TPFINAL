@@ -26,7 +26,7 @@ export default function Layout() {
   const filteredNav = navItems.filter((item) => item.roles.includes(user?.role || ''));
 
   return (
-    <div className="min-h-screen flex bg-surface-50">
+    <div className="h-screen flex bg-surface-50 overflow-hidden">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -110,7 +110,7 @@ export default function Layout() {
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top bar */}
         <header className="sticky top-0 z-30 glass border-b border-surface-200/50 px-4 lg:px-8 py-3.5 flex items-center gap-4">
           <button
@@ -129,7 +129,7 @@ export default function Layout() {
         </header>
 
         {/* Page */}
-        <main className="flex-1 p-4 lg:p-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 lg:p-6 w-full overflow-y-auto">
           <Outlet />
         </main>
       </div>
