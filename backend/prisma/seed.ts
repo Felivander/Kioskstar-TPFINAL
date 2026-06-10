@@ -30,6 +30,19 @@ const sufijos = [
   '', ' Express', ' 24hs', ' Market', '', ' Central', '', ' Shop', '', ' Maxi',
 ];
 
+const kioskImages = [
+  'https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1580793241553-e9f1cce1d107?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1601599561263-847c9d6409f8?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1574634534894-89d7576c8259?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1534723452862-4c874018d66d?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=600&q=80'
+];
+
 // Nombres de sucursales
 const nombresSucursales = [
   'Principal', 'Centro', 'Norte', 'Sur', 'Este', 'Oeste',
@@ -266,6 +279,7 @@ async function main() {
         province: 'Entre Ríos',
         lat: coords.lat,
         lng: coords.lng,
+        imageUrl: kioskImages[validKiosksCount % kioskImages.length],
       },
     });
 
