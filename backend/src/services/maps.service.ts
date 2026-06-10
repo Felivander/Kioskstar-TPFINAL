@@ -1,9 +1,38 @@
-// Google Maps Service placeholder
-// TODO: Integrar con Google Maps API para geocoding y directions
+// Google Maps Service
+// Integrado con Google Maps API para geocoding
 
 export const geocodeAddress = async (address: string): Promise<{ lat: number; lng: number } | null> => {
-  console.log('geocodeAddress called - pending integration');
-  return null;
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+  if (!apiKey) {
+    console.warn('geocodeAddress: GOOGLE_MAPS_API_KEY no configurada');
+    return null;
+  }
+
+  try {
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      console.error(`Error de red en Geocoding API: ${response.status} ${response.statusText}`);
+      return null;
+    }
+
+    const data = (await response.json()) as any;
+    
+    if (data.status === 'OK' && data.results && data.results.length > 0) {
+      const location = data.results[0].geometry.location;
+      return {
+        lat: parseFloat(location.lat),
+        lng: parseFloat(location.lng)
+      };
+    } else {
+      console.warn(`Geocoding falló para la dirección: "${address}". Estado: ${data.status}. Mensaje: ${data.error_message || 'Sin mensaje de error'}`);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error en geocodeAddress:', error);
+    return null;
+  }
 };
 
 export const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number): number => {
@@ -14,3 +43,4 @@ export const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
+

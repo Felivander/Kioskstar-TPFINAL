@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import { geocodeAddress } from '../src/services/maps.service';
 
 const prisma = new PrismaClient();
 
@@ -64,7 +65,7 @@ function randomConcordiaCoords(): { lat: number; lng: number } {
 }
 
 async function main() {
-  console.log('🌱 Seeding database — 100 kioscos en Concordia, Entre Ríos...');
+  console.log('🌱 Seeding database — 40 kioscos en Concordia, Entre Ríos...');
   console.log('🗑️  Limpiando datos anteriores...');
 
   // Clean in correct order (foreign keys)
@@ -221,21 +222,40 @@ async function main() {
   );
   console.log(`📦 ${products.length} productos creados`);
 
-  // ── 100 Kioscos en Concordia ──
+  // ── 40 Kioscos Geocodificados en Concordia ──
   const usedNames = new Set<string>();
   const allBranches: { id: number; kioskId: number }[] = [];
+  let validKiosksCount = 0;
+  let attempts = 0;
 
-  for (let i = 0; i < 100; i++) {
+  console.log('🌍 Geocodificando direcciones para 40 kioscos...');
+
+  while (validKiosksCount < 40 && attempts < 200) {
+    attempts++;
+    
     // Generate unique name
     let name = '';
     do {
-      name = generateKioskName(i);
+      name = generateKioskName(validKiosksCount);
     } while (usedNames.has(name));
+
+    // Generate address
+    const calle = randomItem(calles);
+    const numero = Math.floor(Math.random() * 900) + 100; // 100 to 1000
+    const address = `${calle} ${numero}`;
+    const fullAddress = `${address}, Concordia, Entre Ríos, Argentina`;
+
+    // Geocode the address
+    let coords = await geocodeAddress(fullAddress);
+    
+    if (!coords) {
+      console.warn(`⚠️ No se pudo geocodificar "${address}". Usando coordenadas simuladas en Concordia.`);
+      coords = randomConcordiaCoords();
+    }
+
     usedNames.add(name);
 
-    const coords = randomConcordiaCoords();
-    const address = generateAddress();
-
+    // Create Kiosk
     const kiosk = await prisma.kiosk.create({
       data: {
         name,
@@ -249,29 +269,24 @@ async function main() {
       },
     });
 
-    // 1-3 sucursales por kiosco
-    const numBranches = Math.random() < 0.6 ? 1 : Math.random() < 0.7 ? 2 : 3;
+    // Create exactly 1 branch for the kiosk
+    const branch = await prisma.branch.create({
+      data: {
+        kioskId: kiosk.id,
+        name: 'Sucursal Principal',
+        address: address,
+        lat: coords.lat,
+        lng: coords.lng,
+      },
+    });
+    
+    allBranches.push({ id: branch.id, kioskId: kiosk.id });
+    validKiosksCount++;
 
-    for (let j = 0; j < numBranches; j++) {
-      const branchCoords = j === 0 ? coords : randomConcordiaCoords();
-      const branchName = j === 0 ? 'Sucursal Principal' : `Sucursal ${randomItem(nombresSucursales)}`;
-
-      const branch = await prisma.branch.create({
-        data: {
-          kioskId: kiosk.id,
-          name: branchName,
-          address: j === 0 ? address : generateAddress(),
-          lat: branchCoords.lat,
-          lng: branchCoords.lng,
-        },
-      });
-      allBranches.push({ id: branch.id, kioskId: kiosk.id });
-    }
-
-    if ((i + 1) % 20 === 0) console.log(`   🏪 ${i + 1}/100 kioscos...`);
+    if (validKiosksCount % 10 === 0) console.log(`   🏪 ${validKiosksCount}/40 kioscos geocodificados...`);
   }
 
-  console.log(`🏪 100 kioscos creados con ${allBranches.length} sucursales`);
+  console.log(`🏪 ${validKiosksCount} kioscos creados con ${allBranches.length} sucursales`);
 
   // Assign empleado to first branch
   await prisma.user.update({
@@ -353,7 +368,7 @@ async function main() {
   console.log('   👤 4 usuarios (admin/empleado/cliente + feli.vander@gmail.com)');
   console.log(`   📂 ${cats.length} categorías`);
   console.log(`   📦 ${products.length} productos`);
-  console.log(`   🏪 100 kioscos en Concordia, Entre Ríos`);
+  console.log(`   🏪 40 kioscos en Concordia, Entre Ríos`);
   console.log(`   📍 ${allBranches.length} sucursales`);
   console.log(`   📊 ${stockCount} registros de stock`);
   console.log(`   💰 ${saleCount} ventas con items`);
