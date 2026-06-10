@@ -9,7 +9,7 @@ interface MapBranch {
   address: string;
   lat: number;
   lng: number;
-  kiosk: { id: number; name: string; address: string };
+  kiosk: { id: number; name: string; address: string; imageUrl?: string | null };
   distance?: number;
 }
 
@@ -23,7 +23,7 @@ interface SearchResult {
     address: string;
     lat: number;
     lng: number;
-    kiosk: { id: number; name: string };
+    kiosk: { id: number; name: string; imageUrl?: string | null };
   };
   distance: number;
 }
@@ -180,6 +180,7 @@ export default function MapView() {
             <APIProvider apiKey={API_KEY}>
               <GoogleMap
                 center={mapCenter}
+                onCameraChanged={(ev) => setMapCenter(ev.detail.center)}
                 defaultZoom={13}
                 mapId="kioskstar-map"
                 gestureHandling="greedy"
@@ -242,31 +243,47 @@ export default function MapView() {
                     onCloseClick={() => setSelectedBranch(null)}
                     pixelOffset={[0, -30]}
                   >
-                    <div className="p-1 min-w-[180px]">
-                      <h3 className="font-bold text-surface-900 text-sm">{selectedBranch.kiosk?.name}</h3>
-                      <p className="text-xs text-surface-500 mt-0.5">{selectedBranch.name}</p>
-                      <p className="text-xs text-surface-400 mt-0.5">📍 {selectedBranch.address}</p>
-                      {selectedBranch.distance !== undefined && (
-                        <p className="text-xs text-orange-600 font-medium mt-1">📏 {formatDistance(selectedBranch.distance)}</p>
-                      )}
-                      {(() => {
-                        const results = getResultsForBranch(selectedBranch.id);
-                        if (!results || results.length === 0) return null;
-                        return (
-                          <div className="mt-2 pt-2 border-t border-surface-100">
-                            <p className="text-xs font-medium text-surface-700 mb-1">Productos encontrados:</p>
-                            {results.map((r) => (
-                              <div key={r.id} className="flex items-center justify-between text-xs py-0.5">
-                                <span className="text-surface-700">{r.product.name}</span>
-                                <div className="flex gap-2">
-                                  <span className="text-emerald-600 font-medium">{r.quantity} uds</span>
-                                  <span className="text-primary-600 font-medium">${r.product.price}</span>
+                    <div className="min-w-[200px] max-w-[260px] overflow-hidden rounded-xl bg-white text-left shadow-sm">
+                      {/* Photo Banner */}
+                      <div className="relative w-full h-28 bg-gradient-to-br from-primary-500/10 to-primary-600/5 flex items-center justify-center overflow-hidden border-b border-surface-100">
+                        {selectedBranch.kiosk?.imageUrl ? (
+                          <img
+                            src={selectedBranch.kiosk.imageUrl}
+                            alt={selectedBranch.kiosk.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <span className="text-3xl">🏪</span>
+                        )}
+                      </div>
+
+                      {/* Details Content */}
+                      <div className="p-3">
+                        <h3 className="font-bold text-surface-900 text-sm">{selectedBranch.kiosk?.name}</h3>
+                        <p className="text-xs text-surface-500 mt-0.5">{selectedBranch.name}</p>
+                        <p className="text-[11px] text-surface-400 mt-0.5">📍 {selectedBranch.address}</p>
+                        {selectedBranch.distance !== undefined && (
+                          <p className="text-xs text-orange-600 font-medium mt-1">📏 {formatDistance(selectedBranch.distance)}</p>
+                        )}
+                        {(() => {
+                          const results = getResultsForBranch(selectedBranch.id);
+                          if (!results || results.length === 0) return null;
+                          return (
+                            <div className="mt-2 pt-2 border-t border-surface-100">
+                              <p className="text-xs font-semibold text-surface-700 mb-1">Productos encontrados:</p>
+                              {results.map((r) => (
+                                <div key={r.id} className="flex items-center justify-between text-xs py-0.5">
+                                  <span className="text-surface-700 truncate mr-2">{r.product.name}</span>
+                                  <div className="flex gap-2 shrink-0">
+                                    <span className="text-emerald-600 font-medium">{r.quantity} uds</span>
+                                    <span className="text-primary-600 font-medium">${r.product.price}</span>
+                                  </div>
                                 </div>
-                              </div>
-                            ))}
-                          </div>
-                        );
-                      })()}
+                              ))}
+                            </div>
+                          );
+                        })()}
+                      </div>
                     </div>
                   </InfoWindow>
                 )}
