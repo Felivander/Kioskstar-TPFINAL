@@ -10,7 +10,7 @@ export const getKiosksNearby = async (req: Request, res: Response): Promise<void
 
     const branches = await prisma.branch.findMany({
       include: {
-        kiosk: { select: { id: true, name: true, address: true } },
+        kiosk: { select: { id: true, name: true, address: true, imageUrl: true } },
       },
     });
 
@@ -45,7 +45,7 @@ export const searchProductInMap = async (req: Request, res: Response): Promise<v
       },
       include: {
         product: true,
-        branch: { include: { kiosk: { select: { id: true, name: true } } } },
+        branch: { include: { kiosk: { select: { id: true, name: true, imageUrl: true } } } },
       },
     });
 
