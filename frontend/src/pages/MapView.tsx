@@ -356,10 +356,7 @@ export default function MapView() {
         </div>
       )}
 
-      {loading ? (
-        <div className="flex justify-center py-16 flex-1"><Spinner size="lg" /></div>
-      ) : (
-        <div className="flex flex-col lg:flex-row gap-3 flex-1 min-h-0 w-full overflow-hidden">
+      <div className="flex flex-col lg:flex-row gap-3 flex-1 min-h-0 w-full overflow-hidden">
           {/* Map Area with absolute Map and floating Details overlay */}
           <div className="relative flex-1 min-h-[350px] lg:min-h-0 w-full h-full lg:w-5/6">
             <div className="absolute inset-0 rounded-2xl overflow-hidden border border-surface-200">
@@ -472,7 +469,12 @@ export default function MapView() {
           </div>
 
           {/* Sidebar list — sorted by distance when searching */}
-          <div className="w-full lg:w-1/6 space-y-2 overflow-y-auto max-h-[500px] lg:max-h-full pr-1 lg:pr-6 lg:-mr-6 shrink-0 custom-scrollbar">
+          <div className="w-full lg:w-1/6 space-y-2 overflow-y-auto max-h-[500px] lg:max-h-full pr-1 lg:pr-6 lg:-mr-6 shrink-0 custom-scrollbar relative">
+            {loading && (
+              <div className="absolute inset-0 bg-white/70 backdrop-blur-[1px] flex items-center justify-center z-20">
+                <Spinner size="md" />
+              </div>
+            )}
             <p className="text-xs font-medium text-surface-400 uppercase tracking-wider px-1">
               {searchResults ? 'Ordenado por cercanía' : `${branches.length} kiosco${branches.length !== 1 ? 's' : ''}`}
             </p>
@@ -547,7 +549,6 @@ export default function MapView() {
             )}
           </div>
         </div>
-      )}
-    </div>
+      </div>
   );
 }
