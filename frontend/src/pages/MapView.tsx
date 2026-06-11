@@ -3,6 +3,7 @@ import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from '@vis.
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import Spinner from '../components/Spinner';
+import { Locate } from 'lucide-react';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -81,6 +82,24 @@ export default function MapView() {
         setMapCenter({ lat: b.lat - 0.0018, lng: b.lng });
       }
       setZoom(16);
+    }
+  };
+
+  const recenterUserLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          setUserLocation(loc);
+          setMapCenter(loc);
+          setZoom(15);
+        },
+        () => {
+          alert('No se pudo acceder a tu ubicación. Por favor activa los permisos de GPS.');
+        }
+      );
+    } else {
+      alert('Tu navegador no soporta geolocalización.');
     }
   };
 
@@ -409,6 +428,15 @@ export default function MapView() {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Botón Geolocalización */}
+            <button
+              onClick={recenterUserLocation}
+              className="absolute right-4 bottom-24 bg-white hover:bg-surface-50 border border-surface-200/80 rounded-xl p-2.5 shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer z-10 text-primary-600 flex items-center justify-center"
+              title="Mi ubicación"
+            >
+              <Locate size={18} />
+            </button>
           </div>
 
           {/* Sidebar list — sorted by distance when searching */}
