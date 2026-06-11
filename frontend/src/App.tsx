@@ -15,6 +15,7 @@ import Products from './pages/Products';
 import Stock from './pages/Stock';
 import Sales from './pages/Sales';
 import MapView from './pages/MapView';
+import Account from './pages/Account';
 
 export default function App() {
   const { token, user } = useAppSelector((s) => s.auth);
@@ -64,6 +65,7 @@ export default function App() {
           <ProtectedRoute allowedRoles={['ADMIN', 'EMPLEADO']}><Sales /></ProtectedRoute>
         } />
         <Route path="/map" element={<MapView />} />
+        <Route path="/account" element={<Account />} />
       </Route>
 
       {/* Fallback */}

@@ -93,6 +93,10 @@ const authSlice = createSlice({
     clearError(state) {
       state.error = null;
     },
+    updateAuthUser(state, action: PayloadAction<User>) {
+      state.user = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload));
+    },
     setSelectedBranch(state, action: PayloadAction<Branch | null>) {
       state.selectedBranch = action.payload;
       if (action.payload) {
@@ -153,5 +157,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearError, setSelectedBranch } = authSlice.actions;
+export const { logout, clearError, setSelectedBranch, updateAuthUser } = authSlice.actions;
 export default authSlice.reducer;

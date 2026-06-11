@@ -106,7 +106,7 @@ export default function Layout() {
                   <div className="border-t border-surface-150 my-1" />
                   
                   <button
-                    onClick={() => { alert('Gestión de cuenta en desarrollo'); setProfileDropdownOpen(false); }}
+                    onClick={() => { navigate('/account'); setProfileDropdownOpen(false); }}
                     className="w-full text-left px-4 py-2 text-xs font-semibold text-surface-700 hover:bg-surface-50 hover:text-surface-900 transition-colors flex items-center gap-2"
                   >
                     Cuenta
@@ -169,7 +169,7 @@ export default function Layout() {
             Mi Kiosco
           </NavLink>
           <button
-            onClick={() => { alert('Gestión de cuenta en desarrollo'); setMobileMenuOpen(false); }}
+            onClick={() => { navigate('/account'); setMobileMenuOpen(false); }}
             className="text-sm font-medium text-surface-500 py-1.5 block text-left w-full transition-colors"
           >
             Cuenta

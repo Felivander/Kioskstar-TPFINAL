@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import prisma from '../lib/prisma';
 import { AuthRequest } from '../middlewares/auth.middleware';
 import { sendPasswordResetEmail } from '../services/email.service';
+import { geocodeAddress } from '../services/maps.service';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -130,7 +131,7 @@ export const updateUser = async (req: AuthRequest, res: Response): Promise<void>
     const { name, email, password } = req.body;
 
     // Solo el propio usuario o un admin puede actualizar
-    if (req.userId !== parseInt(id) && req.userRole !== 'ADMIN') {
+    if (req.userId !== parseInt(id as string) && req.userRole !== 'ADMIN') {
       res.status(403).json({ error: 'No tienes permisos para editar este usuario' });
       return;
     }
@@ -141,7 +142,7 @@ export const updateUser = async (req: AuthRequest, res: Response): Promise<void>
     if (password) updateData.password = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.update({
-      where: { id: parseInt(id) },
+      where: { id: parseInt(id as string) },
       select: {
         id: true,
         name: true,
@@ -207,6 +208,48 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
       return;
     }
 
+    // Geocodificación antes de la transacción para no bloquear la base de datos
+    let finalKioskLat = kioskLat;
+    let finalKioskLng = kioskLng;
+
+    const isDefaultCoords = (l: number, g: number) => {
+      if (!l || !g) return true;
+      if (Math.abs(l - (-34.6037)) < 0.01 && Math.abs(g - (-58.3816)) < 0.01) return true;
+      if (Math.abs(l - (-34.6)) < 0.05 && Math.abs(g - (-58.38)) < 0.05) return true;
+      return false;
+    };
+
+    if (isDefaultCoords(finalKioskLat, finalKioskLng)) {
+      const fullAddress = `${kioskAddress}, ${kioskCity || ''}, ${kioskProvince || ''}, Argentina`;
+      const coords = await geocodeAddress(fullAddress);
+      if (coords) {
+        finalKioskLat = coords.lat;
+        finalKioskLng = coords.lng;
+      }
+    }
+
+    const resolvedBranches: Array<{ name: string; address: string; lat: number; lng: number }> = [];
+    if (branches && branches.length > 0) {
+      for (const branch of branches) {
+        let branchLat = branch.lat;
+        let branchLng = branch.lng;
+        if (isDefaultCoords(branchLat, branchLng)) {
+          const fullAddress = `${branch.address}, ${kioskCity || ''}, ${kioskProvince || ''}, Argentina`;
+          const coords = await geocodeAddress(fullAddress);
+          if (coords) {
+            branchLat = coords.lat;
+            branchLng = coords.lng;
+          }
+        }
+        resolvedBranches.push({
+          name: branch.name,
+          address: branch.address,
+          lat: branchLat,
+          lng: branchLng,
+        });
+      }
+    }
+
     const result = await prisma.$transaction(async (tx) => {
       // Promover usuario a ADMIN
       const user = await tx.user.update({
@@ -223,8 +266,8 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
           city: kioskCity || '',
           postalCode: kioskPostalCode || '',
           province: kioskProvince || '',
-          lat: kioskLat,
-          lng: kioskLng,
+          lat: finalKioskLat,
+          lng: finalKioskLng,
           ownerId: req.userId!,
         },
       });
@@ -235,24 +278,22 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
           kioskId: kiosk.id,
           name: 'Sucursal Principal',
           address: kioskAddress,
-          lat: kioskLat,
-          lng: kioskLng,
+          lat: finalKioskLat,
+          lng: finalKioskLng,
         },
       });
 
       // Crear sucursales adicionales
-      if (branches && branches.length > 0) {
-        for (const branch of branches) {
-          await tx.branch.create({
-            data: {
-              kioskId: kiosk.id,
-              name: branch.name,
-              address: branch.address,
-              lat: branch.lat,
-              lng: branch.lng,
-            },
-          });
-        }
+      for (const branch of resolvedBranches) {
+        await tx.branch.create({
+          data: {
+            kioskId: kiosk.id,
+            name: branch.name,
+            address: branch.address,
+            lat: branch.lat,
+            lng: branch.lng,
+          },
+        });
       }
 
       return { user, kiosk };
@@ -278,7 +319,7 @@ export const generateInviteCode = async (req: AuthRequest, res: Response): Promi
   try {
     const { kioskId } = req.params;
     const { branchId } = req.body;
-    const kioskIdNum = parseInt(kioskId);
+    const kioskIdNum = parseInt(kioskId as string);
 
     // Verificar que el kiosco pertenece al usuario
     const kiosk = await prisma.kiosk.findUnique({ where: { id: kioskIdNum } });
@@ -539,6 +580,95 @@ export const getMyBranch = async (req: AuthRequest, res: Response): Promise<void
     res.json(branch);
   } catch (error) {
     console.error('Error en getMyBranch:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+export const deleteUser = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const userId = parseInt(id as string);
+
+    // Solo el propio usuario o un admin puede borrar la cuenta
+    if (req.userId !== userId && req.userRole !== 'ADMIN') {
+      res.status(403).json({ error: 'No tienes permisos para eliminar este usuario' });
+      return;
+    }
+
+    // 1. Borrar invite codes creados por el usuario
+    await prisma.inviteCode.deleteMany({
+      where: { createdBy: userId }
+    });
+
+    // 2. Borrar solicitudes de restablecimiento de contraseña
+    await prisma.passwordReset.deleteMany({
+      where: { userId }
+    });
+
+    // 3. Borrar detalles de venta de las ventas realizadas por el usuario
+    await prisma.saleItem.deleteMany({
+      where: {
+        sale: { userId }
+      }
+    });
+
+    // 4. Borrar ventas realizadas por el usuario
+    await prisma.sale.deleteMany({
+      where: { userId }
+    });
+
+    // 5. Obtener kioscos del usuario para limpiar sus ventas asociadas y dependencias
+    const userKiosks = await prisma.kiosk.findMany({
+      where: { ownerId: userId },
+      select: { id: true }
+    });
+    const kioskIds = userKiosks.map((k) => k.id);
+
+    const userBranches = await prisma.branch.findMany({
+      where: { kioskId: { in: kioskIds } },
+      select: { id: true }
+    });
+    const branchIds = userBranches.map((b) => b.id);
+
+    // Borrar items de venta y ventas asociadas a las sucursales del usuario
+    await prisma.saleItem.deleteMany({
+      where: {
+        sale: { branchId: { in: branchIds } }
+      }
+    });
+    await prisma.sale.deleteMany({
+      where: { branchId: { in: branchIds } }
+    });
+
+    // 6. Desasociar empleados de las sucursales a borrar (poner branchId a null)
+    await prisma.user.updateMany({
+      where: { branchId: { in: branchIds } },
+      data: { branchId: null }
+    });
+
+    // 7. Borrar stock de esas sucursales
+    await prisma.stock.deleteMany({
+      where: { branchId: { in: branchIds } }
+    });
+
+    // 8. Borrar las sucursales directamente
+    await prisma.branch.deleteMany({
+      where: { kioskId: { in: kioskIds } }
+    });
+
+    // 9. Borrar los kioscos
+    await prisma.kiosk.deleteMany({
+      where: { ownerId: userId }
+    });
+
+    // 10. Finalmente borrar el usuario
+    await prisma.user.delete({
+      where: { id: userId }
+    });
+
+    res.json({ message: 'Cuenta eliminada exitosamente' });
+  } catch (error) {
+    console.error('Error en deleteUser:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };

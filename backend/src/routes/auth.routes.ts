@@ -3,7 +3,7 @@ import {
   register, login, getMe, updateUser, onboard,
   generateInviteCode, joinKiosk,
   forgotPassword, resetPassword,
-  getMyKiosk, getMyBranch,
+  getMyKiosk, getMyBranch, deleteUser,
 } from '../controllers/auth.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { roleMiddleware } from '../middlewares/role.middleware';
@@ -17,6 +17,7 @@ router.post('/register', validate(registerSchema), register);
 router.post('/login', validate(loginSchema), login);
 router.get('/me', authMiddleware, getMe);
 router.put('/users/:id', authMiddleware, updateUser);
+router.delete('/users/:id', authMiddleware, deleteUser);
 
 // Onboarding — después del registro
 router.post('/onboard', authMiddleware, validate(onboardSchema), onboard);
