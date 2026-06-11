@@ -146,8 +146,8 @@ export default function Dashboard() {
   // Branch selector screen (Admin lands here and must pick a branch)
   if (needsBranchSelection && isAdmin) {
     return (
-      <div className="flex flex-col gap-5 h-full max-w-3xl mx-auto py-6 px-4 animate-fade-in-up">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface-900 via-primary-900/80 to-surface-900 p-6 text-white shadow-md">
+      <div className="flex flex-col gap-5 max-w-3xl mx-auto py-6 px-4 animate-fade-in-up">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface-900 via-primary-900/80 to-surface-900 p-6 text-white shadow-md shrink-0">
           <div className="relative z-10">
             <p className="text-white/80 text-xs font-semibold uppercase tracking-wider mb-1">
               {greeting()}, {user?.name}
@@ -189,9 +189,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex flex-col gap-5 h-full min-h-0 max-w-3xl mx-auto py-6 px-4 animate-fade-in-up">
+    <div className="flex flex-col gap-5 max-w-3xl mx-auto py-6 px-4 animate-fade-in-up">
       {/* Welcome banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface-900 via-primary-900/80 to-surface-900 px-6 py-5 text-white shadow-md">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface-900 via-primary-900/80 to-surface-900 px-6 py-5 text-white shadow-md shrink-0">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/10 rounded-full blur-2xl" />
         <div className="relative z-10 flex items-center justify-between">
           <div>
