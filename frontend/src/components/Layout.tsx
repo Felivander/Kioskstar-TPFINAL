@@ -147,14 +147,16 @@ export default function Layout() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 w-full bg-white/95 backdrop-blur-md border-b border-surface-200/80 shadow-lg z-30 py-3 px-4 flex flex-col gap-1.5 animate-fade-in-up">
+        <div className="lg:hidden absolute top-16 left-0 w-full bg-white/95 backdrop-blur-md border-b border-surface-200/80 shadow-lg z-30 py-4 px-6 flex flex-col gap-2.5 animate-fade-in-up">
           {/* Quick Access Submenu */}
           <NavLink
             to="/dashboard"
             onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200
-              ${isActive ? 'bg-primary-50 text-primary-600' : 'text-surface-600 hover:bg-surface-50'}`
+              `text-sm transition-all duration-300 py-1.5 block
+              ${isActive
+                ? 'font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-indigo-600'
+                : 'font-medium text-surface-500'}`
             }
           >
             Dashboard
@@ -162,13 +164,13 @@ export default function Layout() {
           <NavLink
             to="/dashboard"
             onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-surface-600 hover:bg-surface-50 transition-colors"
+            className="text-sm font-medium text-surface-500 py-1.5 block transition-colors text-left"
           >
             Mi Kiosco
           </NavLink>
           <button
             onClick={() => { alert('Gestión de cuenta en desarrollo'); setMobileMenuOpen(false); }}
-            className="flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-surface-600 hover:bg-surface-50 text-left w-full transition-colors"
+            className="text-sm font-medium text-surface-500 py-1.5 block text-left w-full transition-colors"
           >
             Cuenta
           </button>
@@ -182,10 +184,10 @@ export default function Layout() {
               to={item.to}
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200
+                `text-sm transition-all duration-300 py-1.5 block
                 ${isActive
-                  ? 'bg-primary-50 text-primary-600'
-                  : 'text-surface-600 hover:bg-surface-50'}`
+                  ? 'font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-indigo-600'
+                  : 'font-medium text-surface-500'}`
               }
             >
               {item.label}
