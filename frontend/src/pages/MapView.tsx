@@ -3,7 +3,7 @@ import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from '@vis.
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import Spinner from '../components/Spinner';
-import { Locate } from 'lucide-react';
+import { Locate, Flame, Store, Search, MapPin, Package, Compass, Navigation } from 'lucide-react';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -195,7 +195,7 @@ export default function MapView() {
               className="w-full h-full object-cover"
             />
           ) : (
-            <span className="text-4xl">🏪</span>
+            <Store size={40} className="text-surface-400" />
           )}
           {/* Close Button */}
           <button
@@ -217,12 +217,12 @@ export default function MapView() {
           {/* Location Pill */}
           <div className="bg-surface-50 rounded-xl p-3 border border-surface-100 flex flex-col gap-2 text-xs text-surface-700">
             <div className="flex items-start gap-2">
-              <span className="text-sm leading-none">📍</span>
+              <MapPin size={14} className="text-surface-500 shrink-0 mt-0.5" />
               <span className="leading-relaxed">{b.address}</span>
             </div>
             {b.distance !== undefined && (
               <div className="flex items-center gap-2 text-orange-600 font-semibold pt-1.5 border-t border-surface-100/70">
-                <span className="text-sm leading-none">📏</span>
+                <Navigation size={14} className="text-primary-600 rotate-45 shrink-0" />
                 <span>A {formatDistance(b.distance)} de tu ubicación</span>
               </div>
             )}
@@ -247,7 +247,7 @@ export default function MapView() {
               </div>
             ) : (
               <div className="text-center py-6 bg-surface-50 rounded-xl border border-surface-100 border-dashed">
-                <span className="text-xl block mb-1">📦</span>
+                <Package size={20} className="mx-auto mb-1 text-surface-400" />
                 <p className="text-[10px] text-surface-400">No hay stock registrado para búsqueda</p>
               </div>
             )}
@@ -271,7 +271,7 @@ export default function MapView() {
     return (
       <div className="space-y-6 animate-fade-in-up">
         <div className="text-center py-16 bg-white rounded-2xl border border-surface-100">
-          <span className="text-5xl block mb-3">🗺️</span>
+          <Compass size={48} className="mx-auto mb-3 text-surface-400" />
           <p className="text-surface-700 font-medium">Google Maps API Key no configurada</p>
           <p className="text-surface-400 text-sm mt-1">Agregá VITE_GOOGLE_MAPS_API_KEY en frontend/.env</p>
         </div>
@@ -319,7 +319,7 @@ export default function MapView() {
           </span>
           {closestBranchId && (
             <span className="bg-orange-50 text-orange-700 px-2.5 py-1 rounded-full font-medium flex items-center gap-1">
-              🔥 Más cercano destacado
+              <Flame size={12} className="w-3.5 h-3.5 text-orange-700 fill-current inline mr-0.5" /> Más cercano destacado
             </span>
           )}
         </div>
@@ -347,7 +347,11 @@ export default function MapView() {
                 >
                   {/* User location */}
                   <AdvancedMarker position={userLocation}>
-                    <div className="w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-lg animate-pulse" />
+                    <div className="relative flex items-center justify-center">
+                      <div className="absolute w-8 h-8 rounded-full bg-primary-400/30 animate-ping" />
+                      <div className="absolute w-12 h-12 rounded-full bg-primary-500/10 blur-sm -z-10" />
+                      <div className="w-3.5 h-3.5 bg-primary-500 rounded-full border-2 border-white shadow-md" />
+                    </div>
                   </AdvancedMarker>
 
                   {/* Branch markers */}
@@ -362,7 +366,7 @@ export default function MapView() {
                         onClick={() => selectBranchAndZoom(b)}
                       >
                         {isClosest ? (
-                          /* 🔥 Fire aura marker for closest */
+                          /* Flame aura marker for closest */
                           <div className="relative flex items-center justify-center">
                             <div className="absolute w-16 h-16 rounded-full animate-pulse"
                               style={{
@@ -377,17 +381,17 @@ export default function MapView() {
                                 color: 'white',
                                 boxShadow: '0 0 20px rgba(255,100,0,0.5), 0 0 40px rgba(255,60,0,0.3)',
                               }}>
-                              🔥 {b.kiosk?.name || b.name}
+                              <Flame size={12} className="text-white fill-white inline shrink-0" /> {b.kiosk?.name || b.name}
                             </div>
                           </div>
                         ) : (
-                          <div className={`flex items-center gap-1 px-2 py-1 rounded-full shadow-lg text-xs font-bold cursor-pointer transition-transform hover:scale-110
+                          <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full shadow-lg text-xs font-bold cursor-pointer transition-transform hover:scale-110
                             ${selectedBranch?.id === b.id
                               ? 'bg-primary-600 text-white scale-110'
                               : hasResults
                                 ? 'bg-emerald-500 text-white'
                                 : 'bg-white text-surface-900 border border-surface-200'}`}>
-                            🏪 {b.kiosk?.name || b.name}
+                            <Store size={12} className="inline shrink-0" /> {b.kiosk?.name || b.name}
                           </div>
                         )}
                       </AdvancedMarker>
@@ -446,7 +450,7 @@ export default function MapView() {
             </p>
             {branches.length === 0 ? (
               <div className="text-center py-8">
-                <span className="text-3xl block mb-2">🔍</span>
+                <Search size={32} className="mx-auto mb-2 text-surface-400" />
                 <p className="text-surface-500 text-sm">No se encontraron kioscos</p>
               </div>
             ) : (
@@ -479,8 +483,8 @@ export default function MapView() {
                       } : undefined}
                     >
                       {isClosest && (
-                        <div className="absolute top-0 right-0 bg-gradient-to-l from-orange-500 to-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
-                          🔥 MÁS CERCANO
+                        <div className="absolute top-0 right-0 bg-gradient-to-l from-orange-500 to-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-bl-lg flex items-center gap-0.5">
+                          <Flame size={10} className="w-2.5 h-2.5 fill-current" /> MÁS CERCANO
                         </div>
                       )}
                       <div className="flex items-start justify-between mb-0.5">
@@ -495,7 +499,10 @@ export default function MapView() {
                         )}
                       </div>
                       <p className="text-xs text-surface-600">{b.name}</p>
-                      <p className="text-xs text-surface-400 mt-0.5">📍 {b.address}</p>
+                      <p className="text-xs text-surface-400 mt-0.5 flex items-center gap-1">
+                        <MapPin size={12} className="text-surface-400 shrink-0" />
+                        <span>{b.address}</span>
+                      </p>
                       {results && results.length > 0 && (
                         <div className="mt-2 flex flex-wrap gap-1">
                           {results.map((r) => (
