@@ -32,8 +32,8 @@ export default function Layout() {
         {/* Logo and Selected Branch */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center text-lg shadow-lg shadow-primary-500/20 animate-glow">
-              🌟
+            <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center text-lg font-bold text-white shadow-lg shadow-primary-500/20 animate-glow">
+              K
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight text-surface-950">
@@ -43,26 +43,24 @@ export default function Layout() {
           </div>
           {selectedBranch && (
             <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-100 text-xs font-semibold text-surface-600 border border-surface-200/40">
-              <span>📍</span>
               <span className="truncate max-w-[150px]">{selectedBranch.name}</span>
             </div>
           )}
         </div>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1.5" role="navigation">
+        <nav className="hidden lg:flex items-center gap-2" role="navigation">
           {filteredNav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-200
+                `px-4 py-2 text-sm transition-all duration-300 hover:-translate-y-[0.5px]
                 ${isActive
-                  ? 'bg-primary-50 text-primary-600 shadow-sm border border-primary-100/50'
-                  : 'text-surface-600 hover:bg-surface-50 hover:text-surface-900'}`
+                  ? 'font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-indigo-600'
+                  : 'font-medium text-surface-500 hover:text-primary-600'}`
               }
             >
-              <span>{item.icon}</span>
               {item.label}
             </NavLink>
           ))}
@@ -96,13 +94,13 @@ export default function Layout() {
                     onClick={() => { navigate('/dashboard'); setProfileDropdownOpen(false); }}
                     className="w-full text-left px-4 py-2 text-xs font-semibold text-surface-700 hover:bg-surface-50 hover:text-surface-900 transition-colors flex items-center gap-2"
                   >
-                    <span>📊</span> Dashboard
+                    Dashboard
                   </button>
                   <button
                     onClick={() => { navigate('/dashboard'); setProfileDropdownOpen(false); }}
                     className="w-full text-left px-4 py-2 text-xs font-semibold text-surface-700 hover:bg-surface-50 hover:text-surface-900 transition-colors flex items-center gap-2"
                   >
-                    <span>🏪</span> Mi Kiosco
+                    Mi Kiosco
                   </button>
                   
                   <div className="border-t border-surface-150 my-1" />
@@ -111,7 +109,7 @@ export default function Layout() {
                     onClick={() => { alert('Gestión de cuenta en desarrollo'); setProfileDropdownOpen(false); }}
                     className="w-full text-left px-4 py-2 text-xs font-semibold text-surface-700 hover:bg-surface-50 hover:text-surface-900 transition-colors flex items-center gap-2"
                   >
-                    <span>👤</span> Cuenta
+                    Cuenta
                   </button>
 
                   <div className="border-t border-surface-150 my-1" />
@@ -159,20 +157,20 @@ export default function Layout() {
               ${isActive ? 'bg-primary-50 text-primary-600' : 'text-surface-600 hover:bg-surface-50'}`
             }
           >
-            <span>📊</span> Dashboard
+            Dashboard
           </NavLink>
           <NavLink
             to="/dashboard"
             onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-surface-600 hover:bg-surface-50 transition-colors"
           >
-            <span>🏪</span> Mi Kiosco
+            Mi Kiosco
           </NavLink>
           <button
             onClick={() => { alert('Gestión de cuenta en desarrollo'); setMobileMenuOpen(false); }}
             className="flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-surface-600 hover:bg-surface-50 text-left w-full transition-colors"
           >
-            <span>👤</span> Cuenta
+            Cuenta
           </button>
 
           <div className="border-t border-surface-150 my-1.5" />
@@ -190,7 +188,6 @@ export default function Layout() {
                   : 'text-surface-600 hover:bg-surface-50'}`
               }
             >
-              <span>{item.icon}</span>
               {item.label}
             </NavLink>
           ))}
