@@ -356,7 +356,7 @@ export default function Dashboard() {
               onClick={() => navigate('/sales')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <Coins className="text-surface-300 group-hover:scale-110 transition-transform shrink-0" size={24} />
+              <Coins className="text-surface-400 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">Registrar Venta</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">Escanear o Manual</span>
@@ -367,7 +367,7 @@ export default function Dashboard() {
               onClick={() => navigate('/stock')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <Package className="text-surface-300 group-hover:scale-110 transition-transform shrink-0" size={24} />
+              <Package className="text-surface-400 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">Cargar Stock</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">Actualizar cantidades</span>
@@ -378,7 +378,7 @@ export default function Dashboard() {
               onClick={() => navigate('/map')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <Map className="text-surface-300 group-hover:scale-110 transition-transform shrink-0" size={24} />
+              <Map className="text-surface-400 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">Ver Mapa</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">Buscador y Kioscos</span>
@@ -389,7 +389,7 @@ export default function Dashboard() {
               onClick={() => navigate(isAdmin ? '/my-kiosk' : '/dashboard')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <Users className="text-surface-300 group-hover:scale-110 transition-transform shrink-0" size={24} />
+              <Users className="text-surface-400 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">{isAdmin ? 'Personal' : 'Mi Cuenta'}</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">{isAdmin ? 'Invitaciones' : 'Detalles de perfil'}</span>
