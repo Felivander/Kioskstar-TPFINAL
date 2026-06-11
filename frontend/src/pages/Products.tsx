@@ -339,7 +339,7 @@ export default function Products() {
                 className="bg-white border border-surface-200/60 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between group"
               >
                 {/* Image section */}
-                <div className="relative aspect-square w-full bg-surface-50 border-b border-surface-100 flex items-center justify-center overflow-hidden">
+                <div className="relative aspect-video w-full bg-surface-50 border-b border-surface-100 flex items-center justify-center overflow-hidden">
                   {p.imageUrl ? (
                     <img
                       src={p.imageUrl}
@@ -347,26 +347,24 @@ export default function Products() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <Package size={24} className="text-surface-300" />
+                    <Package size={20} className="text-surface-300" />
                   )}
                   {/* Category Pill */}
-                  <span className="absolute top-1.5 left-1.5 text-[7.5px] font-bold bg-white/90 backdrop-blur-sm border border-surface-200/60 px-1 py-0.5 rounded-full uppercase tracking-wider text-surface-600">
+                  <span className="absolute top-1 left-1 text-[7px] font-bold bg-white/90 backdrop-blur-sm border border-surface-200/60 px-1 py-0.5 rounded-full uppercase tracking-wider text-surface-600">
                     {p.category?.name || 'Varios'}
                   </span>
                 </div>
 
                 {/* Body Details */}
-                <div className="p-2.5 flex-1 flex flex-col justify-between space-y-1.5">
+                <div className="p-2 flex-1 flex flex-col justify-between space-y-1">
                   <div>
                     <h3 className="font-bold text-xs text-surface-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
                       {p.name}
                     </h3>
-                    {p.description && p.description.toLowerCase() !== p.name.toLowerCase() ? (
-                      <p className="text-[9.5px] text-surface-400 mt-0.5 line-clamp-1 min-h-[0.75rem]">
+                    {p.description && p.description.toLowerCase() !== p.name.toLowerCase() && (
+                      <p className="text-[9.5px] text-surface-400 mt-0.5 line-clamp-1">
                         {p.description}
                       </p>
-                    ) : (
-                      <div className="min-h-[0.75rem]" />
                     )}
                   </div>
 
