@@ -15,6 +15,7 @@ export default function Products() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [formLoading, setFormLoading] = useState(false);
+  const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
 
   // Filter and Layout states
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -118,7 +119,6 @@ export default function Products() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('¿Eliminar este producto?')) return;
     try {
       await api.delete(`/products/${id}`);
       toast.success('Producto eliminado');
@@ -315,6 +315,48 @@ export default function Products() {
         </div>
       )}
 
+      {/* Delete Confirmation Modal */}
+      {deletingProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4" onClick={() => setDeletingProduct(null)}>
+          <div
+            className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl animate-scale-in text-center"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-label="Confirmar eliminación"
+          >
+            <div className="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto mb-4">
+              <Trash2 size={24} />
+            </div>
+            <h3 className="text-base font-bold text-surface-900 mb-2">
+              ¿Eliminar producto?
+            </h3>
+            <p className="text-xs text-surface-500 mb-6 leading-relaxed">
+              ¿Estás seguro de que querés eliminar <span className="font-bold text-surface-800">"{deletingProduct.name}"</span>? Esta acción no se puede deshacer.
+            </p>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setDeletingProduct(null)}
+                className="flex-1 py-2.5 rounded-xl border border-surface-200 text-surface-600 font-medium text-sm hover:bg-surface-50 transition-colors cursor-pointer"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={async () => {
+                  const id = deletingProduct.id;
+                  setDeletingProduct(null);
+                  await handleDelete(id);
+                }}
+                className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-sm transition-colors cursor-pointer"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Products list/grid */}
       {loading ? (
         <SkeletonTable rows={6} />
@@ -399,7 +441,7 @@ export default function Products() {
                       Editar
                     </button>
                     <button
-                      onClick={() => handleDelete(p.id)}
+                      onClick={() => setDeletingProduct(p)}
                       className="text-[9.5px] font-bold text-red-500 hover:text-red-600 transition-colors cursor-pointer"
                     >
                       Eliminar
@@ -474,7 +516,7 @@ export default function Products() {
                             aria-label={`Editar ${product.name}`}>
                             Editar
                           </button>
-                          <button onClick={() => handleDelete(product.id)}
+                          <button onClick={() => setDeletingProduct(product)}
                             className="text-red-500 hover:text-red-600 font-medium transition-colors cursor-pointer"
                             aria-label={`Eliminar ${product.name}`}>
                             Eliminar
