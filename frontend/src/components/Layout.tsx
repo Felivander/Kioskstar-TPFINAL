@@ -126,10 +126,10 @@ export default function Layout() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `relative px-4 py-2 text-sm transition-all duration-300 hover:text-primary-600
+                `px-4 py-2 text-sm transition-all duration-300 rounded-xl
                 ${isActive
-                  ? 'font-bold text-surface-950 after:absolute after:bottom-[-10px] after:left-2 after:right-2 after:h-[3px] after:bg-primary-500 after:rounded-full'
-                  : 'font-medium text-surface-500'}`
+                  ? 'font-bold bg-primary-500 text-white shadow-md shadow-primary-500/20'
+                  : 'font-medium text-surface-500 hover:text-primary-600 hover:bg-surface-100'}`
               }
             >
               {item.label}
@@ -224,10 +224,10 @@ export default function Layout() {
             to="/dashboard"
             onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
-              `text-sm transition-all duration-300 py-1.5 block hover:text-primary-600
+              `text-sm transition-all duration-300 px-4 py-2 rounded-xl block
               ${isActive
-                ? 'font-bold text-surface-950 pl-2 border-l-[3px] border-primary-500'
-                : 'font-medium text-surface-500'}`
+                ? 'font-bold bg-primary-500 text-white shadow-sm'
+                : 'font-medium text-surface-500 hover:bg-surface-50'}`
             }
           >
             Dashboard
@@ -255,10 +255,10 @@ export default function Layout() {
               to={item.to}
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
-                `text-sm transition-all duration-300 py-1.5 block hover:text-primary-600
+                `text-sm transition-all duration-300 px-4 py-2 rounded-xl block
                 ${isActive
-                  ? 'font-bold text-surface-950 pl-2 border-l-[3px] border-primary-500'
-                  : 'font-medium text-surface-500'}`
+                  ? 'font-bold bg-primary-500 text-white shadow-sm'
+                  : 'font-medium text-surface-500 hover:bg-surface-50'}`
               }
             >
               {item.label}
