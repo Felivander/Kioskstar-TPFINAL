@@ -332,16 +332,16 @@ export default function Products() {
           <p className="text-xs text-surface-400 mt-1">Probá cambiando los términos de búsqueda o filtros.</p>
         </div>
       ) : viewMode === 'grid' ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
           {filteredAndSortedProducts.map((p) => {
             const soldCount = salesCounts[p.id] || 0;
             return (
               <div
                 key={p.id}
-                className="bg-white border border-surface-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between group"
+                className="bg-white border border-surface-200/60 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between group"
               >
                 {/* Image section */}
-                <div className="relative aspect-video w-full bg-surface-50 border-b border-surface-100 flex items-center justify-center overflow-hidden">
+                <div className="relative aspect-[4/3] w-full bg-surface-50 border-b border-surface-100 flex items-center justify-center overflow-hidden">
                   {p.imageUrl ? (
                     <img
                       src={p.imageUrl}
@@ -349,40 +349,40 @@ export default function Products() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <span className="text-4xl">📦</span>
+                    <span className="text-2xl">📦</span>
                   )}
                   {/* Category Pill */}
-                  <span className="absolute top-2.5 left-2.5 text-[9px] font-bold bg-white/90 backdrop-blur-sm border border-surface-200/60 px-2 py-0.5 rounded-full uppercase tracking-wider text-surface-600">
+                  <span className="absolute top-2 left-2 text-[8px] font-bold bg-white/90 backdrop-blur-sm border border-surface-200/60 px-1.5 py-0.5 rounded-full uppercase tracking-wider text-surface-600">
                     {p.category?.name || 'Varios'}
                   </span>
                 </div>
 
                 {/* Body Details */}
-                <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                <div className="p-3 flex-1 flex flex-col justify-between space-y-2">
                   <div>
-                    <h3 className="font-bold text-sm text-surface-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
+                    <h3 className="font-bold text-xs text-surface-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
                       {p.name}
                     </h3>
-                    <p className="text-xs text-surface-400 mt-1 line-clamp-2 min-h-[2rem]">
-                      {p.description || 'Sin descripción disponible.'}
+                    <p className="text-[10px] text-surface-400 mt-0.5 line-clamp-2 min-h-[1.5rem]">
+                      {p.description || 'Sin descripción.'}
                     </p>
                   </div>
 
                   {/* Metadata: Price & Sales */}
-                  <div className="flex items-center justify-between pt-2 border-t border-surface-50">
+                  <div className="flex items-center justify-between pt-1.5 border-t border-surface-50">
                     <div>
-                      <p className="text-[8px] font-bold text-surface-400 uppercase tracking-wider">Precio</p>
-                      <p className="text-sm font-extrabold text-emerald-600">
+                      <p className="text-[7px] font-bold text-surface-400 uppercase tracking-wider">Precio</p>
+                      <p className="text-xs font-extrabold text-emerald-600">
                         ${p.price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
                       </p>
                     </div>
                     {selectedBranch && (
                       <div className="text-right">
-                        <p className="text-[8px] font-bold text-surface-400 uppercase tracking-wider">Ventas</p>
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                        <p className="text-[7px] font-bold text-surface-400 uppercase tracking-wider">Venta</p>
+                        <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${
                           soldCount > 0 ? 'bg-amber-50 text-amber-700 border border-amber-100' : 'bg-surface-100 text-surface-500'
                         }`}>
-                          {soldCount > 0 ? `🔥 ${soldCount}` : '0'} vendidos
+                          {soldCount} u
                         </span>
                       </div>
                     )}
@@ -391,16 +391,16 @@ export default function Products() {
 
                 {/* Actions (Admin/Empleado only) */}
                 {canEdit && (
-                  <div className="px-4 py-3 bg-surface-50/50 border-t border-surface-100 flex items-center justify-end gap-3.5 shrink-0">
+                  <div className="px-3 py-2 bg-surface-50/50 border-t border-surface-100 flex items-center justify-end gap-3 shrink-0">
                     <button
                       onClick={() => handleEdit(p)}
-                      className="text-xs font-bold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer"
+                      className="text-[10px] font-bold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer"
                     >
                       Editar
                     </button>
                     <button
                       onClick={() => handleDelete(p.id)}
-                      className="text-xs font-bold text-red-500 hover:text-red-600 transition-colors cursor-pointer"
+                      className="text-[10px] font-bold text-red-500 hover:text-red-600 transition-colors cursor-pointer"
                     >
                       Eliminar
                     </button>
