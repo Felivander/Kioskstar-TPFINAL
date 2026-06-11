@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FormEvent } from 'react';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { setSelectedBranch } from '../store/authSlice';
@@ -6,6 +6,7 @@ import { SkeletonCard } from '../components/Skeleton';
 import Spinner from '../components/Spinner';
 import api from '../services/api';
 import { Kiosk, Branch } from '../types';
+import { toast } from 'react-hot-toast';
 
 export default function Dashboard() {
   const { user, selectedBranch } = useAppSelector((s) => s.auth);
@@ -34,6 +35,14 @@ export default function Dashboard() {
   const [inviteLoading, setInviteLoading] = useState(false);
   // Stats
   const [stats, setStats] = useState({ totalProducts: 0, totalSales: 0 });
+
+  // Create kiosk modal state
+  const [showCreateKioskModal, setShowCreateKioskModal] = useState(false);
+  const [createName, setCreateName] = useState('');
+  const [createAddress, setCreateAddress] = useState('');
+  const [createCity, setCreateCity] = useState('Concordia');
+  const [createProvince, setCreateProvince] = useState('Entre Ríos');
+  const [createPostalCode, setCreatePostalCode] = useState('3200');
 
   const isAdmin = user?.role === 'ADMIN';
   const isEmpleado = user?.role === 'EMPLEADO';
@@ -81,9 +90,37 @@ export default function Dashboard() {
       const { data } = await api.put(`/kiosks/${kiosk.id}`, { name: editName, address: editAddress, city: editCity, postalCode: editPostalCode, province: editProvince, lat: kiosk.lat || -34.6, lng: kiosk.lng || -58.38 });
       setKiosk((prev) => prev ? { ...prev, ...data } : data);
       setEditingKiosk(false);
-    } catch { /* silent */ }
-    setSaving(false);
-  };
+  } catch { /* silent */ }
+  setSaving(false);
+};
+
+const handleCreateKiosk = async (e: FormEvent) => {
+  e.preventDefault();
+  if (!createName.trim() || !createAddress.trim()) return;
+  setSaving(true);
+  try {
+    await api.post('/kiosks', {
+      name: createName,
+      address: createAddress,
+      city: createCity,
+      province: createProvince,
+      postalCode: createPostalCode,
+      lat: -31.3929,
+      lng: -58.0207,
+    });
+    toast.success('Kiosco registrado exitosamente');
+    setCreateName('');
+    setCreateAddress('');
+    setCreateCity('Concordia');
+    setCreateProvince('Entre Ríos');
+    setCreatePostalCode('3200');
+    setShowCreateKioskModal(false);
+    await loadData();
+  } catch (err: any) {
+    toast.error(err.response?.data?.error || 'Error al registrar el kiosco');
+  }
+  setSaving(false);
+};
 
   const addBranch = async () => {
     if (!kiosk || !branchName.trim() || !branchAddress.trim()) return;
@@ -216,6 +253,23 @@ export default function Dashboard() {
           </div>
         ))}
       </div>
+
+      {/* Admin: No kiosk placeholder CTA */}
+      {isAdmin && !kiosk && !loading && (
+        <div className="rounded-2xl bg-white p-8 border border-surface-100 shadow-sm text-center max-w-md mx-auto my-12 animate-fade-in-up">
+          <span className="text-5xl block mb-3 animate-float">🏪</span>
+          <h2 className="text-lg font-bold text-surface-900">No tenés un kiosco registrado</h2>
+          <p className="text-xs text-surface-500 mt-2 mb-6 leading-relaxed">
+            Como administrador, necesitás registrar tu kiosco principal para poder agregar sucursales, gestionar stock y generar códigos de invitación para tus empleados.
+          </p>
+          <button
+            onClick={() => setShowCreateKioskModal(true)}
+            className="px-6 py-2.5 rounded-xl gradient-primary text-white font-semibold text-sm shadow-lg shadow-primary-500/25 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
+          >
+            + Registrar mi Kiosco
+          </button>
+        </div>
+      )}
 
       {/* Admin: 2-column grid for kiosk + branches */}
       {isAdmin && kiosk && (
@@ -386,6 +440,91 @@ export default function Dashboard() {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Create Kiosk Modal */}
+      {showCreateKioskModal && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in" onClick={() => setShowCreateKioskModal(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-scale-in" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-lg font-bold text-surface-900 mb-2">Registrar mi Kiosco</h3>
+            <p className="text-xs text-surface-400 mb-5 leading-normal">Ingresá los datos de tu kiosco principal. La ubicación se geocodificará en el mapa de Concordia.</p>
+            <form onSubmit={handleCreateKiosk} className="flex flex-col gap-3.5">
+              <div>
+                <label className="block text-xs font-semibold text-surface-700 mb-1">Nombre del Kiosco</label>
+                <input
+                  type="text"
+                  value={createName}
+                  onChange={(e) => setCreateName(e.target.value)}
+                  placeholder="Ej: Kiosco Don Carlos"
+                  required
+                  className="w-full rounded-lg border border-surface-200 bg-surface-50 text-sm outline-none focus:ring-2 focus:ring-primary-400 px-3 py-2 transition-all focus:bg-white"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-surface-700 mb-1">Dirección (Calle y Número)</label>
+                <input
+                  type="text"
+                  value={createAddress}
+                  onChange={(e) => setCreateAddress(e.target.value)}
+                  placeholder="Ej: Pellegrini 450"
+                  required
+                  className="w-full rounded-lg border border-surface-200 bg-surface-50 text-sm outline-none focus:ring-2 focus:ring-primary-400 px-3 py-2 transition-all focus:bg-white"
+                />
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                <div className="col-span-2">
+                  <label className="block text-xs font-semibold text-surface-700 mb-1">Ciudad</label>
+                  <input
+                    type="text"
+                    value={createCity}
+                    onChange={(e) => setCreateCity(e.target.value)}
+                    placeholder="Ej: Concordia"
+                    required
+                    className="w-full rounded-lg border border-surface-200 bg-surface-50 text-sm outline-none focus:ring-2 focus:ring-primary-400 px-3 py-2 transition-all focus:bg-white"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-surface-700 mb-1">C.P.</label>
+                  <input
+                    type="text"
+                    value={createPostalCode}
+                    onChange={(e) => setCreatePostalCode(e.target.value)}
+                    placeholder="3200"
+                    className="w-full rounded-lg border border-surface-200 bg-surface-50 text-sm outline-none focus:ring-2 focus:ring-primary-400 px-3 py-2 transition-all focus:bg-white"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-surface-700 mb-1">Provincia</label>
+                <input
+                  type="text"
+                  value={createProvince}
+                  onChange={(e) => setCreateProvince(e.target.value)}
+                  placeholder="Ej: Entre Ríos"
+                  required
+                  className="w-full rounded-lg border border-surface-200 bg-surface-50 text-sm outline-none focus:ring-2 focus:ring-primary-400 px-3 py-2 transition-all focus:bg-white"
+                />
+              </div>
+              
+              <div className="flex gap-2 mt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowCreateKioskModal(false)}
+                  className="flex-1 px-3 py-2 rounded-lg border border-surface-200 text-sm text-surface-600 hover:bg-surface-50 transition-colors"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  disabled={saving || !createName.trim() || !createAddress.trim()}
+                  className="flex-1 px-3 py-2 rounded-lg gradient-primary text-white text-sm font-semibold disabled:opacity-60 flex items-center justify-center gap-1.5 transition-opacity"
+                >
+                  {saving ? <Spinner size="sm" /> : 'Registrar'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
