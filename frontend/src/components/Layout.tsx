@@ -126,7 +126,7 @@ export default function Layout() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `relative px-4 py-2 text-sm transition-colors duration-300 rounded-md select-none
+                `relative px-4 py-3 text-sm transition-colors duration-300 rounded-md select-none
                 ${isActive
                   ? 'font-bold text-white z-10'
                   : 'font-medium text-surface-500 hover:text-primary-600 hover:bg-surface-100'}`
@@ -235,7 +235,7 @@ export default function Layout() {
             to="/dashboard"
             onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
-              `relative text-sm transition-colors duration-300 px-4 py-2 rounded-md block select-none
+              `relative text-sm transition-colors duration-300 px-4 py-3 rounded-md block select-none
               ${isActive
                 ? 'font-bold text-white z-10'
                 : 'font-medium text-surface-500 hover:bg-surface-50'}`
@@ -277,7 +277,7 @@ export default function Layout() {
               to={item.to}
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
-                `relative text-sm transition-colors duration-300 px-4 py-2 rounded-md block select-none
+                `relative text-sm transition-colors duration-300 px-4 py-3 rounded-md block select-none
                 ${isActive
                   ? 'font-bold text-white z-10'
                   : 'font-medium text-surface-500 hover:bg-surface-50'}`
