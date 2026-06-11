@@ -186,10 +186,10 @@ export default function MapView() {
       {loading ? (
         <div className="flex justify-center py-16 flex-1"><Spinner size="lg" /></div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 flex-1 min-h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-3 flex-1 min-h-0">
           {/* Selected Kiosk Details Panel (Option B - Left side panel, pushes map) */}
           {selectedBranch && (
-            <div className="lg:col-span-1 bg-white rounded-2xl border border-surface-200 shadow-sm flex flex-col overflow-hidden animate-fade-in-left h-[500px] lg:h-auto min-h-0">
+            <div className="lg:col-span-2 bg-white rounded-2xl border border-surface-200 shadow-sm flex flex-col overflow-hidden animate-fade-in-left h-[500px] lg:h-auto min-h-0">
               {/* Header / Photo Banner */}
               <div className="relative w-full h-40 bg-gradient-to-br from-primary-500/10 to-primary-600/5 flex items-center justify-center overflow-hidden shrink-0">
                 {selectedBranch.kiosk?.imageUrl ? (
@@ -278,7 +278,7 @@ export default function MapView() {
           )}
 
           {/* Map */}
-          <div className={`${selectedBranch ? 'lg:col-span-1' : 'lg:col-span-2'} rounded-2xl overflow-hidden min-h-[350px] lg:min-h-0 border border-surface-200`}>
+          <div className={`${selectedBranch ? 'lg:col-span-3' : 'lg:col-span-5'} rounded-2xl overflow-hidden min-h-[350px] lg:min-h-0 border border-surface-200`}>
             <APIProvider apiKey={API_KEY}>
               <GoogleMap
                 center={mapCenter}
@@ -345,7 +345,7 @@ export default function MapView() {
           </div>
 
           {/* Sidebar list — sorted by distance when searching */}
-          <div className="space-y-2 overflow-y-auto max-h-[500px] lg:max-h-full pr-1">
+          <div className="lg:col-span-1 space-y-2 overflow-y-auto max-h-[500px] lg:max-h-full pr-1">
             <p className="text-xs font-medium text-surface-400 uppercase tracking-wider px-1">
               {searchResults ? 'Ordenado por cercanía' : `${branches.length} kiosco${branches.length !== 1 ? 's' : ''}`}
             </p>
