@@ -1,7 +1,31 @@
 import { useEffect, useState, useCallback } from 'react';
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
+import { motion, Variants } from 'framer-motion';
 import api from '../services/api';
 import Spinner from '../components/Spinner';
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 15 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
 
 interface MapBranch {
   id: number;
@@ -354,54 +378,67 @@ export default function MapView() {
                 <span className="text-3xl block mb-2">🔍</span>
                 <p className="text-surface-500 text-sm">No se encontraron kioscos</p>
               </div>
-            ) : branches.map((b, idx) => {
-              const results = getResultsForBranch(b.id);
-              const isClosest = closestBranchId === b.id;
-              return (
-                <button
-                  key={b.id}
-                  onClick={() => selectBranchAndZoom(b)}
-                  className={`w-full text-left p-3 rounded-xl border transition-all duration-200 relative overflow-hidden
-                    ${isClosest
-                      ? 'border-orange-300 shadow-lg'
-                      : selectedBranch?.id === b.id
-                        ? 'bg-primary-50 border-primary-200 shadow-sm'
-                        : 'bg-white border-surface-100 hover:border-primary-200 hover:shadow-sm'}`}
-                  style={isClosest ? {
-                    background: 'linear-gradient(135deg, rgba(255,106,0,0.08) 0%, rgba(238,9,121,0.05) 100%)',
-                    boxShadow: '0 0 15px rgba(255,100,0,0.15)',
-                  } : undefined}
-                >
-                  {isClosest && (
-                    <div className="absolute top-0 right-0 bg-gradient-to-l from-orange-500 to-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
-                      🔥 MÁS CERCANO
-                    </div>
-                  )}
-                  <div className="flex items-start justify-between mb-0.5">
-                    <h3 className={`font-semibold text-sm ${isClosest ? 'text-orange-900' : 'text-surface-900'}`}>
-                      {searchResults && <span className="text-surface-400 mr-1.5">#{idx + 1}</span>}
-                      {b.kiosk?.name || b.name}
-                    </h3>
-                    {b.distance !== undefined && (
-                      <span className={`text-xs font-medium shrink-0 ml-2 ${isClosest ? 'text-orange-600' : 'text-surface-400'}`}>
-                        {formatDistance(b.distance)}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-xs text-surface-600">{b.name}</p>
-                  <p className="text-xs text-surface-400 mt-0.5">📍 {b.address}</p>
-                  {results && results.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-1">
-                      {results.map((r) => (
-                        <span key={r.id} className={`text-[10px] px-1.5 py-0.5 rounded-full ${isClosest ? 'bg-orange-100 text-orange-700' : 'bg-emerald-50 text-emerald-700'}`}>
-                          {r.product.name} ({r.quantity}) · ${r.product.price}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </button>
-              );
-            })}
+            ) : (
+              <motion.div
+                key={branches.map((b) => b.id).join(',')}
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                className="space-y-2"
+              >
+                {branches.map((b, idx) => {
+                  const results = getResultsForBranch(b.id);
+                  const isClosest = closestBranchId === b.id;
+                  return (
+                    <motion.button
+                      key={b.id}
+                      variants={itemVariants}
+                      onClick={() => selectBranchAndZoom(b)}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      className={`w-full text-left p-3 rounded-xl border transition-all duration-200 relative overflow-hidden block cursor-pointer
+                        ${isClosest
+                          ? 'border-orange-300 shadow-lg'
+                          : selectedBranch?.id === b.id
+                            ? 'bg-primary-50 border-primary-200 shadow-sm'
+                            : 'bg-white border-surface-100 hover:border-primary-200 hover:shadow-sm'}`}
+                      style={isClosest ? {
+                        background: 'linear-gradient(135deg, rgba(255,106,0,0.08) 0%, rgba(238,9,121,0.05) 100%)',
+                        boxShadow: '0 0 15px rgba(255,100,0,0.15)',
+                      } : undefined}
+                    >
+                      {isClosest && (
+                        <div className="absolute top-0 right-0 bg-gradient-to-l from-orange-500 to-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
+                          🔥 MÁS CERCANO
+                        </div>
+                      )}
+                      <div className="flex items-start justify-between mb-0.5">
+                        <h3 className={`font-semibold text-sm ${isClosest ? 'text-orange-900' : 'text-surface-900'}`}>
+                          {searchResults && <span className="text-surface-400 mr-1.5">#{idx + 1}</span>}
+                          {b.kiosk?.name || b.name}
+                        </h3>
+                        {b.distance !== undefined && (
+                          <span className={`text-xs font-medium shrink-0 ml-2 ${isClosest ? 'text-orange-600' : 'text-surface-400'}`}>
+                            {formatDistance(b.distance)}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-surface-600">{b.name}</p>
+                      <p className="text-xs text-surface-400 mt-0.5">📍 {b.address}</p>
+                      {results && results.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          {results.map((r) => (
+                            <span key={r.id} className={`text-[10px] px-1.5 py-0.5 rounded-full ${isClosest ? 'bg-orange-100 text-orange-700' : 'bg-emerald-50 text-emerald-700'}`}>
+                              {r.product.name} ({r.quantity}) · ${r.product.price}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </motion.button>
+                  );
+                })}
+              </motion.div>
+            )}
           </div>
         </div>
       )}
