@@ -6,7 +6,7 @@ import Spinner from '../components/Spinner';
 import { SkeletonTable } from '../components/Skeleton';
 import toast from 'react-hot-toast';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { Package, Search, Plus, Edit2, Trash2, Flame, LayoutGrid, List } from 'lucide-react';
+import { Package, Search, Plus, Edit2, Trash2, Flame, LayoutGrid, List, Crown } from 'lucide-react';
 
 export default function Products() {
   const { user, selectedBranch } = useAppSelector((state) => state.auth);
@@ -19,7 +19,7 @@ export default function Products() {
   const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
 
   // Filter and Layout states
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'ranking'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCatId, setSelectedCatId] = useState('');
   const [sortBy, setSortBy] = useState('name');
@@ -155,6 +155,10 @@ export default function Products() {
       return a.name.localeCompare(b.name);
     });
 
+  const activeCategories = categories.filter((cat) =>
+    filteredAndSortedProducts.some((p) => p.categoryId === cat.id)
+  );
+
   return (
     <div className="space-y-6 animate-fade-in-up">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -247,6 +251,17 @@ export default function Products() {
               title="Vista de Lista"
             >
               <List size={16} />
+            </button>
+            <button
+              onClick={() => setViewMode('ranking')}
+              className={`p-1.5 rounded-lg transition-all duration-200 cursor-pointer ${
+                viewMode === 'ranking'
+                  ? 'bg-white text-primary-600 shadow-sm'
+                  : 'text-surface-400 hover:text-surface-700'
+              }`}
+              title="Vista de Ranking"
+            >
+              <Crown size={16} />
             </button>
           </div>
         </div>
@@ -451,6 +466,121 @@ export default function Products() {
                     </button>
                   </div>
                 )}
+              </div>
+            );
+          })}
+        </div>
+      ) : viewMode === 'ranking' ? (
+        <div className="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-surface-300 scrollbar-track-transparent">
+          {activeCategories.map((cat) => {
+            const catProducts = filteredAndSortedProducts
+              .filter((p) => p.categoryId === cat.id)
+              .sort((a, b) => {
+                const soldA = salesCounts[a.id] || 0;
+                const soldB = salesCounts[b.id] || 0;
+                return soldB - soldA;
+              });
+
+            return (
+              <div
+                key={cat.id}
+                className="w-72 md:w-80 shrink-0 bg-white border border-surface-200/60 rounded-2xl p-4 flex flex-col snap-start shadow-sm"
+              >
+                {/* Column Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-surface-100 mb-3">
+                  <h3 className="font-extrabold text-sm text-surface-900 truncate">
+                    {cat.name}
+                  </h3>
+                  <span className="text-[10px] font-bold bg-surface-100 text-surface-500 px-2 py-0.5 rounded-full">
+                    {catProducts.length} {catProducts.length === 1 ? 'prod' : 'prods'}
+                  </span>
+                </div>
+
+                {/* Vertical Product List */}
+                <div className="space-y-2.5 overflow-y-auto max-h-[500px] pr-1 scrollbar-thin">
+                  {catProducts.map((p, index) => {
+                    const soldCount = salesCounts[p.id] || 0;
+                    const rank = index + 1;
+                    const isTop3 = rank <= 3;
+
+                    return (
+                      <div
+                        key={p.id}
+                        className="relative bg-surface-50/50 hover:bg-white border border-surface-200/40 hover:border-primary-300/60 p-2.5 rounded-xl transition-all duration-300 flex items-center gap-3 group shadow-sm hover:shadow"
+                      >
+                        {/* Image section with ranking badge */}
+                        <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-surface-100 shrink-0 border border-surface-200/40">
+                          {p.imageUrl ? (
+                            <img
+                              src={p.imageUrl}
+                              alt={p.name}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                          ) : (
+                            <Package size={20} className="text-surface-300 mx-auto my-auto block h-full" />
+                          )}
+
+                          {/* Ranking Badge overlay */}
+                          {isTop3 && (
+                            <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black shadow-sm select-none border border-white/40
+                              ${rank === 1 ? 'bg-gradient-to-br from-amber-300 via-amber-400 to-yellow-500 text-white animate-pulse' :
+                                rank === 2 ? 'bg-gradient-to-br from-slate-200 via-slate-300 to-slate-400 text-slate-800' :
+                                'bg-gradient-to-br from-amber-600 via-amber-700 to-amber-800 text-white'}`}
+                            >
+                              {rank}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Details */}
+                        <div className="flex-1 min-w-0 flex flex-col justify-between h-14">
+                          <div>
+                            <h4 className="font-bold text-[11px] text-surface-900 truncate group-hover:text-primary-600 transition-colors">
+                              {p.name}
+                            </h4>
+                            {/* Sales count badge */}
+                            <p className="text-[9px] text-surface-400 mt-0.5 font-medium">
+                              {selectedBranch ? (
+                                <span className={`font-semibold ${soldCount > 0 ? 'text-amber-600' : 'text-surface-400'}`}>
+                                  {soldCount} vendidos
+                                </span>
+                              ) : (
+                                <span>Sin ventas</span>
+                              )}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-extrabold text-emerald-600">
+                              ${p.price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+                            </span>
+
+                            {/* Actions (Admin/Empleado) */}
+                            {canEdit && (
+                              <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                <button
+                                  type="button"
+                                  onClick={() => handleEdit(p)}
+                                  className="text-[9px] font-bold text-primary-600 hover:underline cursor-pointer"
+                                >
+                                  Editar
+                                </button>
+                                <span className="text-surface-300 text-[8px]">•</span>
+                                <button
+                                  type="button"
+                                  onClick={() => setDeletingProduct(p)}
+                                  className="text-[9px] font-bold text-red-500 hover:underline cursor-pointer"
+                                >
+                                  Borrar
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             );
           })}
