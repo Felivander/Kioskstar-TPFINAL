@@ -138,7 +138,7 @@ export default function Layout() {
                     <motion.div
                       layoutId="active-nav-tab"
                       className="absolute inset-0 bg-primary-500 rounded-md -z-10 shadow-md shadow-primary-500/20"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
                     />
                   )}
                   {item.label}
@@ -247,7 +247,7 @@ export default function Layout() {
                   <motion.div
                     layoutId="active-mobile-nav-tab"
                     className="absolute inset-0 bg-primary-500 rounded-md -z-10 shadow-sm"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
                   />
                 )}
                 Dashboard
@@ -289,7 +289,7 @@ export default function Layout() {
                     <motion.div
                       layoutId="active-mobile-nav-tab"
                       className="absolute inset-0 bg-primary-500 rounded-md -z-10 shadow-sm"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
                     />
                   )}
                   {item.label}
