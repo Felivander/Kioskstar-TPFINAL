@@ -430,7 +430,7 @@ export default function MapView() {
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: '-105%', opacity: 0 }}
                   transition={{ type: 'spring', stiffness: 240, damping: 28 }}
-                  className="hidden lg:flex absolute left-4 top-4 bottom-4 w-[350px] z-10 bg-white/95 backdrop-blur-md shadow-2xl border border-surface-200/80 rounded-2xl flex flex-col overflow-hidden"
+                  className="hidden lg:flex absolute left-10 top-6 bottom-6 w-[360px] z-10 bg-white/80 backdrop-blur-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.2)] border border-white/50 rounded-3xl flex flex-col overflow-hidden transition-all duration-300"
                 >
                   {renderDetailsContent(selectedBranch)}
                 </motion.div>
@@ -446,7 +446,7 @@ export default function MapView() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: '105%', opacity: 0 }}
                   transition={{ type: 'spring', stiffness: 240, damping: 28 }}
-                  className="lg:hidden absolute left-4 right-4 bottom-4 h-[330px] z-10 bg-white/95 backdrop-blur-md shadow-2xl border border-surface-200/80 rounded-2xl flex flex-col overflow-hidden"
+                  className="lg:hidden absolute left-4 right-4 bottom-4 h-[330px] z-10 bg-white/80 backdrop-blur-xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] border border-white/50 rounded-3xl flex flex-col overflow-hidden"
                 >
                   {renderDetailsContent(selectedBranch)}
                 </motion.div>
