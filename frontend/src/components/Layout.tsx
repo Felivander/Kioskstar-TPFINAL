@@ -126,10 +126,10 @@ export default function Layout() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `px-4 py-2 text-sm transition-all duration-300 hover:-translate-y-[0.5px]
+                `relative px-4 py-2 text-sm transition-all duration-300 hover:text-primary-600
                 ${isActive
-                  ? 'font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-indigo-600'
-                  : 'font-medium text-surface-500 hover:text-primary-600'}`
+                  ? 'font-bold text-surface-950 after:absolute after:bottom-[-10px] after:left-2 after:right-2 after:h-[3px] after:bg-primary-500 after:rounded-full'
+                  : 'font-medium text-surface-500'}`
               }
             >
               {item.label}
@@ -224,9 +224,9 @@ export default function Layout() {
             to="/dashboard"
             onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
-              `text-sm transition-all duration-300 py-1.5 block
+              `text-sm transition-all duration-300 py-1.5 block hover:text-primary-600
               ${isActive
-                ? 'font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-indigo-600'
+                ? 'font-bold text-surface-950 pl-2 border-l-[3px] border-primary-500'
                 : 'font-medium text-surface-500'}`
             }
           >
@@ -255,9 +255,9 @@ export default function Layout() {
               to={item.to}
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
-                `text-sm transition-all duration-300 py-1.5 block
+                `text-sm transition-all duration-300 py-1.5 block hover:text-primary-600
                 ${isActive
-                  ? 'font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-indigo-600'
+                  ? 'font-bold text-surface-950 pl-2 border-l-[3px] border-primary-500'
                   : 'font-medium text-surface-500'}`
               }
             >
