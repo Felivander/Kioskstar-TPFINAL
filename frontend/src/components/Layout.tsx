@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { logout } from '../store/authSlice';
+import { logout, setSelectedBranch } from '../store/authSlice';
+import api from '../services/api';
+import { Branch } from '../types';
 
 const navItems = [
   { to: '/sales', label: 'Ventas', icon: '💰', roles: ['ADMIN', 'EMPLEADO'] },
@@ -14,6 +16,8 @@ const navItems = [
 export default function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [branchDropdownOpen, setBranchDropdownOpen] = useState(false);
+  const [branches, setBranches] = useState<Branch[]>([]);
   const { user, selectedBranch } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -22,6 +26,18 @@ export default function Layout() {
     dispatch(logout());
     navigate('/login');
   };
+
+  useEffect(() => {
+    if (user?.role === 'ADMIN') {
+      api.get('/auth/my-kiosk')
+        .then(({ data }) => {
+          if (data && data.branches) {
+            setBranches(data.branches);
+          }
+        })
+        .catch((err) => console.error('Error al cargar sucursales en Layout:', err));
+    }
+  }, [user]);
 
   const filteredNav = navItems.filter((item) => item.roles.includes(user?.role || ''));
 
@@ -42,8 +58,52 @@ export default function Layout() {
             </div>
           </Link>
           {selectedBranch && (
-            <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-100 text-xs font-semibold text-surface-600 border border-surface-200/40">
-              <span className="truncate max-w-[150px]">{selectedBranch.name}</span>
+            <div className="relative">
+              <button
+                onClick={() => {
+                  if (user?.role === 'ADMIN' && branches.length > 1) {
+                    setBranchDropdownOpen(!branchDropdownOpen);
+                  }
+                }}
+                disabled={user?.role !== 'ADMIN' || branches.length <= 1}
+                className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all select-none outline-none
+                  ${user?.role === 'ADMIN' && branches.length > 1
+                    ? 'bg-white hover:bg-surface-50 border-surface-200/80 text-surface-700 shadow-sm cursor-pointer hover:shadow'
+                    : 'bg-surface-100 border-surface-200/40 text-surface-600'}`}
+              >
+                <span className="truncate max-w-[150px]">{selectedBranch.name}</span>
+                {user?.role === 'ADMIN' && branches.length > 1 && (
+                  <span className="text-[10px] text-surface-400">▼</span>
+                )}
+              </button>
+
+              {branchDropdownOpen && (
+                <>
+                  {/* Backdrop */}
+                  <div className="fixed inset-0 z-10" onClick={() => setBranchDropdownOpen(false)} />
+                  
+                  {/* Dropdown Menu */}
+                  <div className="absolute left-0 mt-2 w-52 rounded-xl bg-white border border-surface-200 shadow-xl py-1.5 z-20 animate-scale-in">
+                    <p className="px-3 py-1 text-[9px] font-bold text-surface-400 uppercase tracking-wider">Cambiar Sucursal</p>
+                    {branches.map((b) => (
+                      <button
+                        key={b.id}
+                        onClick={() => {
+                          dispatch(setSelectedBranch(b));
+                          setBranchDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-2 text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer
+                          ${selectedBranch.id === b.id
+                            ? 'bg-primary-50 text-primary-700 font-bold'
+                            : 'text-surface-700 hover:bg-surface-50 hover:text-surface-900'}`}
+                      >
+                        <span className="truncate">{b.name}</span>
+                        {selectedBranch.id === b.id && <span className="text-primary-600">✓</span>}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           )}
         </div>

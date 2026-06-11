@@ -241,45 +241,45 @@ export default function Dashboard() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <button
               onClick={() => navigate('/sales')}
-              className="flex flex-col items-center gap-2.5 bg-white border border-surface-200/60 hover:border-primary-400 p-4 rounded-2xl text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group"
+              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <span className="text-2xl group-hover:scale-110 transition-transform">💰</span>
-              <div className="flex flex-col">
-                <span className="font-bold text-xs text-surface-900">Registrar Venta</span>
-                <span className="text-[9px] text-surface-400 font-medium">Escanear o Manual</span>
+              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">💰</span>
+              <div className="flex flex-col min-w-0">
+                <span className="font-bold text-xs text-surface-900 truncate">Registrar Venta</span>
+                <span className="text-[9px] text-surface-400 font-medium truncate">Escanear o Manual</span>
               </div>
             </button>
 
             <button
               onClick={() => navigate('/stock')}
-              className="flex flex-col items-center gap-2.5 bg-white border border-surface-200/60 hover:border-primary-400 p-4 rounded-2xl text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group"
+              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <span className="text-2xl group-hover:scale-110 transition-transform">📦</span>
-              <div className="flex flex-col">
-                <span className="font-bold text-xs text-surface-900">Cargar Stock</span>
-                <span className="text-[9px] text-surface-400 font-medium">Actualizar cantidades</span>
+              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">📦</span>
+              <div className="flex flex-col min-w-0">
+                <span className="font-bold text-xs text-surface-900 truncate">Cargar Stock</span>
+                <span className="text-[9px] text-surface-400 font-medium truncate">Actualizar cantidades</span>
               </div>
             </button>
 
             <button
               onClick={() => navigate('/map')}
-              className="flex flex-col items-center gap-2.5 bg-white border border-surface-200/60 hover:border-primary-400 p-4 rounded-2xl text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group"
+              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <span className="text-2xl group-hover:scale-110 transition-transform">🗺️</span>
-              <div className="flex flex-col">
-                <span className="font-bold text-xs text-surface-900">Ver Mapa</span>
-                <span className="text-[9px] text-surface-400 font-medium">Buscador y Kioscos</span>
+              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">🗺️</span>
+              <div className="flex flex-col min-w-0">
+                <span className="font-bold text-xs text-surface-900 truncate">Ver Mapa</span>
+                <span className="text-[9px] text-surface-400 font-medium truncate">Buscador y Kioscos</span>
               </div>
             </button>
 
             <button
               onClick={() => navigate(isAdmin ? '/my-kiosk' : '/dashboard')}
-              className="flex flex-col items-center gap-2.5 bg-white border border-surface-200/60 hover:border-primary-400 p-4 rounded-2xl text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group"
+              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <span className="text-2xl group-hover:scale-110 transition-transform">👥</span>
-              <div className="flex flex-col">
-                <span className="font-bold text-xs text-surface-900">{isAdmin ? 'Personal' : 'Mi Cuenta'}</span>
-                <span className="text-[9px] text-surface-400 font-medium">{isAdmin ? 'Invitaciones' : 'Detalles de perfil'}</span>
+              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">👥</span>
+              <div className="flex flex-col min-w-0">
+                <span className="font-bold text-xs text-surface-900 truncate">{isAdmin ? 'Personal' : 'Mi Cuenta'}</span>
+                <span className="text-[9px] text-surface-400 font-medium truncate">{isAdmin ? 'Invitaciones' : 'Detalles de perfil'}</span>
               </div>
             </button>
           </div>
