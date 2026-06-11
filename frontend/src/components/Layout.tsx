@@ -66,15 +66,10 @@ export default function Layout() {
                   }
                 }}
                 disabled={user?.role !== 'ADMIN' || branches.length <= 1}
-                className={`flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 rounded-full text-xs font-semibold border transition-all select-none outline-none
-                  ${user?.role === 'ADMIN' && branches.length > 1
-                    ? 'bg-white hover:bg-surface-50 border-surface-200/80 text-surface-700 shadow-sm cursor-pointer hover:shadow'
-                    : 'bg-surface-100 border-surface-200/40 text-surface-600'}`}
+                className={`flex items-center gap-1.5 px-2.5 py-1 sm:px-3 rounded-full text-xs font-semibold border border-surface-200/40 bg-surface-100 text-surface-600 transition-all select-none outline-none
+                  ${user?.role === 'ADMIN' && branches.length > 1 ? 'cursor-pointer hover:bg-surface-200/60 hover:text-surface-700' : ''}`}
               >
                 <span className="truncate max-w-[90px] sm:max-w-[150px]">{selectedBranch.name}</span>
-                {user?.role === 'ADMIN' && branches.length > 1 && (
-                  <span className="text-[10px] text-surface-400">▼</span>
-                )}
               </button>
 
               {branchDropdownOpen && (
