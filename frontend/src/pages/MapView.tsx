@@ -73,7 +73,13 @@ export default function MapView() {
       setZoom(13);
     } else {
       setSelectedBranch(b);
-      setMapCenter({ lat: b.lat, lng: b.lng });
+      // Offset center coordinate so the marker is not hidden behind the floating panel
+      const isLargeScreen = window.innerWidth >= 1024;
+      if (isLargeScreen) {
+        setMapCenter({ lat: b.lat, lng: b.lng - 0.0035 });
+      } else {
+        setMapCenter({ lat: b.lat - 0.0018, lng: b.lng });
+      }
       setZoom(16);
     }
   };
@@ -296,108 +302,106 @@ export default function MapView() {
         <div className="flex justify-center py-16 flex-1"><Spinner size="lg" /></div>
       ) : (
         <div className="flex flex-col lg:flex-row gap-3 flex-1 min-h-0 w-full overflow-hidden">
-          {/* Selected Kiosk Details Panel - Desktop (Slide and Shrink Map) */}
-          <AnimatePresence>
-            {selectedBranch && (
-              <motion.div
-                key="desktop-details"
-                initial={{ width: 0, opacity: 0, marginRight: 0 }}
-                animate={{ width: '33.3%', opacity: 1, marginRight: 12 }}
-                exit={{ width: 0, opacity: 0, marginRight: 0 }}
-                transition={{ type: 'spring', stiffness: 220, damping: 26 }}
-                className="hidden lg:flex bg-white rounded-2xl border border-surface-200 shadow-sm flex-col overflow-hidden h-full min-h-0 shrink-0"
-              >
-                {renderDetailsContent(selectedBranch)}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Map Area with absolute Map and floating Details overlay */}
+          <div className="relative flex-1 min-h-[350px] lg:min-h-0 w-full h-full lg:w-5/6">
+            <div className="absolute inset-0 rounded-2xl overflow-hidden border border-surface-200">
+              <APIProvider apiKey={API_KEY}>
+                <GoogleMap
+                  center={mapCenter}
+                  onCameraChanged={(ev) => {
+                    setMapCenter(ev.detail.center);
+                    setZoom(ev.detail.zoom);
+                  }}
+                  zoom={zoom}
+                  mapId="kioskstar-map"
+                  gestureHandling="greedy"
+                  disableDefaultUI={false}
+                  className="w-full h-full"
+                >
+                  {/* User location */}
+                  <AdvancedMarker position={userLocation}>
+                    <div className="w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-lg animate-pulse" />
+                  </AdvancedMarker>
 
-          {/* Selected Kiosk Details Panel - Mobile (Slide Up) */}
-          <AnimatePresence>
-            {selectedBranch && (
-              <motion.div
-                key="mobile-details"
-                initial={{ height: 0, opacity: 0, marginBottom: 0 }}
-                animate={{ height: 380, opacity: 1, marginBottom: 12 }}
-                exit={{ height: 0, opacity: 0, marginBottom: 0 }}
-                transition={{ type: 'spring', stiffness: 220, damping: 26 }}
-                className="lg:hidden bg-white rounded-2xl border border-surface-200 shadow-sm flex flex-col overflow-hidden w-full shrink-0"
-              >
-                {renderDetailsContent(selectedBranch)}
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Map Container */}
-          <motion.div
-            layout
-            transition={{ type: 'spring', stiffness: 220, damping: 26 }}
-            className="flex-1 rounded-2xl overflow-hidden min-h-[350px] lg:min-h-0 border border-surface-200"
-          >
-            <APIProvider apiKey={API_KEY}>
-              <GoogleMap
-                center={mapCenter}
-                onCameraChanged={(ev) => {
-                  setMapCenter(ev.detail.center);
-                  setZoom(ev.detail.zoom);
-                }}
-                zoom={zoom}
-                mapId="kioskstar-map"
-                gestureHandling="greedy"
-                disableDefaultUI={false}
-                className="w-full h-full min-h-[350px]"
-              >
-                {/* User location */}
-                <AdvancedMarker position={userLocation}>
-                  <div className="w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-lg animate-pulse" />
-                </AdvancedMarker>
-
-                {/* Branch markers */}
-                {branches.map((b) => {
-                  const isClosest = closestBranchId === b.id;
-                  const results = getResultsForBranch(b.id);
-                  const hasResults = results && results.length > 0;
-                  return (
-                    <AdvancedMarker
-                      key={b.id}
-                      position={{ lat: b.lat, lng: b.lng }}
-                      onClick={() => selectBranchAndZoom(b)}
-                    >
-                      {isClosest ? (
-                        /* 🔥 Fire aura marker for closest */
-                        <div className="relative flex items-center justify-center">
-                          <div className="absolute w-16 h-16 rounded-full animate-pulse"
-                            style={{
-                              background: 'radial-gradient(circle, rgba(255,100,0,0.4) 0%, rgba(255,60,0,0.2) 40%, rgba(255,0,0,0.1) 70%, transparent 100%)',
-                              filter: 'blur(4px)',
-                            }} />
-                          <div className="absolute w-12 h-12 rounded-full animate-ping opacity-30"
-                            style={{ background: 'radial-gradient(circle, rgba(255,165,0,0.6) 0%, transparent 70%)' }} />
-                          <div className="relative flex items-center gap-1 px-3 py-1.5 rounded-full shadow-xl text-xs font-bold cursor-pointer z-10"
-                            style={{
-                              background: 'linear-gradient(135deg, #ff6a00, #ee0979)',
-                              color: 'white',
-                              boxShadow: '0 0 20px rgba(255,100,0,0.5), 0 0 40px rgba(255,60,0,0.3)',
-                            }}>
-                            🔥 {b.kiosk?.name || b.name}
+                  {/* Branch markers */}
+                  {branches.map((b) => {
+                    const isClosest = closestBranchId === b.id;
+                    const results = getResultsForBranch(b.id);
+                    const hasResults = results && results.length > 0;
+                    return (
+                      <AdvancedMarker
+                        key={b.id}
+                        position={{ lat: b.lat, lng: b.lng }}
+                        onClick={() => selectBranchAndZoom(b)}
+                      >
+                        {isClosest ? (
+                          /* 🔥 Fire aura marker for closest */
+                          <div className="relative flex items-center justify-center">
+                            <div className="absolute w-16 h-16 rounded-full animate-pulse"
+                              style={{
+                                background: 'radial-gradient(circle, rgba(255,100,0,0.4) 0%, rgba(255,60,0,0.2) 40%, rgba(255,0,0,0.1) 70%, transparent 100%)',
+                                filter: 'blur(4px)',
+                              }} />
+                            <div className="absolute w-12 h-12 rounded-full animate-ping opacity-30"
+                              style={{ background: 'radial-gradient(circle, rgba(255,165,0,0.6) 0%, transparent 70%)' }} />
+                            <div className="relative flex items-center gap-1 px-3 py-1.5 rounded-full shadow-xl text-xs font-bold cursor-pointer z-10"
+                              style={{
+                                background: 'linear-gradient(135deg, #ff6a00, #ee0979)',
+                                color: 'white',
+                                boxShadow: '0 0 20px rgba(255,100,0,0.5), 0 0 40px rgba(255,60,0,0.3)',
+                              }}>
+                              🔥 {b.kiosk?.name || b.name}
+                            </div>
                           </div>
-                        </div>
-                      ) : (
-                        <div className={`flex items-center gap-1 px-2 py-1 rounded-full shadow-lg text-xs font-bold cursor-pointer transition-transform hover:scale-110
-                          ${selectedBranch?.id === b.id
-                            ? 'bg-primary-600 text-white scale-110'
-                            : hasResults
-                              ? 'bg-emerald-500 text-white'
-                              : 'bg-white text-surface-900 border border-surface-200'}`}>
-                          🏪 {b.kiosk?.name || b.name}
-                        </div>
-                      )}
-                    </AdvancedMarker>
-                  );
-                })}
-              </GoogleMap>
-            </APIProvider>
-          </motion.div>
+                        ) : (
+                          <div className={`flex items-center gap-1 px-2 py-1 rounded-full shadow-lg text-xs font-bold cursor-pointer transition-transform hover:scale-110
+                            ${selectedBranch?.id === b.id
+                              ? 'bg-primary-600 text-white scale-110'
+                              : hasResults
+                                ? 'bg-emerald-500 text-white'
+                                : 'bg-white text-surface-900 border border-surface-200'}`}>
+                            🏪 {b.kiosk?.name || b.name}
+                          </div>
+                        )}
+                      </AdvancedMarker>
+                    );
+                  })}
+                </GoogleMap>
+              </APIProvider>
+            </div>
+
+            {/* Selected Kiosk Details Panel - Desktop (Slide over map) */}
+            <AnimatePresence>
+              {selectedBranch && (
+                <motion.div
+                  key="desktop-details"
+                  initial={{ x: '-105%', opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: '-105%', opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 240, damping: 28 }}
+                  className="hidden lg:flex absolute left-4 top-4 bottom-4 w-[350px] z-10 bg-white/95 backdrop-blur-md shadow-2xl border border-surface-200/80 rounded-2xl flex flex-col overflow-hidden"
+                >
+                  {renderDetailsContent(selectedBranch)}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Selected Kiosk Details Panel - Mobile (Slide Up over map) */}
+            <AnimatePresence>
+              {selectedBranch && (
+                <motion.div
+                  key="mobile-details"
+                  initial={{ y: '105%', opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: '105%', opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 240, damping: 28 }}
+                  className="lg:hidden absolute left-4 right-4 bottom-4 h-[330px] z-10 bg-white/95 backdrop-blur-md shadow-2xl border border-surface-200/80 rounded-2xl flex flex-col overflow-hidden"
+                >
+                  {renderDetailsContent(selectedBranch)}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Sidebar list — sorted by distance when searching */}
           <div className="w-full lg:w-1/6 space-y-2 overflow-y-auto max-h-[500px] lg:max-h-full pr-1 shrink-0">
