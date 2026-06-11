@@ -127,34 +127,34 @@ export default function MapView() {
 
   return (
     <div className="flex flex-col gap-3 h-full animate-fade-in-up">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-surface-900">Mapa de Kioscos</h1>
-          <p className="text-surface-500 text-sm mt-0.5">Encontrá kioscos cercanos y buscá productos</p>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div className="shrink-0">
+          <h1 className="text-xl font-bold text-surface-900">Mapa de Kioscos</h1>
+          <p className="text-surface-500 text-xs mt-0.5">Encontrá kioscos cercanos y buscá productos</p>
         </div>
-      </div>
 
-      {/* Search */}
-      <div className="flex gap-2">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          placeholder="Buscar producto en kioscos cercanos..."
-          className="flex-1 px-4 py-2.5 rounded-xl border border-surface-200 bg-white focus:ring-2 focus:ring-primary-500 outline-none text-sm"
-          aria-label="Buscar en el mapa"
-        />
-        <button onClick={handleSearch} disabled={searching}
-          className="px-5 py-2.5 rounded-xl gradient-primary text-white font-medium text-sm shadow-lg shadow-primary-500/25 hover:shadow-xl transition-all disabled:opacity-60 flex items-center gap-2">
-          {searching ? <Spinner size="sm" /> : 'Buscar'}
-        </button>
-        {searchResults && (
-          <button onClick={() => { setSearch(''); loadBranches(); }}
-            className="px-3 py-2.5 rounded-xl border border-surface-200 text-sm text-surface-600 hover:bg-surface-50 transition-colors">
-            Limpiar
+        {/* Search */}
+        <div className="flex gap-2 flex-1 max-w-md w-full md:justify-end">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            placeholder="Buscar producto..."
+            className="flex-1 max-w-xs px-3.5 py-1.5 rounded-xl border border-surface-200 bg-white focus:ring-2 focus:ring-primary-500 outline-none text-xs"
+            aria-label="Buscar en el mapa"
+          />
+          <button onClick={handleSearch} disabled={searching}
+            className="px-4 py-1.5 rounded-xl gradient-primary text-white font-medium text-xs shadow-md shadow-primary-500/20 hover:shadow-lg transition-all disabled:opacity-60 flex items-center gap-1.5 shrink-0">
+            {searching ? <Spinner size="sm" /> : 'Buscar'}
           </button>
-        )}
+          {searchResults && (
+            <button onClick={() => { setSearch(''); loadBranches(); }}
+              className="px-3 py-1.5 rounded-xl border border-surface-200 text-xs text-surface-600 hover:bg-surface-50 transition-colors shrink-0">
+              Limpiar
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Results count */}
