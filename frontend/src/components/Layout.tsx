@@ -97,7 +97,7 @@ export default function Layout() {
                     Dashboard
                   </button>
                   <button
-                    onClick={() => { navigate('/dashboard'); setProfileDropdownOpen(false); }}
+                    onClick={() => { navigate('/my-kiosk'); setProfileDropdownOpen(false); }}
                     className="w-full text-left px-4 py-2 text-xs font-semibold text-surface-700 hover:bg-surface-50 hover:text-surface-900 transition-colors flex items-center gap-2"
                   >
                     Mi Kiosco
@@ -162,7 +162,7 @@ export default function Layout() {
             Dashboard
           </NavLink>
           <NavLink
-            to="/dashboard"
+            to="/my-kiosk"
             onClick={() => setMobileMenuOpen(false)}
             className="text-sm font-medium text-surface-500 py-1.5 block transition-colors text-left"
           >

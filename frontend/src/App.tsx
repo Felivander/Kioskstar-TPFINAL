@@ -16,6 +16,7 @@ import Stock from './pages/Stock';
 import Sales from './pages/Sales';
 import MapView from './pages/MapView';
 import Account from './pages/Account';
+import MyKiosk from './pages/MyKiosk';
 
 export default function App() {
   const { token, user } = useAppSelector((s) => s.auth);
@@ -66,6 +67,7 @@ export default function App() {
         } />
         <Route path="/map" element={<MapView />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/my-kiosk" element={<MyKiosk />} />
       </Route>
 
       {/* Fallback */}
