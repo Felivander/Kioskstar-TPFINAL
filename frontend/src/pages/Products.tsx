@@ -361,9 +361,13 @@ export default function Products() {
                     <h3 className="font-bold text-xs text-surface-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
                       {p.name}
                     </h3>
-                    <p className="text-[9.5px] text-surface-400 mt-0.5 line-clamp-1 min-h-[0.75rem]">
-                      {p.description || 'Sin descripción.'}
-                    </p>
+                    {p.description && p.description.toLowerCase() !== p.name.toLowerCase() ? (
+                      <p className="text-[9.5px] text-surface-400 mt-0.5 line-clamp-1 min-h-[0.75rem]">
+                        {p.description}
+                      </p>
+                    ) : (
+                      <div className="min-h-[0.75rem]" />
+                    )}
                   </div>
 
                   {/* Metadata: Price & Sales */}
@@ -438,7 +442,7 @@ export default function Products() {
                           </div>
                           <div>
                             <p className="font-medium text-surface-900">{product.name}</p>
-                            {product.description && (
+                            {product.description && product.description.toLowerCase() !== product.name.toLowerCase() && (
                               <p className="text-xs text-surface-400 mt-0.5 truncate max-w-[200px]">{product.description}</p>
                             )}
                           </div>
