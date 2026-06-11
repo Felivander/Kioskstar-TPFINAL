@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import api from '../services/api';
 import { Product, Category } from '../types';
 import Spinner from '../components/Spinner';
@@ -252,7 +253,7 @@ export default function Products() {
       </div>
 
       {/* Form modal */}
-      {showForm && (
+      {showForm && createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4" onClick={() => resetForm()}>
           <div
             className="bg-white rounded-2xl p-6 w-full max-w-lg shadow-2xl animate-fade-in-up"
@@ -312,11 +313,12 @@ export default function Products() {
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Delete Confirmation Modal */}
-      {deletingProduct && (
+      {deletingProduct && createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4" onClick={() => setDeletingProduct(null)}>
           <div
             className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl animate-scale-in text-center"
@@ -354,7 +356,8 @@ export default function Products() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Products list/grid */}
