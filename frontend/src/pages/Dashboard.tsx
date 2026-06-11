@@ -6,6 +6,7 @@ import { setSelectedBranch } from '../store/authSlice';
 import { SkeletonCard } from '../components/Skeleton';
 import api from '../services/api';
 import { Kiosk, Branch } from '../types';
+import { MapPin, Sparkles, Store, BarChart3, AlertCircle, TrendingUp, Coins, Package, Map, Users, Zap } from 'lucide-react';
 
 export default function Dashboard() {
   const { user, selectedBranch } = useAppSelector((s) => s.auth);
@@ -174,7 +175,7 @@ export default function Dashboard() {
                 style={{ animationDelay: `${i * 100}ms` }}
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-lg group-hover:scale-110 transition-transform">📍</span>
+                  <MapPin size={18} className="text-primary-600 group-hover:scale-110 transition-transform shrink-0" />
                   <h3 className="font-bold text-surface-900 group-hover:text-primary-700 transition-colors">
                     {b.name}
                   </h3>
@@ -199,7 +200,10 @@ export default function Dashboard() {
               <p className="text-white/80 text-xs font-semibold uppercase tracking-wider">{greeting()}</p>
               <span className="text-[10px] bg-white/10 text-white/90 px-2 py-0.5 rounded-full font-bold uppercase">{user?.role}</span>
             </div>
-            <h1 className="text-xl lg:text-2xl font-extrabold tracking-tight mt-1">{user?.name} 👋</h1>
+            <h1 className="text-xl lg:text-2xl font-extrabold tracking-tight mt-1 flex items-center gap-1.5">
+              {user?.name}
+              <Sparkles size={20} className="text-amber-400 fill-amber-400 shrink-0 animate-pulse" />
+            </h1>
             <p className="text-surface-400 text-xs mt-1.5 font-medium">
               {selectedBranch ? `Sucursal: ${selectedBranch.name}` : 'Resumen de tu red de kioscos.'}
             </p>
@@ -217,8 +221,8 @@ export default function Dashboard() {
 
       {/* Admin: No kiosk placeholder CTA */}
       {isAdmin && !kiosk && !loading && (
-        <div className="rounded-2xl bg-white p-8 border border-surface-200/60 shadow-sm text-center max-w-md mx-auto my-6 space-y-4">
-          <span className="text-5xl block animate-float">🏪</span>
+        <div className="rounded-2xl bg-white p-8 border border-surface-200/60 shadow-sm text-center max-w-md mx-auto my-6 space-y-4 flex flex-col items-center justify-center">
+          <Store size={48} className="text-primary-600 animate-float mb-2" />
           <h2 className="text-lg font-bold text-surface-900">Registrá tu kiosco para comenzar</h2>
           <p className="text-xs text-surface-500 leading-relaxed">
             Como administrador, necesitás registrar tu marca principal de kiosco para poder configurar sucursales, ver métricas de negocio y habilitar a tus empleados.
@@ -238,8 +242,9 @@ export default function Dashboard() {
           
           {/* KPI Widget Cards */}
           <div className="flex flex-col gap-3">
-            <h2 className="text-[10px] font-bold text-surface-400 uppercase tracking-wider px-1">
-              📊 Métricas de hoy
+            <h2 className="text-[10px] font-bold text-surface-400 uppercase tracking-wider px-1 inline-flex items-center gap-1">
+              <BarChart3 size={12} className="text-surface-400" />
+              Métricas de hoy
             </h2>
             
             {/* Sales revenue */}
@@ -259,10 +264,10 @@ export default function Dashboard() {
                 ? 'bg-red-50/50 border-red-200 text-red-950' 
                 : 'bg-white border-surface-200/60 text-surface-950'}`}
             >
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg
-                ${outOfStockCount > 0 ? 'bg-red-100 text-red-600' : 'bg-surface-50 text-surface-600'}`}
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center
+                ${outOfStockCount > 0 ? 'bg-red-100 text-red-600' : 'bg-surface-50 text-surface-400'}`}
               >
-                🚨
+                <AlertCircle size={20} />
               </div>
               <div>
                 <p className={`text-[9px] font-bold uppercase tracking-wider ${outOfStockCount > 0 ? 'text-red-500' : 'text-surface-400'}`}>
@@ -278,7 +283,10 @@ export default function Dashboard() {
           {/* Sales chart Widget (B style) */}
           <div className="bg-white border border-surface-200/60 rounded-2xl p-4 flex flex-col justify-between shadow-sm min-h-[170px]">
             <div>
-              <h3 className="text-[10px] font-bold text-surface-400 uppercase tracking-wider">📈 Distribución de Ventas</h3>
+              <h3 className="text-[10px] font-bold text-surface-400 uppercase tracking-wider inline-flex items-center gap-1">
+                <TrendingUp size={12} className="text-surface-400" />
+                Distribución de Ventas
+              </h3>
               <p className="text-[9px] text-surface-400 font-medium mt-0.5">Ingresos acumulados según turno de hoy</p>
             </div>
 
@@ -341,15 +349,16 @@ export default function Dashboard() {
       {/* Quick Actions (Foolproof buttons) */}
       {(selectedBranch || isEmpleado) && (
         <div className="space-y-2.5">
-          <h2 className="text-[10px] font-bold text-surface-400 uppercase tracking-wider px-1">
-            ⚡ Acciones Rápidas
+          <h2 className="text-[10px] font-bold text-surface-400 uppercase tracking-wider px-1 inline-flex items-center gap-1">
+            <Zap size={12} className="text-surface-400 fill-amber-400 stroke-amber-500" />
+            Acciones Rápidas
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <button
               onClick={() => navigate('/sales')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">💰</span>
+              <Coins className="text-emerald-500 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">Registrar Venta</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">Escanear o Manual</span>
@@ -360,7 +369,7 @@ export default function Dashboard() {
               onClick={() => navigate('/stock')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">📦</span>
+              <Package className="text-primary-500 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">Cargar Stock</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">Actualizar cantidades</span>
@@ -371,7 +380,7 @@ export default function Dashboard() {
               onClick={() => navigate('/map')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">🗺️</span>
+              <Map className="text-indigo-500 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">Ver Mapa</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">Buscador y Kioscos</span>
@@ -382,7 +391,7 @@ export default function Dashboard() {
               onClick={() => navigate(isAdmin ? '/my-kiosk' : '/dashboard')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">👥</span>
+              <Users className="text-surface-500 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">{isAdmin ? 'Personal' : 'Mi Cuenta'}</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">{isAdmin ? 'Invitaciones' : 'Detalles de perfil'}</span>
@@ -394,8 +403,8 @@ export default function Dashboard() {
 
       {/* Cliente view */}
       {user?.role === 'CLIENTE' && (
-        <div className="text-center py-12 bg-white rounded-2xl border border-surface-200/60 shadow-sm space-y-4">
-          <span className="text-5xl block animate-float">🗺️</span>
+        <div className="text-center py-12 bg-white rounded-2xl border border-surface-200/60 shadow-sm space-y-4 flex flex-col items-center justify-center">
+          <Map size={48} className="text-primary-600 animate-float mb-2" />
           <h2 className="text-base font-bold text-surface-900">Explorá kioscos cerca tuyo</h2>
           <p className="text-xs text-surface-500 max-w-sm mx-auto leading-relaxed">
             Utilizá el mapa interactivo de KioskStar para buscar productos y encontrar los kioscos más cercanos en Concordia.

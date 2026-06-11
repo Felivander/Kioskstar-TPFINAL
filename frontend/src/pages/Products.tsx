@@ -5,6 +5,7 @@ import Spinner from '../components/Spinner';
 import { SkeletonTable } from '../components/Skeleton';
 import toast from 'react-hot-toast';
 import { useAppSelector } from '../hooks/useAppSelector';
+import { Package, Search, Plus, Edit2, Trash2, Flame, LayoutGrid, List } from 'lucide-react';
 
 export default function Products() {
   const { user, selectedBranch } = useAppSelector((state) => state.auth);
@@ -163,9 +164,10 @@ export default function Products() {
         {canEdit && (
           <button
             onClick={() => { resetForm(); setShowForm(true); }}
-            className="px-5 py-2.5 rounded-xl gradient-primary text-white font-medium text-sm shadow-lg shadow-primary-500/25 hover:shadow-xl transition-all"
+            className="px-5 py-2.5 rounded-xl gradient-primary text-white font-medium text-sm shadow-lg shadow-primary-500/25 hover:shadow-xl transition-all flex items-center gap-2 cursor-pointer"
           >
-            + Nuevo Producto
+            <Plus size={16} />
+            Nuevo Producto
           </button>
         )}
       </div>
@@ -177,7 +179,7 @@ export default function Products() {
           {/* Search Input */}
           <div className="relative flex-1">
             <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-surface-400">
-              🔍
+              <Search size={16} />
             </span>
             <input
               type="text"
@@ -225,29 +227,25 @@ export default function Products() {
           <div className="flex items-center bg-surface-100 p-1 rounded-xl">
             <button
               onClick={() => setViewMode('grid')}
-              className={`p-2 rounded-lg transition-all duration-200 cursor-pointer ${
+              className={`p-1.5 rounded-lg transition-all duration-200 cursor-pointer ${
                 viewMode === 'grid'
                   ? 'bg-white text-primary-600 shadow-sm'
                   : 'text-surface-400 hover:text-surface-700'
               }`}
               title="Vista de Tarjetas"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-              </svg>
+              <LayoutGrid size={16} />
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`p-2 rounded-lg transition-all duration-200 cursor-pointer ${
+              className={`p-1.5 rounded-lg transition-all duration-200 cursor-pointer ${
                 viewMode === 'list'
                   ? 'bg-white text-primary-600 shadow-sm'
                   : 'text-surface-400 hover:text-surface-700'
               }`}
               title="Vista de Lista"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              <List size={16} />
             </button>
           </div>
         </div>
@@ -321,13 +319,13 @@ export default function Products() {
       {loading ? (
         <SkeletonTable rows={6} />
       ) : products.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100 shadow-sm">
-          <span className="text-5xl block mb-3">📦</span>
+        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100 shadow-sm flex flex-col items-center justify-center">
+          <Package size={48} className="text-surface-300 mb-3" />
           <p className="text-surface-500 font-medium">No hay productos registrados</p>
         </div>
       ) : filteredAndSortedProducts.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100 shadow-sm">
-          <span className="text-5xl block mb-3">🔍</span>
+        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100 shadow-sm flex flex-col items-center justify-center">
+          <Search size={48} className="text-surface-300 mb-3" />
           <p className="text-surface-500 font-medium">No se encontraron productos coincidentes</p>
           <p className="text-xs text-surface-400 mt-1">Probá cambiando los términos de búsqueda o filtros.</p>
         </div>
@@ -349,7 +347,7 @@ export default function Products() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <span className="text-2xl">📦</span>
+                    <Package size={32} className="text-surface-300" />
                   )}
                   {/* Category Pill */}
                   <span className="absolute top-2 left-2 text-[8px] font-bold bg-white/90 backdrop-blur-sm border border-surface-200/60 px-1.5 py-0.5 rounded-full uppercase tracking-wider text-surface-600">
@@ -435,7 +433,7 @@ export default function Products() {
                             {product.imageUrl ? (
                               <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
                             ) : (
-                              <span className="text-lg">📦</span>
+                              <Package size={18} className="text-surface-400" />
                             )}
                           </div>
                           <div>
@@ -456,9 +454,10 @@ export default function Products() {
                       </td>
                       {selectedBranch && (
                         <td className="px-6 py-4">
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                          <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${
                             soldCount > 0 ? 'bg-amber-50 text-amber-700 border border-amber-100' : 'bg-surface-100 text-surface-500'
                           }`}>
+                            {soldCount > 0 && <Flame size={10} className="fill-amber-500 stroke-amber-600" />}
                             {soldCount} vendidos
                           </span>
                         </td>
