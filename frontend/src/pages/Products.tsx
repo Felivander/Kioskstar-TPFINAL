@@ -330,7 +330,7 @@ export default function Products() {
           <p className="text-xs text-surface-400 mt-1">Probá cambiando los términos de búsqueda o filtros.</p>
         </div>
       ) : viewMode === 'grid' ? (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2.5">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-2">
           {filteredAndSortedProducts.map((p) => {
             const soldCount = salesCounts[p.id] || 0;
             return (
@@ -339,7 +339,7 @@ export default function Products() {
                 className="bg-white border border-surface-200/60 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between group"
               >
                 {/* Image section */}
-                <div className="relative aspect-[4/3] w-full bg-surface-50 border-b border-surface-100 flex items-center justify-center overflow-hidden">
+                <div className="relative aspect-square w-full bg-surface-50 border-b border-surface-100 flex items-center justify-center overflow-hidden">
                   {p.imageUrl ? (
                     <img
                       src={p.imageUrl}
