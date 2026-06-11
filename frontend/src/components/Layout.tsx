@@ -83,7 +83,6 @@ export default function Layout() {
                 <p className="text-xs font-semibold text-surface-800 line-clamp-1 max-w-[100px]">{user?.name}</p>
                 <p className="text-[9px] text-surface-400 font-medium capitalize mt-0.5">{user?.role?.toLowerCase()}</p>
               </div>
-              <span className="text-[10px] text-surface-400 ml-1">▼</span>
             </button>
 
             {profileDropdownOpen && (
