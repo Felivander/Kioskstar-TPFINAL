@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { logout, setSelectedBranch } from '../store/authSlice';
@@ -21,6 +21,22 @@ export default function Layout() {
   const { user, selectedBranch } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const filteredNav = navItems.filter((item) => item.roles.includes(user?.role || ''));
+  const currentIndex = filteredNav.findIndex((item) => item.to === currentPath);
+
+  // Navigation pages calculations
+  let prevPage = null;
+  let nextPage = null;
+
+  if (currentIndex !== -1) {
+    prevPage = currentIndex > 0 ? filteredNav[currentIndex - 1] : null;
+    nextPage = currentIndex < filteredNav.length - 1 ? filteredNav[currentIndex + 1] : null;
+  } else if (currentPath === '/dashboard' && filteredNav.length > 0) {
+    nextPage = filteredNav[0];
+  }
 
   const handleLogout = () => {
     dispatch(logout());
@@ -39,7 +55,7 @@ export default function Layout() {
     }
   }, [user]);
 
-  const filteredNav = navItems.filter((item) => item.roles.includes(user?.role || ''));
+  // filteredNav is calculated above for routing and layout
 
   return (
     <div className="h-screen flex flex-col bg-surface-50 overflow-hidden">
@@ -266,10 +282,40 @@ export default function Layout() {
         </div>
       )}
 
-      {/* Main content page viewport */}
-      <main className="flex-1 p-4 lg:p-6 w-full overflow-y-auto">
-        <Outlet />
-      </main>
+      {/* Main content page viewport with Edge Navigation */}
+      <div className="flex-1 flex relative overflow-hidden">
+        {prevPage && (
+          <button
+            onClick={() => navigate(prevPage.to)}
+            className="absolute left-0 top-0 bottom-0 w-6 z-30 group cursor-pointer flex items-center justify-start focus:outline-none select-none"
+            aria-label={`Ir a ${prevPage.label}`}
+            title={`Ir a ${prevPage.label}`}
+          >
+            {/* Stretching orange vertical handle */}
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-20 bg-primary-500 rounded-r-full transition-all duration-300 ease-out group-hover:h-32 group-hover:w-3.5 group-hover:bg-primary-600 shadow-[0_0_15px_rgba(249,115,22,0.4)] flex items-center justify-center text-white overflow-hidden">
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-bold -translate-x-[1px]">‹</span>
+            </div>
+          </button>
+        )}
+
+        {nextPage && (
+          <button
+            onClick={() => navigate(nextPage.to)}
+            className="absolute right-0 top-0 bottom-0 w-6 z-30 group cursor-pointer flex items-center justify-end focus:outline-none select-none"
+            aria-label={`Ir a ${nextPage.label}`}
+            title={`Ir a ${nextPage.label}`}
+          >
+            {/* Stretching orange vertical handle */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-20 bg-primary-500 rounded-l-full transition-all duration-300 ease-out group-hover:h-32 group-hover:w-3.5 group-hover:bg-primary-600 shadow-[0_0_15px_rgba(249,115,22,0.4)] flex items-center justify-center text-white overflow-hidden">
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-bold translate-x-[1px]">›</span>
+            </div>
+          </button>
+        )}
+
+        <main className="flex-1 p-4 lg:p-6 w-full overflow-y-auto">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }
