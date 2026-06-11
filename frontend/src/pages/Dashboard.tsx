@@ -15,6 +15,9 @@ export default function Dashboard() {
   const [kiosk, setKiosk] = useState<Kiosk | null>(null);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ totalProducts: 0, totalSales: 0 });
+  const [todaySalesTotal, setTodaySalesTotal] = useState(0);
+  const [outOfStockCount, setOutOfStockCount] = useState(0);
+  const [timeOfDaySales, setTimeOfDaySales] = useState({ morning: 0, midday: 0, afternoon: 0 });
 
   const isAdmin = user?.role === 'ADMIN';
   const isEmpleado = user?.role === 'EMPLEADO';
@@ -31,15 +34,60 @@ export default function Dashboard() {
     }
   }, [kiosk, isEmpleado, selectedBranch, user?.branchId, dispatch]);
 
+  const loadBranchStats = async (branchId: number) => {
+    try {
+      const [salesRes, stockRes] = await Promise.all([
+        api.get(`/sales/branch/${branchId}`),
+        api.get(`/branches/${branchId}/stock`)
+      ]);
+
+      const salesData = salesRes.data || [];
+      const stockData = stockRes.data || [];
+
+      // Calculate out of stock count
+      const zeroStock = stockData.filter((item: any) => item.quantity <= 0).length;
+      setOutOfStockCount(zeroStock);
+
+      // Filter sales from today
+      const todayStr = new Date().toISOString().split('T')[0];
+      const todaySales = salesData.filter((s: any) => s.createdAt.startsWith(todayStr));
+      const totalToday = todaySales.reduce((acc: number, s: any) => acc + s.total, 0);
+      setTodaySalesTotal(totalToday);
+
+      // Distribute sales by time of day
+      let morningSum = 0;
+      let middaySum = 0;
+      let afternoonSum = 0;
+
+      todaySales.forEach((s: any) => {
+        const date = new Date(s.createdAt);
+        const hour = date.getHours();
+        if (hour >= 6 && hour < 12) {
+          morningSum += s.total;
+        } else if (hour >= 12 && hour < 16) {
+          middaySum += s.total;
+        } else if (hour >= 16 && hour < 24) {
+          afternoonSum += s.total;
+        }
+      });
+
+      setTimeOfDaySales({ morning: morningSum, midday: middaySum, afternoon: afternoonSum });
+    } catch (err) {
+      console.error('Error loading branch stats:', err);
+    }
+  };
+
   const loadData = async () => {
     setLoading(true);
     try {
+      let currentKiosk: Kiosk | null = null;
       if (isAdmin) {
         const { data } = await api.get('/auth/my-kiosk');
+        currentKiosk = data;
         setKiosk(data);
       } else if (isEmpleado && user?.branchId) {
         const { data } = await api.get('/auth/my-branch');
-        setKiosk({
+        currentKiosk = {
           id: data.kiosk.id,
           name: data.kiosk.name,
           ownerId: 0,
@@ -51,15 +99,35 @@ export default function Dashboard() {
           lng: 0,
           createdAt: '',
           branches: [data],
-        });
+        };
+        setKiosk(currentKiosk);
       }
+
       const [prodRes] = await Promise.all([api.get('/products')]);
       setStats({ totalProducts: prodRes.data.length, totalSales: 0 });
+
+      // Determine active branch for stats
+      const activeBranch = selectedBranch || (isEmpleado && currentKiosk?.branches ? currentKiosk.branches.find(b => b.id === user?.branchId) : null);
+      
+      if (activeBranch) {
+        await loadBranchStats(activeBranch.id);
+      }
     } catch (error) {
       console.error('Error al cargar datos del dashboard:', error);
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    const activeBranch = selectedBranch || (isEmpleado && kiosk?.branches ? kiosk.branches.find(b => b.id === user?.branchId) : null);
+    if (activeBranch) {
+      loadBranchStats(activeBranch.id);
+    } else {
+      setTodaySalesTotal(0);
+      setOutOfStockCount(0);
+      setTimeOfDaySales({ morning: 0, midday: 0, afternoon: 0 });
+    }
+  }, [selectedBranch, kiosk, isEmpleado, user?.branchId]);
 
   const selectBranch = (branch: Branch) => {
     dispatch(setSelectedBranch(branch));
