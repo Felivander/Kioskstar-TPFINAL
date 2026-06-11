@@ -146,10 +146,10 @@ export default function Dashboard() {
   // Branch selector screen (Admin lands here and must pick a branch)
   if (needsBranchSelection && isAdmin) {
     return (
-      <div className="flex flex-col gap-4 h-full max-w-4xl mx-auto py-4 px-2">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface-900 via-primary-900/80 to-surface-900 p-6 text-white animate-fade-in-up">
+      <div className="flex flex-col gap-5 h-full max-w-3xl mx-auto py-6 px-4 animate-fade-in-up">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface-900 via-primary-900/80 to-surface-900 p-6 text-white shadow-md">
           <div className="relative z-10">
-            <p className="text-primary-300 text-xs font-medium mb-1">
+            <p className="text-white/80 text-xs font-semibold uppercase tracking-wider mb-1">
               {greeting()}, {user?.name}
             </p>
             <h1 className="text-2xl font-extrabold tracking-tight">Seleccioná una sucursal</h1>
@@ -170,7 +170,7 @@ export default function Dashboard() {
               <button
                 key={b.id}
                 onClick={() => selectBranch(b)}
-                className={`text-left rounded-2xl bg-white p-5 border border-surface-200 hover:border-primary-400 hover:shadow-lg hover:shadow-primary-500/5 transition-all duration-300 group cursor-pointer animate-fade-in-up`}
+                className={`text-left rounded-2xl bg-white p-5 border border-surface-200 hover:border-primary-400 hover:shadow-lg hover:shadow-primary-500/5 transition-all duration-300 group cursor-pointer`}
                 style={{ animationDelay: `${i * 100}ms` }}
               >
                 <div className="flex items-center gap-2 mb-2">
@@ -196,8 +196,8 @@ export default function Dashboard() {
         <div className="relative z-10 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2">
-              <p className="text-primary-300 text-xs font-semibold uppercase tracking-wider">{greeting()}</p>
-              <span className="text-[10px] bg-primary-500/20 text-primary-300 px-2 py-0.5 rounded-full font-bold uppercase">{user?.role}</span>
+              <p className="text-white/80 text-xs font-semibold uppercase tracking-wider">{greeting()}</p>
+              <span className="text-[10px] bg-white/10 text-white/90 px-2 py-0.5 rounded-full font-bold uppercase">{user?.role}</span>
             </div>
             <h1 className="text-xl lg:text-2xl font-extrabold tracking-tight mt-1">{user?.name} 👋</h1>
             <p className="text-surface-400 text-xs mt-1.5 font-medium">
@@ -207,7 +207,7 @@ export default function Dashboard() {
           {selectedBranch && isAdmin && (
             <button
               onClick={() => dispatch(setSelectedBranch(null))}
-              className="text-xs font-bold text-primary-300 hover:text-white transition-colors bg-white/10 hover:bg-white/20 px-3.5 py-1.5 rounded-xl shrink-0 cursor-pointer shadow-sm"
+              className="text-xs font-bold text-white/90 hover:text-white transition-colors bg-white/10 hover:bg-white/20 border border-white/10 px-3.5 py-1.5 rounded-xl shrink-0 cursor-pointer shadow-sm"
             >
               Cambiar sucursal
             </button>

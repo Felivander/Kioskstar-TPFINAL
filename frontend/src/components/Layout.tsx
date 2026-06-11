@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { logout } from '../store/authSlice';
@@ -31,7 +31,7 @@ export default function Layout() {
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-surface-200/50 px-4 lg:px-8 py-3.5 flex items-center justify-between">
         {/* Logo and Selected Branch */}
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
+          <Link to="/dashboard" className="flex items-center gap-3 hover:opacity-90 transition-opacity cursor-pointer select-none">
             <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center text-lg font-bold text-white shadow-lg shadow-primary-500/20 animate-glow">
               K
             </div>
@@ -40,7 +40,7 @@ export default function Layout() {
                 Kiosk<span className="text-primary-600">Star</span>
               </h1>
             </div>
-          </div>
+          </Link>
           {selectedBranch && (
             <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-100 text-xs font-semibold text-surface-600 border border-surface-200/40">
               <span className="truncate max-w-[150px]">{selectedBranch.name}</span>
