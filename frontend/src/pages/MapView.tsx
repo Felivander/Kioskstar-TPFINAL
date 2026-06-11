@@ -342,7 +342,7 @@ export default function MapView() {
                   zoom={zoom}
                   mapId="kioskstar-map"
                   gestureHandling="greedy"
-                  disableDefaultUI={false}
+                  disableDefaultUI={true}
                   className="w-full h-full"
                 >
                   {/* User location */}
