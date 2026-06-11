@@ -41,6 +41,18 @@ export default function MapView() {
   const [mapCenter, setMapCenter] = useState(DEFAULT_CENTER);
   const [searching, setSearching] = useState(false);
   const [closestBranchId, setClosestBranchId] = useState<number | null>(null);
+  const [zoom, setZoom] = useState(13);
+
+  const selectBranchAndZoom = (b: MapBranch) => {
+    if (selectedBranch?.id === b.id) {
+      setSelectedBranch(null);
+      setZoom(13);
+    } else {
+      setSelectedBranch(b);
+      setMapCenter({ lat: b.lat, lng: b.lng });
+      setZoom(16);
+    }
+  };
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -270,8 +282,11 @@ export default function MapView() {
             <APIProvider apiKey={API_KEY}>
               <GoogleMap
                 center={mapCenter}
-                onCameraChanged={(ev) => setMapCenter(ev.detail.center)}
-                defaultZoom={13}
+                onCameraChanged={(ev) => {
+                  setMapCenter(ev.detail.center);
+                  setZoom(ev.detail.zoom);
+                }}
+                zoom={zoom}
                 mapId="kioskstar-map"
                 gestureHandling="greedy"
                 disableDefaultUI={false}
@@ -291,7 +306,7 @@ export default function MapView() {
                     <AdvancedMarker
                       key={b.id}
                       position={{ lat: b.lat, lng: b.lng }}
-                      onClick={() => setSelectedBranch(selectedBranch?.id === b.id ? null : b)}
+                      onClick={() => selectBranchAndZoom(b)}
                     >
                       {isClosest ? (
                         /* 🔥 Fire aura marker for closest */
@@ -345,10 +360,7 @@ export default function MapView() {
               return (
                 <button
                   key={b.id}
-                  onClick={() => {
-                    setSelectedBranch(selectedBranch?.id === b.id ? null : b);
-                    setMapCenter({ lat: b.lat, lng: b.lng });
-                  }}
+                  onClick={() => selectBranchAndZoom(b)}
                   className={`w-full text-left p-3 rounded-xl border transition-all duration-200 relative overflow-hidden
                     ${isClosest
                       ? 'border-orange-300 shadow-lg'
