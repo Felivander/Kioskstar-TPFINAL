@@ -7,13 +7,20 @@ import toast from 'react-hot-toast';
 import { useAppSelector } from '../hooks/useAppSelector';
 
 export default function Products() {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, selectedBranch } = useAppSelector((state) => state.auth);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [formLoading, setFormLoading] = useState(false);
+
+  // Filter and Layout states
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCatId, setSelectedCatId] = useState('');
+  const [sortBy, setSortBy] = useState('name');
+  const [salesCounts, setSalesCounts] = useState<Record<number, number>>({});
 
   // Form fields
   const [name, setName] = useState('');
@@ -27,7 +34,7 @@ export default function Products() {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [selectedBranch]);
 
   const loadData = async () => {
     try {
@@ -37,6 +44,26 @@ export default function Products() {
       ]);
       setProducts(prodRes.data);
       setCategories(catRes.data);
+
+      if (selectedBranch) {
+        try {
+          const salesRes = await api.get(`/sales/branch/${selectedBranch.id}`);
+          const salesData = salesRes.data || [];
+          const counts: Record<number, number> = {};
+          salesData.forEach((sale: any) => {
+            if (sale.items) {
+              sale.items.forEach((item: any) => {
+                counts[item.productId] = (counts[item.productId] || 0) + item.quantity;
+              });
+            }
+          });
+          setSalesCounts(counts);
+        } catch (err) {
+          console.error('Error al cargar ventas de sucursal:', err);
+        }
+      } else {
+        setSalesCounts({});
+      }
     } catch {
       toast.error('Error al cargar productos');
     } finally {
@@ -100,6 +127,32 @@ export default function Products() {
     }
   };
 
+  // Filter & Sort products in memory
+  const filteredAndSortedProducts = products
+    .filter((p) => {
+      const matchesSearch =
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (p.barcode && p.barcode.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchesCategory = selectedCatId === '' || p.categoryId === parseInt(selectedCatId);
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'price_asc') return a.price - b.price;
+      if (sortBy === 'price_desc') return b.price - a.price;
+      if (sortBy === 'sold_desc') {
+        const soldA = salesCounts[a.id] || 0;
+        const soldB = salesCounts[b.id] || 0;
+        return soldB - soldA;
+      }
+      if (sortBy === 'sold_asc') {
+        const soldA = salesCounts[a.id] || 0;
+        const soldB = salesCounts[b.id] || 0;
+        return soldA - soldB;
+      }
+      // default: name asc
+      return a.name.localeCompare(b.name);
+    });
+
   return (
     <div className="space-y-6 animate-fade-in-up">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -115,6 +168,89 @@ export default function Products() {
             + Nuevo Producto
           </button>
         )}
+      </div>
+
+      {/* Control and Filter Bar */}
+      <div className="bg-white border border-surface-200/60 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+        {/* Search & Category */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1 max-w-2xl">
+          {/* Search Input */}
+          <div className="relative flex-1">
+            <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-surface-400">
+              🔍
+            </span>
+            <input
+              type="text"
+              placeholder="Buscar por nombre o código..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-surface-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm bg-surface-50/50"
+            />
+          </div>
+
+          {/* Category Dropdown */}
+          <select
+            value={selectedCatId}
+            onChange={(e) => setSelectedCatId(e.target.value)}
+            className="px-4 py-2.5 rounded-xl border border-surface-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm bg-white cursor-pointer"
+          >
+            <option value="">Todas las categorías</option>
+            {categories.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Sort & View Switching */}
+        <div className="flex items-center justify-between md:justify-end gap-4 shrink-0 border-t border-surface-100 md:border-t-0 pt-3 md:pt-0">
+          {/* Sorting Dropdown */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-surface-400 uppercase tracking-wider hidden sm:inline">Ordenar:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="px-4 py-2.5 rounded-xl border border-surface-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm bg-white cursor-pointer"
+            >
+              <option value="name">Nombre (A-Z)</option>
+              <option value="price_asc">Precio: Menor a Mayor</option>
+              <option value="price_desc">Precio: Mayor a Menor</option>
+              {selectedBranch && <option value="sold_desc">Más vendidos</option>}
+              {selectedBranch && <option value="sold_asc">Menos vendidos</option>}
+            </select>
+          </div>
+
+          {/* View Mode Toggle Buttons */}
+          <div className="flex items-center bg-surface-100 p-1 rounded-xl">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded-lg transition-all duration-200 cursor-pointer ${
+                viewMode === 'grid'
+                  ? 'bg-white text-primary-600 shadow-sm'
+                  : 'text-surface-400 hover:text-surface-700'
+              }`}
+              title="Vista de Tarjetas"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={`p-2 rounded-lg transition-all duration-200 cursor-pointer ${
+                viewMode === 'list'
+                  ? 'bg-white text-primary-600 shadow-sm'
+                  : 'text-surface-400 hover:text-surface-700'
+              }`}
+              title="Vista de Lista"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Form modal */}
@@ -181,13 +317,98 @@ export default function Products() {
         </div>
       )}
 
-      {/* Products table */}
+      {/* Products list/grid */}
       {loading ? (
         <SkeletonTable rows={6} />
       ) : products.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100">
+        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100 shadow-sm">
           <span className="text-5xl block mb-3">📦</span>
-          <p className="text-surface-500">No hay productos registrados</p>
+          <p className="text-surface-500 font-medium">No hay productos registrados</p>
+        </div>
+      ) : filteredAndSortedProducts.length === 0 ? (
+        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100 shadow-sm">
+          <span className="text-5xl block mb-3">🔍</span>
+          <p className="text-surface-500 font-medium">No se encontraron productos coincidentes</p>
+          <p className="text-xs text-surface-400 mt-1">Probá cambiando los términos de búsqueda o filtros.</p>
+        </div>
+      ) : viewMode === 'grid' ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          {filteredAndSortedProducts.map((p) => {
+            const soldCount = salesCounts[p.id] || 0;
+            return (
+              <div
+                key={p.id}
+                className="bg-white border border-surface-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between group"
+              >
+                {/* Image section */}
+                <div className="relative aspect-video w-full bg-surface-50 border-b border-surface-100 flex items-center justify-center overflow-hidden">
+                  {p.imageUrl ? (
+                    <img
+                      src={p.imageUrl}
+                      alt={p.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <span className="text-4xl">📦</span>
+                  )}
+                  {/* Category Pill */}
+                  <span className="absolute top-2.5 left-2.5 text-[9px] font-bold bg-white/90 backdrop-blur-sm border border-surface-200/60 px-2 py-0.5 rounded-full uppercase tracking-wider text-surface-600">
+                    {p.category?.name || 'Varios'}
+                  </span>
+                </div>
+
+                {/* Body Details */}
+                <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                  <div>
+                    <h3 className="font-bold text-sm text-surface-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
+                      {p.name}
+                    </h3>
+                    <p className="text-xs text-surface-400 mt-1 line-clamp-2 min-h-[2rem]">
+                      {p.description || 'Sin descripción disponible.'}
+                    </p>
+                  </div>
+
+                  {/* Metadata: Price & Sales */}
+                  <div className="flex items-center justify-between pt-2 border-t border-surface-50">
+                    <div>
+                      <p className="text-[8px] font-bold text-surface-400 uppercase tracking-wider">Precio</p>
+                      <p className="text-sm font-extrabold text-emerald-600">
+                        ${p.price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+                      </p>
+                    </div>
+                    {selectedBranch && (
+                      <div className="text-right">
+                        <p className="text-[8px] font-bold text-surface-400 uppercase tracking-wider">Ventas</p>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                          soldCount > 0 ? 'bg-amber-50 text-amber-700 border border-amber-100' : 'bg-surface-100 text-surface-500'
+                        }`}>
+                          {soldCount > 0 ? `🔥 ${soldCount}` : '0'} vendidos
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Actions (Admin/Empleado only) */}
+                {canEdit && (
+                  <div className="px-4 py-3 bg-surface-50/50 border-t border-surface-100 flex items-center justify-end gap-3.5 shrink-0">
+                    <button
+                      onClick={() => handleEdit(p)}
+                      className="text-xs font-bold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => handleDelete(p.id)}
+                      className="text-xs font-bold text-red-500 hover:text-red-600 transition-colors cursor-pointer"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       ) : (
         <div className="bg-white rounded-2xl border border-surface-100 overflow-hidden shadow-sm">
@@ -198,57 +419,70 @@ export default function Products() {
                   <th className="text-left px-6 py-3 font-medium text-surface-500">Producto</th>
                   <th className="text-left px-6 py-3 font-medium text-surface-500 hidden sm:table-cell">Categoría</th>
                   <th className="text-left px-6 py-3 font-medium text-surface-500">Precio</th>
+                  {selectedBranch && <th className="text-left px-6 py-3 font-medium text-surface-500">Ventas</th>}
                   <th className="text-left px-6 py-3 font-medium text-surface-500 hidden md:table-cell">Código</th>
                   {canEdit && <th className="text-right px-6 py-3 font-medium text-surface-500">Acciones</th>}
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
-                  <tr key={product.id} className="border-b border-surface-50 hover:bg-surface-50/50 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-surface-100 border border-surface-200/50 flex items-center justify-center overflow-hidden shrink-0">
-                          {product.imageUrl ? (
-                            <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
-                          ) : (
-                            <span className="text-lg">📦</span>
-                          )}
+                {filteredAndSortedProducts.map((product) => {
+                  const soldCount = salesCounts[product.id] || 0;
+                  return (
+                    <tr key={product.id} className="border-b border-surface-50 hover:bg-surface-50/50 transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-surface-100 border border-surface-200/50 flex items-center justify-center overflow-hidden shrink-0">
+                            {product.imageUrl ? (
+                              <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
+                            ) : (
+                              <span className="text-lg">📦</span>
+                            )}
+                          </div>
+                          <div>
+                            <p className="font-medium text-surface-900">{product.name}</p>
+                            {product.description && (
+                              <p className="text-xs text-surface-400 mt-0.5 truncate max-w-[200px]">{product.description}</p>
+                            )}
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-medium text-surface-900">{product.name}</p>
-                          {product.description && (
-                            <p className="text-xs text-surface-400 mt-0.5 truncate max-w-[200px]">{product.description}</p>
-                          )}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 hidden sm:table-cell">
-                      <span className="text-xs bg-primary-50 text-primary-700 px-2 py-1 rounded-full font-medium">
-                        {product.category?.name || '—'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 font-semibold text-surface-900">
-                      ${product.price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
-                    </td>
-                    <td className="px-6 py-4 hidden md:table-cell text-surface-400 font-mono text-xs">
-                      {product.barcode || '—'}
-                    </td>
-                    {canEdit && (
-                      <td className="px-6 py-4 text-right space-x-2">
-                        <button onClick={() => handleEdit(product)}
-                          className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
-                          aria-label={`Editar ${product.name}`}>
-                          Editar
-                        </button>
-                        <button onClick={() => handleDelete(product.id)}
-                          className="text-red-500 hover:text-red-600 font-medium transition-colors"
-                          aria-label={`Eliminar ${product.name}`}>
-                          Eliminar
-                        </button>
                       </td>
-                    )}
-                  </tr>
-                ))}
+                      <td className="px-6 py-4 hidden sm:table-cell">
+                        <span className="text-xs bg-primary-50 text-primary-700 px-2 py-1 rounded-full font-medium">
+                          {product.category?.name || '—'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 font-semibold text-surface-900">
+                        ${product.price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
+                      </td>
+                      {selectedBranch && (
+                        <td className="px-6 py-4">
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                            soldCount > 0 ? 'bg-amber-50 text-amber-700 border border-amber-100' : 'bg-surface-100 text-surface-500'
+                          }`}>
+                            {soldCount} vendidos
+                          </span>
+                        </td>
+                      )}
+                      <td className="px-6 py-4 hidden md:table-cell text-surface-400 font-mono text-xs">
+                        {product.barcode || '—'}
+                      </td>
+                      {canEdit && (
+                        <td className="px-6 py-4 text-right space-x-2">
+                          <button onClick={() => handleEdit(product)}
+                            className="text-primary-600 hover:text-primary-700 font-medium transition-colors cursor-pointer"
+                            aria-label={`Editar ${product.name}`}>
+                            Editar
+                          </button>
+                          <button onClick={() => handleDelete(product.id)}
+                            className="text-red-500 hover:text-red-600 font-medium transition-colors cursor-pointer"
+                            aria-label={`Eliminar ${product.name}`}>
+                            Eliminar
+                          </button>
+                        </td>
+                      )}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
