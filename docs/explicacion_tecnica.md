@@ -1,55 +1,121 @@
 # Explicación Técnica de la Arquitectura KioskStar
 
-Este documento explica de forma simple y concisa el funcionamiento técnico de la API, la comunicación cliente-servidor, la integración del mapa en el frontend, la seguridad de los endpoints y el almacenamiento de coordenadas.
+Este documento detalla de forma precisa dónde están ubicados los componentes clave del sistema, incluyendo números de líneas y explicaciones de fragmentos de código.
 
 ---
 
 ## 1. ¿Dónde está almacenada la API?
-La API (el backend del sistema) está almacenada y estructurada en el directorio `/backend` del monorepo:
-- **Tecnologías**: Construida con **Node.js**, **Express 5** y **TypeScript**.
-- **Entrada del Servidor**: El archivo de inicio es [index.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/index.ts).
-- **Rutas y Controladores**:
-  - Las rutas (endpoints) se definen en `/backend/src/routes/` (por ejemplo, [sale.routes.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/routes/sale.routes.ts)).
-  - La lógica de negocio y las respuestas a las peticiones se manejan en los controladores dentro de `/backend/src/controllers/` (por ejemplo, [sale.controller.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/controllers/sale.controller.ts)).
-- **En producción**: Se despliega en servicios en la nube (como Render) y se conecta a una base de datos PostgreSQL. En desarrollo, corre localmente en el puerto `3000` (`http://localhost:3000`).
+La API es el backend de la aplicación, organizada en el directorio `/backend`:
+- **Punto de Entrada**: [index.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/index.ts) inicializa Express, configura los middlewares globales (CORS, JSON) y monta los routers.
+- **Rutas (Endpoints)**: En `/backend/src/routes/` se asocian las URLs con los middlewares y controladores correspondientes:
+  - Ejemplo: [sale.routes.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/routes/sale.routes.ts) define rutas como `/branch/:branchId`.
+- **Controladores (Lógica)**: En `/backend/src/controllers/` se encuentra la lógica que interactúa con Prisma para responder las peticiones HTTP:
+  - Ejemplo: [sale.controller.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/controllers/sale.controller.ts) procesa el cálculo del total de ventas y registra transacciones en la base de datos.
+- **En producción**: Se ejecuta en un servidor Node.js independiente (por ejemplo, en Render) y en desarrollo corre en `http://localhost:3000`.
 
 ---
 
 ## 2. ¿Cómo se comunica con los servidores?
-El frontend (`/frontend`) se comunica con el servidor de la API a través del protocolo HTTP (REST) utilizando la biblioteca **Axios**:
-- **Configuración centralizada**: En [api.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/frontend/src/services/api.ts) se crea la instancia de Axios con la URL base de la API.
-- **Intercepetor de Peticiones**: Cada vez que el frontend hace una llamada, un interceptor automático lee el token JWT del `localStorage` y lo adjunta en la cabecera HTTP `Authorization: Bearer <token>`.
-- **Interceptor de Respuestas**: Si el servidor responde con un código `401 Unauthorized` (sesión expirada o inválida), el interceptor redirige automáticamente al usuario a `/login` y borra los datos de sesión locales.
-- **Proxy de Desarrollo**: Durante el desarrollo local, Vite utiliza una regla de proxy en `vite.config.ts` para desviar las peticiones `/api/*` hacia `http://localhost:3000`, evitando problemas de CORS.
+El frontend (`/frontend`) se comunica con el servidor a través de peticiones HTTP utilizando la biblioteca **Axios**, configurada en [api.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/frontend/src/services/api.ts):
+
+- **Instanciación (Líneas 3-6)**:
+  ```typescript
+  const api = axios.create({
+    baseURL: '/api',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  ```
+- **Inyección de Token JWT (Líneas 9-15)**:
+  Un interceptor añade de forma automática el header de autorización en cada petición saliente:
+  ```typescript
+  api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  });
+  ```
+- **Manejo de Errores 401 (Líneas 18-34)**:
+  Si una petición falla con un código `401 Unauthorized` (por ejemplo, si el token expira), se eliminan los datos de sesión locales y se despacha un evento para cerrar sesión sin recargar la página:
+  ```typescript
+  if (error.response?.status === 401 && !isAuthEndpoint) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('selectedBranch');
+    window.dispatchEvent(new CustomEvent('auth:logout'));
+  }
+  ```
+- **Proxy en Desarrollo**: En `frontend/vite.config.ts`, Vite redirige las peticiones `/api/*` hacia `http://localhost:3000` para evitar limitaciones de CORS durante desarrollo.
 
 ---
 
 ## 3. ¿Cómo funciona el mapa en el frontend?
-El mapa interactivo está implementado en la vista [MapView.tsx](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/frontend/src/pages/MapView.tsx):
-- **Biblioteca**: Utiliza `@vis.gl/react-google-maps`, que es la integración oficial de React para la API de JavaScript de Google Maps.
-- **Carga de API**: El componente principal de la aplicación se envuelve en un `<APIProvider apiKey={...}>` usando la API Key de Google Maps guardada en variables de entorno.
-- **Componentes del Mapa**:
-  - `<GoogleMap>`: Renderiza el contenedor del mapa con controles de zoom y gestos táctiles.
-  - `<AdvancedMarker>`: Ubica marcadores visuales para la ubicación del usuario (punto azul) y de cada sucursal de kiosco disponible en Concordia.
-- **Interacción y Desplazamiento**: Al seleccionar una sucursal, la cámara se mueve y aplica un desplazamiento (offset) en las coordenadas (`lng - 0.0035` en computadoras o `lat - 0.0018` en celulares) para evitar que el marcador seleccionado quede oculto debajo de la tarjeta flotante de detalles.
-- **Animaciones**: La tarjeta de detalles se superpone flotando arriba del mapa y entra/sale con transiciones suavizadas mediante `framer-motion`.
+El mapa interactivo se encuentra en [MapView.tsx](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/frontend/src/pages/MapView.tsx):
+- **Carga de API (Línea 55)**:
+  ```typescript
+  const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
+  ```
+- **Offset del Centro del Mapa (Líneas 70-85)**:
+  Para evitar que la tarjeta flotante de detalles tape al marcador del kiosco seleccionado, el centro se desplaza de forma dinámica:
+  ```typescript
+  const isLargeScreen = window.innerWidth >= 1024;
+  if (isLargeScreen) {
+    setMapCenter({ lat: b.lat, lng: b.lng - 0.0035 }); // Desplaza a la derecha
+  } else {
+    setMapCenter({ lat: b.lat - 0.0018, lng: b.lng }); // Desplaza hacia arriba
+  }
+  ```
+- **Estructura y Superposición (Líneas 302-406)**:
+  El mapa se renderiza en una caja con posicionamiento absoluto (`absolute inset-0`), y los paneles de detalles flotantes de escritorio y móviles se renderizan por encima con posicionamiento `absolute z-10` y se animan fluidamente usando GPU (`x` o `y` en Framer Motion).
 
 ---
 
 ## 4. ¿Cómo funciona la seguridad de la API en el programa?
-La seguridad del sistema está estructurada en tres capas consecutivas dentro del backend:
-1. **Autenticación (JWT)**:
-   - Al iniciar sesión, el servidor genera un JSON Web Token (JWT) firmado.
-   - El middleware `authMiddleware` ([auth.middleware.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/middlewares/auth.middleware.ts)) valida este token en cada petición. Si es correcto, extrae el `userId` y `userRole` y los adjunta a la solicitud.
-2. **Autorización basada en Roles (RBAC)**:
-   - El middleware `roleMiddleware` ([role.middleware.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/middlewares/role.middleware.ts)) verifica si el rol del usuario autenticado (ADMIN, EMPLEADO, CLIENTE) tiene permiso para acceder a ese recurso. Por ejemplo, solo administradores y empleados pueden modificar stock o registrar ventas.
-3. **Validación de Datos (Zod)**:
-   - El middleware `validate` ([validate.middleware.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/middlewares/validate.middleware.ts)) intercepta los payloads JSON y valida que coincidan exactamente con los esquemas de datos estructurados en `/backend/src/schemas/` antes de que la petición llegue al controlador, previniendo inyecciones de datos maliciosos o inconsistentes.
+La API asegura sus endpoints mediante tres middlewares que actúan en cascada:
+
+1. **Middleware de Autenticación** ([auth.middleware.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/middlewares/auth.middleware.ts), Líneas 9-37):
+   Extrae el JWT de la cabecera `Authorization`, lo verifica y guarda los datos decodificados en el objeto `req`:
+   ```typescript
+   const token = authHeader.split(' ')[1]; // formato 'Bearer <token>'
+   const decoded = jwt.verify(token, process.env.JWT_SECRET) as { userId: number; role: string; };
+   req.userId = decoded.userId;
+   req.userRole = decoded.role;
+   ```
+2. **Middleware de Roles** ([role.middleware.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/middlewares/role.middleware.ts), Líneas 4-22):
+   Compara `req.userRole` con la lista de roles permitidos para ese endpoint. Si no es compatible, retorna un error `403 Forbidden`:
+   ```typescript
+   if (!allowedRoles.includes(req.userRole)) {
+     res.status(403).json({ error: 'No tienes permisos para realizar esta acción' });
+     return;
+   }
+   ```
+3. **Middleware de Validación con Zod** ([validate.middleware.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/src/middlewares/validate.middleware.ts), Líneas 4-24):
+   Valida el cuerpo de la petición (`req.body`) frente a un esquema de validación predefinido para garantizar la integridad y tipos correctos de los datos.
 
 ---
 
 ## 5. ¿Dónde se guardan los datos de las coordenadas para el mapa?
-Las coordenadas geográficas (latitud y longitud) de los kioscos y sucursales se guardan persistentemente en la base de datos relacional **PostgreSQL**:
-- **Esquema de Prisma**: En la definición del modelo en [schema.prisma](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/prisma/schema.prisma), las tablas `Kiosk` y `Branch` tienen campos de tipo Float de precisión doble (`lat` y `lng`).
-- **Geocodificación Automática**: Al ejecutar el script de siembra ([seed.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/prisma/seed.ts)), las direcciones textuales de Concordia se envían a la API de Geocoding de Google Maps, la cual devuelve la latitud y longitud exacta. Estas coordenadas calculadas se guardan en la base de datos.
-- **Consumo**: Cuando el usuario entra al mapa, el frontend solicita las sucursales al backend (`GET /api/map/kiosks`) y este realiza una consulta a la base de datos devolviendo las coordenadas guardadas en formato JSON para pintar los marcadores.
+Las coordenadas geográficas están almacenadas de forma numérica persistente en la base de datos PostgreSQL:
+- **Esquema de Base de Datos** ([schema.prisma](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/prisma/schema.prisma)):
+  - En la tabla de **Kioscos** (Líneas 55-56):
+    ```prisma
+    model Kiosk {
+      lat   Float
+      lng   Float
+    }
+    ```
+  - En la tabla de **Sucursales** (Líneas 73-74):
+    ```prisma
+    model Branch {
+      lat   Float
+      lng   Float
+    }
+    ```
+- **Poblamiento de Datos** ([seed.ts](file:///c:/Users/feliv/Documents/Kioskstar-TPFINAL/backend/prisma/seed.ts)):
+  Durante el proceso de siembra de base de datos, las coordenadas se obtienen mediante la API de geocodificación de Google Maps (Líneas 3 y 276) y se persisten en el servidor PostgreSQL:
+  ```typescript
+  import { geocodeAddress } from '../src/services/maps.service';
+  let coords = await geocodeAddress(fullAddress); // Retorna { lat, lng }
+  ```
+- **Visualización**: La API expone las coordenadas mediante el endpoint `GET /api/map/kiosks` para que el frontend pueda renderizar los marcadores en la ubicación geográfica exacta.
