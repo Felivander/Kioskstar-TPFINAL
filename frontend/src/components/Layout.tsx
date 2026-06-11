@@ -126,7 +126,7 @@ export default function Layout() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `px-4 py-2 text-sm transition-all duration-300 rounded-xl
+                `px-4 py-2 text-sm transition-all duration-300 rounded-md
                 ${isActive
                   ? 'font-bold bg-primary-500 text-white shadow-md shadow-primary-500/20'
                   : 'font-medium text-surface-500 hover:text-primary-600 hover:bg-surface-100'}`
@@ -224,7 +224,7 @@ export default function Layout() {
             to="/dashboard"
             onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
-              `text-sm transition-all duration-300 px-4 py-2 rounded-xl block
+              `text-sm transition-all duration-300 px-4 py-2 rounded-md block
               ${isActive
                 ? 'font-bold bg-primary-500 text-white shadow-sm'
                 : 'font-medium text-surface-500 hover:bg-surface-50'}`
@@ -255,7 +255,7 @@ export default function Layout() {
               to={item.to}
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
-                `text-sm transition-all duration-300 px-4 py-2 rounded-xl block
+                `text-sm transition-all duration-300 px-4 py-2 rounded-md block
                 ${isActive
                   ? 'font-bold bg-primary-500 text-white shadow-sm'
                   : 'font-medium text-surface-500 hover:bg-surface-50'}`
