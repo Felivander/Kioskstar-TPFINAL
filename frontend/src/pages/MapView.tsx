@@ -92,7 +92,7 @@ export default function MapView() {
           const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
           setUserLocation(loc);
           setMapCenter(loc);
-          setZoom(15);
+          setZoom(16);
         },
         () => {
           alert('No se pudo acceder a tu ubicación. Por favor activa los permisos de GPS.');
