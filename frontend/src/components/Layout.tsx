@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Outlet, useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../hooks/useAppSelector';
+import { motion } from 'framer-motion';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { logout, setSelectedBranch } from '../store/authSlice';
 import api from '../services/api';
@@ -119,20 +120,30 @@ export default function Layout() {
           )}
         </div>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-2" role="navigation">
+        <nav className="hidden lg:flex items-center gap-2 relative" role="navigation">
           {filteredNav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `px-4 py-2 text-sm transition-all duration-300 rounded-md
+                `relative px-4 py-2 text-sm transition-colors duration-300 rounded-md select-none
                 ${isActive
-                  ? 'font-bold bg-primary-500 text-white shadow-md shadow-primary-500/20'
+                  ? 'font-bold text-white z-10'
                   : 'font-medium text-surface-500 hover:text-primary-600 hover:bg-surface-100'}`
               }
             >
-              {item.label}
+              {({ isActive }) => (
+                <>
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-nav-tab"
+                      className="absolute inset-0 bg-primary-500 rounded-md -z-10 shadow-md shadow-primary-500/20"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  {item.label}
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
@@ -224,13 +235,24 @@ export default function Layout() {
             to="/dashboard"
             onClick={() => setMobileMenuOpen(false)}
             className={({ isActive }) =>
-              `text-sm transition-all duration-300 px-4 py-2 rounded-md block
+              `relative text-sm transition-colors duration-300 px-4 py-2 rounded-md block select-none
               ${isActive
-                ? 'font-bold bg-primary-500 text-white shadow-sm'
+                ? 'font-bold text-white z-10'
                 : 'font-medium text-surface-500 hover:bg-surface-50'}`
             }
           >
-            Dashboard
+            {({ isActive }) => (
+              <>
+                {isActive && (
+                  <motion.div
+                    layoutId="active-mobile-nav-tab"
+                    className="absolute inset-0 bg-primary-500 rounded-md -z-10 shadow-sm"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                Dashboard
+              </>
+            )}
           </NavLink>
           <NavLink
             to="/my-kiosk"
@@ -255,13 +277,24 @@ export default function Layout() {
               to={item.to}
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
-                `text-sm transition-all duration-300 px-4 py-2 rounded-md block
+                `relative text-sm transition-colors duration-300 px-4 py-2 rounded-md block select-none
                 ${isActive
-                  ? 'font-bold bg-primary-500 text-white shadow-sm'
+                  ? 'font-bold text-white z-10'
                   : 'font-medium text-surface-500 hover:bg-surface-50'}`
               }
             >
-              {item.label}
+              {({ isActive }) => (
+                <>
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-mobile-nav-tab"
+                      className="absolute inset-0 bg-primary-500 rounded-md -z-10 shadow-sm"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  {item.label}
+                </>
+              )}
             </NavLink>
           ))}
           
