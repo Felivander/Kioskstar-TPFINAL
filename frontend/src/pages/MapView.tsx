@@ -110,11 +110,11 @@ export default function MapView() {
     setLoading(false);
   };
 
-  const handleSearch = useCallback(async () => {
-    if (!search.trim()) { loadBranches(); return; }
+  const performSearch = useCallback(async (query: string) => {
+    if (!query.trim()) { loadBranches(); return; }
     setSearching(true);
     try {
-      const { data } = await api.get(`/map/search?product=${encodeURIComponent(search)}&lat=${userLocation.lat}&lng=${userLocation.lng}`);
+      const { data } = await api.get(`/map/search?product=${encodeURIComponent(query)}&lat=${userLocation.lat}&lng=${userLocation.lng}`);
       setSearchResults(data);
 
       // Build branch list sorted by distance
@@ -143,7 +143,15 @@ export default function MapView() {
       }
     } catch { loadBranches(); }
     setSearching(false);
-  }, [search, userLocation]);
+  }, [userLocation]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      performSearch(search);
+    }, 400);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [search, performSearch]);
 
   const getResultsForBranch = (branchId: number) => {
     if (!searchResults) return null;
@@ -266,12 +274,12 @@ export default function MapView() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            onKeyDown={(e) => e.key === 'Enter' && performSearch(search)}
             placeholder="Buscar producto..."
             className="flex-1 max-w-xs px-3.5 py-1.5 rounded-xl border border-surface-200 bg-white focus:ring-2 focus:ring-primary-500 outline-none text-xs"
             aria-label="Buscar en el mapa"
           />
-          <button onClick={handleSearch} disabled={searching}
+          <button onClick={() => performSearch(search)} disabled={searching}
             className="px-4 py-1.5 rounded-xl gradient-primary text-white font-medium text-xs shadow-md shadow-primary-500/20 hover:shadow-lg transition-all disabled:opacity-60 flex items-center gap-1.5 shrink-0">
             {searching ? <Spinner size="sm" /> : 'Buscar'}
           </button>
