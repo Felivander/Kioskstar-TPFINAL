@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow, useMap } from '@vis.gl/react-google-maps';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
@@ -57,24 +57,19 @@ const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
 const DEFAULT_CENTER = { lat: -31.3929, lng: -58.0207 }; // Concordia, Entre Ríos
 
 interface MapHandlerProps {
-  center: { lat: number; lng: number };
-  zoom: number;
+  mapRef: React.MutableRefObject<any>;
+  initialCenter?: { lat: number; lng: number };
 }
 
-function MapHandler({ center, zoom }: MapHandlerProps) {
+function MapHandler({ mapRef, initialCenter }: MapHandlerProps) {
   const map = useMap();
 
   useEffect(() => {
-    if (map) {
-      map.panTo(center);
+    mapRef.current = map;
+    if (map && initialCenter) {
+      map.panTo(initialCenter);
     }
-  }, [map, center]);
-
-  useEffect(() => {
-    if (map) {
-      map.setZoom(zoom);
-    }
-  }, [map, zoom]);
+  }, [map, mapRef, initialCenter]);
 
   return null;
 }
@@ -86,25 +81,29 @@ export default function MapView() {
   const [search, setSearch] = useState('');
   const [selectedBranch, setSelectedBranch] = useState<MapBranch | null>(null);
   const [userLocation, setUserLocation] = useState(DEFAULT_CENTER);
-  const [mapCenter, setMapCenter] = useState(DEFAULT_CENTER);
+  const [initialCenter, setInitialCenter] = useState<{ lat: number; lng: number } | undefined>(undefined);
   const [searching, setSearching] = useState(false);
   const [closestBranchId, setClosestBranchId] = useState<number | null>(null);
-  const [zoom, setZoom] = useState(13);
+  const mapRef = useRef<any>(null);
 
   const selectBranchAndZoom = (b: MapBranch) => {
     if (selectedBranch?.id === b.id) {
       setSelectedBranch(null);
-      setZoom(13);
+      if (mapRef.current) {
+        mapRef.current.setZoom(13);
+      }
     } else {
       setSelectedBranch(b);
       // Offset center coordinate so the marker is not hidden behind the floating panel
       const isLargeScreen = window.innerWidth >= 1024;
-      if (isLargeScreen) {
-        setMapCenter({ lat: b.lat, lng: b.lng - 0.0035 });
-      } else {
-        setMapCenter({ lat: b.lat - 0.0018, lng: b.lng });
+      if (mapRef.current) {
+        if (isLargeScreen) {
+          mapRef.current.panTo({ lat: b.lat, lng: b.lng - 0.0035 });
+        } else {
+          mapRef.current.panTo({ lat: b.lat - 0.0018, lng: b.lng });
+        }
+        mapRef.current.setZoom(16);
       }
-      setZoom(16);
     }
   };
 
@@ -116,14 +115,16 @@ export default function MapView() {
           const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
           console.log('Ubicación obtenida:', loc);
           setUserLocation(loc);
-          setMapCenter(loc);
-          setZoom(16);
+          if (mapRef.current) {
+            mapRef.current.panTo(loc);
+            mapRef.current.setZoom(16);
+          }
         },
         (err) => {
           console.error('Error de geolocalización:', err);
           alert(`No se pudo acceder a tu ubicación (${err.message}). Por favor activa los permisos de GPS.`);
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 30000 }
       );
     } else {
       alert('Tu navegador no soporta geolocalización.');
@@ -136,9 +137,10 @@ export default function MapView() {
         (pos) => {
           const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
           setUserLocation(loc);
-          setMapCenter(loc);
+          setInitialCenter(loc);
         },
-        () => { /* use default */ }
+        () => { /* use default */ },
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 30000 }
       );
     }
   }, []);
@@ -185,7 +187,9 @@ export default function MapView() {
       // Mark closest
       if (sortedBranches.length > 0) {
         setClosestBranchId(sortedBranches[0].id);
-        setMapCenter({ lat: sortedBranches[0].lat, lng: sortedBranches[0].lng });
+        if (mapRef.current) {
+          mapRef.current.panTo({ lat: sortedBranches[0].lat, lng: sortedBranches[0].lng });
+        }
       }
     } catch { loadBranches(); }
     setSearching(false);
@@ -368,7 +372,7 @@ export default function MapView() {
                   disableDefaultUI={true}
                   className="w-full h-full"
                 >
-                  <MapHandler center={mapCenter} zoom={zoom} />
+                  <MapHandler mapRef={mapRef} initialCenter={initialCenter} />
                   {/* User location */}
                   <AdvancedMarker position={userLocation}>
                     <div className="relative flex items-center justify-center">
