@@ -175,8 +175,98 @@ export default function MapView() {
         <div className="flex justify-center py-16 flex-1"><Spinner size="lg" /></div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 flex-1 min-h-0">
+          {/* Selected Kiosk Details Panel (Option B - Left side panel, pushes map) */}
+          {selectedBranch && (
+            <div className="lg:col-span-1 bg-white rounded-2xl border border-surface-200 shadow-sm flex flex-col overflow-hidden animate-fade-in-left h-[500px] lg:h-auto min-h-0">
+              {/* Header / Photo Banner */}
+              <div className="relative w-full h-40 bg-gradient-to-br from-primary-500/10 to-primary-600/5 flex items-center justify-center overflow-hidden shrink-0">
+                {selectedBranch.kiosk?.imageUrl ? (
+                  <img
+                    src={selectedBranch.kiosk.imageUrl}
+                    alt={selectedBranch.kiosk.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-4xl">🏪</span>
+                )}
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedBranch(null)}
+                  className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/55 text-white flex items-center justify-center hover:bg-black/75 transition-colors text-lg font-bold shadow-sm"
+                >
+                  ×
+                </button>
+              </div>
+
+              {/* Content Container (Scrollable) */}
+              <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0">
+                <div>
+                  <span className="text-[9px] font-bold text-primary-600 uppercase tracking-widest bg-primary-50 px-2 py-0.5 rounded-full">Kiosco Seleccionado</span>
+                  <h2 className="font-extrabold text-surface-900 text-base mt-1.5 leading-tight">{selectedBranch.kiosk?.name || selectedBranch.name}</h2>
+                  <p className="text-xs text-surface-500 mt-0.5 font-medium">{selectedBranch.name}</p>
+                </div>
+
+                {/* Location Pill */}
+                <div className="bg-surface-50 rounded-xl p-3 border border-surface-100 flex flex-col gap-2 text-xs text-surface-700">
+                  <div className="flex items-start gap-2">
+                    <span className="text-sm leading-none">📍</span>
+                    <span className="leading-relaxed">{selectedBranch.address}</span>
+                  </div>
+                  {selectedBranch.distance !== undefined && (
+                    <div className="flex items-center gap-2 text-orange-600 font-semibold pt-1.5 border-t border-surface-100/70">
+                      <span className="text-sm leading-none">📏</span>
+                      <span>A {formatDistance(selectedBranch.distance)} de tu ubicación</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Stock Section */}
+                <div className="flex-1 flex flex-col min-h-0">
+                  {(() => {
+                    const results = getResultsForBranch(selectedBranch.id);
+                    return (
+                      <>
+                        <h3 className="text-[10px] font-bold text-surface-500 uppercase tracking-wider mb-1.5">
+                          Stock Disponible ({results?.length || 0})
+                        </h3>
+                        {results && results.length > 0 ? (
+                          <div className="flex flex-col gap-1.5 overflow-y-auto pr-0.5">
+                            {results.map((r) => (
+                              <div key={r.id} className="flex items-center justify-between text-xs bg-white p-2 rounded-lg border border-surface-100 hover:border-primary-100 transition-colors shadow-sm">
+                                <span className="text-surface-800 font-semibold truncate mr-2">{r.product.name}</span>
+                                <div className="flex gap-2 shrink-0 items-center">
+                                  <span className="text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded-md text-[10px]">{r.quantity} uds</span>
+                                  <span className="text-primary-600 font-extrabold">${r.product.price}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="text-center py-6 bg-surface-50 rounded-xl border border-surface-100 border-dashed">
+                            <span className="text-xl block mb-1">📦</span>
+                            <p className="text-[10px] text-surface-400">No hay stock registrado para búsqueda</p>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
+                </div>
+              </div>
+
+              {/* Footer Action */}
+              <div className="p-3 border-t border-surface-100 bg-surface-50 shrink-0">
+                <button
+                  onClick={() => setSelectedBranch(null)}
+                  className="w-full py-2 rounded-xl gradient-primary text-white font-semibold text-xs hover:opacity-90 active:scale-[0.98] transition-all shadow-sm"
+                >
+                  Cerrar Detalles
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Map */}
-          <div className="lg:col-span-2 rounded-2xl overflow-hidden min-h-[350px] lg:min-h-0 border border-surface-200">
+          <div className={`${selectedBranch ? 'lg:col-span-1' : 'lg:col-span-2'} rounded-2xl overflow-hidden min-h-[350px] lg:min-h-0 border border-surface-200`}>
             <APIProvider apiKey={API_KEY}>
               <GoogleMap
                 center={mapCenter}
@@ -302,110 +392,6 @@ export default function MapView() {
             })}
           </div>
         </div>
-      )}
-
-      {/* Side Panel / Bottom Sheet for Selected Branch (Option B) */}
-      {selectedBranch && (
-        <>
-          {/* Backdrop (closes panel when clicking outside) */}
-          <div 
-            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 animate-fade-in" 
-            onClick={() => setSelectedBranch(null)} 
-          />
-          
-          {/* Side Panel (Desktop: slides from right, Mobile: slides from bottom) */}
-          <div 
-            className="fixed z-50 bg-white shadow-2xl flex flex-col transition-all duration-300 ease-out
-              bottom-0 left-0 right-0 h-[80vh] rounded-t-3xl max-w-full
-              md:top-16 md:bottom-0 md:right-0 md:left-auto md:w-96 md:h-auto md:rounded-t-none md:rounded-l-3xl
-              animate-slide-up-or-right"
-          >
-            {/* Header / Photo Banner */}
-            <div className="relative w-full h-48 md:h-56 bg-gradient-to-br from-primary-500/10 to-primary-600/5 flex items-center justify-center overflow-hidden shrink-0">
-              {selectedBranch.kiosk?.imageUrl ? (
-                <img
-                  src={selectedBranch.kiosk.imageUrl}
-                  alt={selectedBranch.kiosk.name}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <span className="text-5xl">🏪</span>
-              )}
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedBranch(null)}
-                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/55 text-white flex items-center justify-center hover:bg-black/75 transition-colors text-xl font-bold shadow-lg"
-              >
-                ×
-              </button>
-            </div>
-
-            {/* Content Container (Scrollable) */}
-            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-4">
-              <div>
-                <span className="text-[10px] font-bold text-primary-600 uppercase tracking-widest bg-primary-50 px-2 py-0.5 rounded-full">Kiosco Seleccionado</span>
-                <h2 className="font-extrabold text-surface-900 text-xl mt-2 leading-tight">{selectedBranch.kiosk?.name || selectedBranch.name}</h2>
-                <p className="text-sm text-surface-500 mt-1 font-medium">{selectedBranch.name}</p>
-              </div>
-
-              {/* Location Pill */}
-              <div className="bg-surface-50 rounded-xl p-3.5 border border-surface-100 flex flex-col gap-2.5 text-xs text-surface-700">
-                <div className="flex items-start gap-2">
-                  <span className="text-base leading-none">📍</span>
-                  <span className="leading-relaxed">{selectedBranch.address}</span>
-                </div>
-                {selectedBranch.distance !== undefined && (
-                  <div className="flex items-center gap-2 text-orange-600 font-semibold pt-2 border-t border-surface-100/70">
-                    <span className="text-base leading-none">📏</span>
-                    <span>A {formatDistance(selectedBranch.distance)} de tu ubicación</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Stock Section */}
-              <div className="flex-1 flex flex-col min-h-0">
-                {(() => {
-                  const results = getResultsForBranch(selectedBranch.id);
-                  return (
-                    <>
-                      <h3 className="text-xs font-bold text-surface-700 uppercase tracking-wider mb-2.5">
-                        Stock Disponible ({results?.length || 0})
-                      </h3>
-                      {results && results.length > 0 ? (
-                        <div className="flex flex-col gap-2 overflow-y-auto pr-1">
-                          {results.map((r) => (
-                            <div key={r.id} className="flex items-center justify-between text-xs bg-white p-3 rounded-xl border border-surface-100 hover:border-primary-100 transition-colors shadow-sm">
-                              <span className="text-surface-800 font-semibold truncate mr-2">{r.product.name}</span>
-                              <div className="flex gap-3 shrink-0 items-center">
-                                <span className="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">{r.quantity} uds</span>
-                                <span className="text-primary-600 font-extrabold text-sm">${r.product.price}</span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="text-center py-8 bg-surface-50 rounded-xl border border-surface-100 border-dashed">
-                          <span className="text-2xl block mb-1">📦</span>
-                          <p className="text-xs text-surface-400">No hay stock registrado para búsqueda</p>
-                        </div>
-                      )}
-                    </>
-                  );
-                })()}
-              </div>
-            </div>
-
-            {/* Footer Action */}
-            <div className="p-4 border-t border-surface-100 bg-surface-50 shrink-0">
-              <button
-                onClick={() => setSelectedBranch(null)}
-                className="w-full py-3 rounded-xl gradient-primary text-white font-semibold text-sm hover:opacity-90 active:scale-[0.98] transition-all shadow-md"
-              >
-                Cerrar Panel
-              </button>
-            </div>
-          </div>
-        </>
       )}
     </div>
   );
