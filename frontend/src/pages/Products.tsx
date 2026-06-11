@@ -330,7 +330,7 @@ export default function Products() {
           <p className="text-xs text-surface-400 mt-1">Probá cambiando los términos de búsqueda o filtros.</p>
         </div>
       ) : viewMode === 'grid' ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2.5">
           {filteredAndSortedProducts.map((p) => {
             const soldCount = salesCounts[p.id] || 0;
             return (
@@ -347,37 +347,37 @@ export default function Products() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <Package size={32} className="text-surface-300" />
+                    <Package size={24} className="text-surface-300" />
                   )}
                   {/* Category Pill */}
-                  <span className="absolute top-2 left-2 text-[8px] font-bold bg-white/90 backdrop-blur-sm border border-surface-200/60 px-1.5 py-0.5 rounded-full uppercase tracking-wider text-surface-600">
+                  <span className="absolute top-1.5 left-1.5 text-[7.5px] font-bold bg-white/90 backdrop-blur-sm border border-surface-200/60 px-1 py-0.5 rounded-full uppercase tracking-wider text-surface-600">
                     {p.category?.name || 'Varios'}
                   </span>
                 </div>
 
                 {/* Body Details */}
-                <div className="p-3 flex-1 flex flex-col justify-between space-y-2">
+                <div className="p-2.5 flex-1 flex flex-col justify-between space-y-1.5">
                   <div>
                     <h3 className="font-bold text-xs text-surface-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
                       {p.name}
                     </h3>
-                    <p className="text-[10px] text-surface-400 mt-0.5 line-clamp-2 min-h-[1.5rem]">
+                    <p className="text-[9.5px] text-surface-400 mt-0.5 line-clamp-1 min-h-[0.75rem]">
                       {p.description || 'Sin descripción.'}
                     </p>
                   </div>
 
                   {/* Metadata: Price & Sales */}
-                  <div className="flex items-center justify-between pt-1.5 border-t border-surface-50">
+                  <div className="flex items-center justify-between pt-1.5 border-t border-surface-100/80">
                     <div>
                       <p className="text-[7px] font-bold text-surface-400 uppercase tracking-wider">Precio</p>
-                      <p className="text-xs font-extrabold text-emerald-600">
+                      <p className="text-[11px] font-extrabold text-emerald-600">
                         ${p.price.toLocaleString('es-AR', { minimumFractionDigits: 2 })}
                       </p>
                     </div>
                     {selectedBranch && (
                       <div className="text-right">
                         <p className="text-[7px] font-bold text-surface-400 uppercase tracking-wider">Venta</p>
-                        <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${
+                        <span className={`text-[7.5px] font-bold px-1.5 py-0.5 rounded-full ${
                           soldCount > 0 ? 'bg-amber-50 text-amber-700 border border-amber-100' : 'bg-surface-100 text-surface-500'
                         }`}>
                           {soldCount} u
@@ -389,16 +389,16 @@ export default function Products() {
 
                 {/* Actions (Admin/Empleado only) */}
                 {canEdit && (
-                  <div className="px-3 py-2 bg-surface-50/50 border-t border-surface-100 flex items-center justify-end gap-3 shrink-0">
+                  <div className="px-2.5 py-1.5 bg-surface-50/50 border-t border-surface-100 flex items-center justify-end gap-2.5 shrink-0">
                     <button
                       onClick={() => handleEdit(p)}
-                      className="text-[10px] font-bold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer"
+                      className="text-[9.5px] font-bold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer"
                     >
                       Editar
                     </button>
                     <button
                       onClick={() => handleDelete(p.id)}
-                      className="text-[10px] font-bold text-red-500 hover:text-red-600 transition-colors cursor-pointer"
+                      className="text-[9.5px] font-bold text-red-500 hover:text-red-600 transition-colors cursor-pointer"
                     >
                       Eliminar
                     </button>
