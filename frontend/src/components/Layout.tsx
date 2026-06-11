@@ -320,13 +320,13 @@ export default function Layout() {
         {prevPage && (
           <button
             onClick={() => navigate(prevPage.to)}
-            className="absolute left-0 top-0 bottom-0 w-6 z-30 group cursor-pointer flex items-center justify-start focus:outline-none select-none"
+            className="absolute left-0 top-0 bottom-0 w-8 z-30 group cursor-pointer flex items-center justify-start focus:outline-none select-none"
             aria-label={`Ir a ${prevPage.label}`}
             title={`Ir a ${prevPage.label}`}
           >
             {/* Stretching orange vertical handle */}
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-20 bg-primary-500 rounded-r-full transition-all duration-300 ease-out group-hover:h-32 group-hover:w-3.5 group-hover:bg-primary-600 shadow-[0_0_15px_rgba(249,115,22,0.4)] flex items-center justify-center text-white overflow-hidden">
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-bold -translate-x-[1px]">‹</span>
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-24 bg-primary-500 rounded-r-full transition-all duration-300 ease-out group-hover:h-40 group-hover:w-8 group-hover:bg-primary-600 shadow-[0_0_20px_rgba(249,115,22,0.5)] flex items-center justify-center text-white overflow-hidden group-hover:rounded-r-[40px]">
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs font-black -translate-x-[2px]">‹</span>
             </div>
           </button>
         )}
@@ -334,13 +334,13 @@ export default function Layout() {
         {nextPage && (
           <button
             onClick={() => navigate(nextPage.to)}
-            className="absolute right-0 top-0 bottom-0 w-6 z-30 group cursor-pointer flex items-center justify-end focus:outline-none select-none"
+            className="absolute right-0 top-0 bottom-0 w-8 z-30 group cursor-pointer flex items-center justify-end focus:outline-none select-none"
             aria-label={`Ir a ${nextPage.label}`}
             title={`Ir a ${nextPage.label}`}
           >
             {/* Stretching orange vertical handle */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-20 bg-primary-500 rounded-l-full transition-all duration-300 ease-out group-hover:h-32 group-hover:w-3.5 group-hover:bg-primary-600 shadow-[0_0_15px_rgba(249,115,22,0.4)] flex items-center justify-center text-white overflow-hidden">
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-bold translate-x-[1px]">›</span>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-24 bg-primary-500 rounded-l-full transition-all duration-300 ease-out group-hover:h-40 group-hover:w-8 group-hover:bg-primary-600 shadow-[0_0_20px_rgba(249,115,22,0.5)] flex items-center justify-center text-white overflow-hidden group-hover:rounded-l-[40px]">
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs font-black translate-x-[2px]">›</span>
             </div>
           </button>
         )}
