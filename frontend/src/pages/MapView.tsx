@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
+import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow, useMap } from '@vis.gl/react-google-maps';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import Spinner from '../components/Spinner';
@@ -55,6 +55,29 @@ interface SearchResult {
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
 const DEFAULT_CENTER = { lat: -31.3929, lng: -58.0207 }; // Concordia, Entre Ríos
+
+interface MapHandlerProps {
+  center: { lat: number; lng: number };
+  zoom: number;
+}
+
+function MapHandler({ center, zoom }: MapHandlerProps) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (map) {
+      map.panTo(center);
+    }
+  }, [map, center]);
+
+  useEffect(() => {
+    if (map) {
+      map.setZoom(zoom);
+    }
+  }, [map, zoom]);
+
+  return null;
+}
 
 export default function MapView() {
   const [branches, setBranches] = useState<MapBranch[]>([]);
@@ -334,17 +357,14 @@ export default function MapView() {
             <div className="absolute inset-0 rounded-2xl overflow-hidden border border-surface-200">
               <APIProvider apiKey={API_KEY}>
                 <GoogleMap
-                  center={mapCenter}
-                  onCameraChanged={(ev) => {
-                    setMapCenter(ev.detail.center);
-                    setZoom(ev.detail.zoom);
-                  }}
-                  zoom={zoom}
+                  defaultCenter={DEFAULT_CENTER}
+                  defaultZoom={13}
                   mapId="kioskstar-map"
                   gestureHandling="greedy"
                   disableDefaultUI={true}
                   className="w-full h-full"
                 >
+                  <MapHandler center={mapCenter} zoom={zoom} />
                   {/* User location */}
                   <AdvancedMarker position={userLocation}>
                     <div className="relative flex items-center justify-center">
