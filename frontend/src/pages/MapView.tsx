@@ -235,58 +235,6 @@ export default function MapView() {
                     </AdvancedMarker>
                   );
                 })}
-
-                {/* Info window */}
-                {selectedBranch && (
-                  <InfoWindow
-                    position={{ lat: selectedBranch.lat, lng: selectedBranch.lng }}
-                    onCloseClick={() => setSelectedBranch(null)}
-                    pixelOffset={[0, -30]}
-                  >
-                    <div className="min-w-[200px] max-w-[260px] overflow-hidden rounded-xl bg-white text-left shadow-sm">
-                      {/* Photo Banner */}
-                      <div className="relative w-full h-28 bg-gradient-to-br from-primary-500/10 to-primary-600/5 flex items-center justify-center overflow-hidden border-b border-surface-100">
-                        {selectedBranch.kiosk?.imageUrl ? (
-                          <img
-                            src={selectedBranch.kiosk.imageUrl}
-                            alt={selectedBranch.kiosk.name}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <span className="text-3xl">🏪</span>
-                        )}
-                      </div>
-
-                      {/* Details Content */}
-                      <div className="p-3">
-                        <h3 className="font-bold text-surface-900 text-sm">{selectedBranch.kiosk?.name}</h3>
-                        <p className="text-xs text-surface-500 mt-0.5">{selectedBranch.name}</p>
-                        <p className="text-[11px] text-surface-400 mt-0.5">📍 {selectedBranch.address}</p>
-                        {selectedBranch.distance !== undefined && (
-                          <p className="text-xs text-orange-600 font-medium mt-1">📏 {formatDistance(selectedBranch.distance)}</p>
-                        )}
-                        {(() => {
-                          const results = getResultsForBranch(selectedBranch.id);
-                          if (!results || results.length === 0) return null;
-                          return (
-                            <div className="mt-2 pt-2 border-t border-surface-100">
-                              <p className="text-xs font-semibold text-surface-700 mb-1">Productos encontrados:</p>
-                              {results.map((r) => (
-                                <div key={r.id} className="flex items-center justify-between text-xs py-0.5">
-                                  <span className="text-surface-700 truncate mr-2">{r.product.name}</span>
-                                  <div className="flex gap-2 shrink-0">
-                                    <span className="text-emerald-600 font-medium">{r.quantity} uds</span>
-                                    <span className="text-primary-600 font-medium">${r.product.price}</span>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          );
-                        })()}
-                      </div>
-                    </div>
-                  </InfoWindow>
-                )}
               </GoogleMap>
             </APIProvider>
           </div>
@@ -352,6 +300,79 @@ export default function MapView() {
                 </button>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {/* Centered Modal for Selected Branch (Option C) */}
+      {selectedBranch && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in" onClick={() => setSelectedBranch(null)}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-scale-in" onClick={(e) => e.stopPropagation()}>
+            {/* Photo Banner */}
+            <div className="relative w-full h-48 bg-gradient-to-br from-primary-500/10 to-primary-600/5 flex items-center justify-center overflow-hidden">
+              {selectedBranch.kiosk?.imageUrl ? (
+                <img
+                  src={selectedBranch.kiosk.imageUrl}
+                  alt={selectedBranch.kiosk.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-5xl">🏪</span>
+              )}
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedBranch(null)}
+                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/75 transition-colors text-lg"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Details Content */}
+            <div className="p-6">
+              <span className="text-xs font-semibold text-primary-600 uppercase tracking-wider">Detalles del Kiosco</span>
+              <h3 className="font-extrabold text-surface-900 text-lg mt-1">{selectedBranch.kiosk?.name || selectedBranch.name}</h3>
+              <p className="text-sm text-surface-600 mt-1">{selectedBranch.name}</p>
+              
+              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-surface-100 text-sm">
+                <p className="text-surface-500 flex items-center gap-1.5">
+                  <span>📍</span> {selectedBranch.address}
+                </p>
+                {selectedBranch.distance !== undefined && (
+                  <p className="text-orange-600 font-semibold flex items-center gap-1.5">
+                    <span>📏</span> Distancia: {formatDistance(selectedBranch.distance)}
+                  </p>
+                )}
+              </div>
+
+              {(() => {
+                const results = getResultsForBranch(selectedBranch.id);
+                if (!results || results.length === 0) return null;
+                return (
+                  <div className="mt-4 pt-4 border-t border-surface-100">
+                    <p className="text-xs font-bold text-surface-700 mb-2 uppercase tracking-wide">Productos Disponibles</p>
+                    <div className="flex flex-col gap-2 max-h-40 overflow-y-auto">
+                      {results.map((r) => (
+                        <div key={r.id} className="flex items-center justify-between text-xs bg-surface-50 px-3 py-2 rounded-lg border border-surface-100">
+                          <span className="text-surface-800 font-medium truncate mr-2">{r.product.name}</span>
+                          <div className="flex gap-3 shrink-0">
+                            <span className="text-emerald-600 font-bold">{r.quantity} uds</span>
+                            <span className="text-primary-600 font-extrabold">${r.product.price}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              <button
+                onClick={() => setSelectedBranch(null)}
+                className="w-full mt-6 py-2.5 rounded-xl gradient-primary text-white font-semibold text-sm hover:opacity-90 active:scale-[0.98] transition-all"
+              >
+                Cerrar
+              </button>
+            </div>
           </div>
         </div>
       )}
