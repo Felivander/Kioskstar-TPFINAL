@@ -66,12 +66,12 @@ export default function Layout() {
                   }
                 }}
                 disabled={user?.role !== 'ADMIN' || branches.length <= 1}
-                className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all select-none outline-none
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 rounded-full text-xs font-semibold border transition-all select-none outline-none
                   ${user?.role === 'ADMIN' && branches.length > 1
                     ? 'bg-white hover:bg-surface-50 border-surface-200/80 text-surface-700 shadow-sm cursor-pointer hover:shadow'
                     : 'bg-surface-100 border-surface-200/40 text-surface-600'}`}
               >
-                <span className="truncate max-w-[150px]">{selectedBranch.name}</span>
+                <span className="truncate max-w-[90px] sm:max-w-[150px]">{selectedBranch.name}</span>
                 {user?.role === 'ADMIN' && branches.length > 1 && (
                   <span className="text-[10px] text-surface-400">▼</span>
                 )}

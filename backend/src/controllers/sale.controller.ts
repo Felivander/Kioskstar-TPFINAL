@@ -68,7 +68,7 @@ export const createSale = async (req: AuthRequest, res: Response): Promise<void>
 export const getTopProducts = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { branchId } = req.params;
-    const branchIdNum = parseInt(branchId);
+    const branchIdNum = parseInt(branchId as string);
 
     // Top products by total quantity sold in this branch
     const topProducts = await prisma.saleItem.groupBy({
@@ -132,7 +132,7 @@ export const getSalesByBranch = async (req: AuthRequest, res: Response): Promise
     const { branchId } = req.params;
 
     const sales = await prisma.sale.findMany({
-      where: { branchId: parseInt(branchId) },
+      where: { branchId: parseInt(branchId as string) },
       include: {
         items: {
           include: { product: true },

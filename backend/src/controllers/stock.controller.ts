@@ -7,7 +7,7 @@ export const getStockByBranch = async (req: Request, res: Response): Promise<voi
     const { branchId } = req.params;
 
     const stock = await prisma.stock.findMany({
-      where: { branchId: parseInt(branchId) },
+      where: { branchId: parseInt(branchId as string) },
       include: {
         product: {
           include: { category: true },
@@ -31,14 +31,14 @@ export const updateStock = async (req: AuthRequest, res: Response): Promise<void
     const stock = await prisma.stock.upsert({
       where: {
         branchId_productId: {
-          branchId: parseInt(branchId),
-          productId: parseInt(productId),
+          branchId: parseInt(branchId as string),
+          productId: parseInt(productId as string),
         },
       },
       update: { quantity },
       create: {
-        branchId: parseInt(branchId),
-        productId: parseInt(productId),
+        branchId: parseInt(branchId as string),
+        productId: parseInt(productId as string),
         quantity,
       },
       include: {

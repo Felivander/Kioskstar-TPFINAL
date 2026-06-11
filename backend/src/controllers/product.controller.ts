@@ -39,7 +39,7 @@ export const getProductById = async (req: Request, res: Response): Promise<void>
     const { id } = req.params;
 
     const product = await prisma.product.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: parseInt(id as string) },
       include: { category: true },
     });
 
@@ -80,7 +80,7 @@ export const updateProduct = async (req: AuthRequest, res: Response): Promise<vo
     const { id } = req.params;
 
     const product = await prisma.product.update({
-      where: { id: parseInt(id) },
+      where: { id: parseInt(id as string) },
       data: req.body,
       include: { category: true },
     });
@@ -100,7 +100,7 @@ export const deleteProduct = async (req: AuthRequest, res: Response): Promise<vo
   try {
     const { id } = req.params;
 
-    await prisma.product.delete({ where: { id: parseInt(id) } });
+    await prisma.product.delete({ where: { id: parseInt(id as string) } });
 
     res.json({ message: 'Producto eliminado correctamente' });
   } catch (error: any) {
@@ -153,7 +153,7 @@ export const updateCategory = async (req: AuthRequest, res: Response): Promise<v
     const { id } = req.params;
 
     const category = await prisma.category.update({
-      where: { id: parseInt(id) },
+      where: { id: parseInt(id as string) },
       data: req.body,
     });
 
@@ -172,7 +172,7 @@ export const deleteCategory = async (req: AuthRequest, res: Response): Promise<v
   try {
     const { id } = req.params;
 
-    await prisma.category.delete({ where: { id: parseInt(id) } });
+    await prisma.category.delete({ where: { id: parseInt(id as string) } });
 
     res.json({ message: 'Categoría eliminada correctamente' });
   } catch (error: any) {

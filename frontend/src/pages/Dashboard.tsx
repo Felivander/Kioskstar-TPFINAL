@@ -232,60 +232,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Quick Actions (Foolproof buttons) */}
-      {(selectedBranch || isEmpleado) && (
-        <div className="space-y-2.5">
-          <h2 className="text-[10px] font-bold text-surface-400 uppercase tracking-wider px-1">
-            ⚡ Acciones Rápidas
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <button
-              onClick={() => navigate('/sales')}
-              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
-            >
-              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">💰</span>
-              <div className="flex flex-col min-w-0">
-                <span className="font-bold text-xs text-surface-900 truncate">Registrar Venta</span>
-                <span className="text-[9px] text-surface-400 font-medium truncate">Escanear o Manual</span>
-              </div>
-            </button>
-
-            <button
-              onClick={() => navigate('/stock')}
-              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
-            >
-              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">📦</span>
-              <div className="flex flex-col min-w-0">
-                <span className="font-bold text-xs text-surface-900 truncate">Cargar Stock</span>
-                <span className="text-[9px] text-surface-400 font-medium truncate">Actualizar cantidades</span>
-              </div>
-            </button>
-
-            <button
-              onClick={() => navigate('/map')}
-              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
-            >
-              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">🗺️</span>
-              <div className="flex flex-col min-w-0">
-                <span className="font-bold text-xs text-surface-900 truncate">Ver Mapa</span>
-                <span className="text-[9px] text-surface-400 font-medium truncate">Buscador y Kioscos</span>
-              </div>
-            </button>
-
-            <button
-              onClick={() => navigate(isAdmin ? '/my-kiosk' : '/dashboard')}
-              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
-            >
-              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">👥</span>
-              <div className="flex flex-col min-w-0">
-                <span className="font-bold text-xs text-surface-900 truncate">{isAdmin ? 'Personal' : 'Mi Cuenta'}</span>
-                <span className="text-[9px] text-surface-400 font-medium truncate">{isAdmin ? 'Invitaciones' : 'Detalles de perfil'}</span>
-              </div>
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Metrics and Visual Analytics Section */}
       {(selectedBranch || isEmpleado) && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -389,6 +335,60 @@ export default function Dashboard() {
             </div>
           </div>
 
+        </div>
+      )}
+
+      {/* Quick Actions (Foolproof buttons) */}
+      {(selectedBranch || isEmpleado) && (
+        <div className="space-y-2.5">
+          <h2 className="text-[10px] font-bold text-surface-400 uppercase tracking-wider px-1">
+            ⚡ Acciones Rápidas
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button
+              onClick={() => navigate('/sales')}
+              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
+            >
+              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">💰</span>
+              <div className="flex flex-col min-w-0">
+                <span className="font-bold text-xs text-surface-900 truncate">Registrar Venta</span>
+                <span className="text-[9px] text-surface-400 font-medium truncate">Escanear o Manual</span>
+              </div>
+            </button>
+
+            <button
+              onClick={() => navigate('/stock')}
+              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
+            >
+              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">📦</span>
+              <div className="flex flex-col min-w-0">
+                <span className="font-bold text-xs text-surface-900 truncate">Cargar Stock</span>
+                <span className="text-[9px] text-surface-400 font-medium truncate">Actualizar cantidades</span>
+              </div>
+            </button>
+
+            <button
+              onClick={() => navigate('/map')}
+              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
+            >
+              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">🗺️</span>
+              <div className="flex flex-col min-w-0">
+                <span className="font-bold text-xs text-surface-900 truncate">Ver Mapa</span>
+                <span className="text-[9px] text-surface-400 font-medium truncate">Buscador y Kioscos</span>
+              </div>
+            </button>
+
+            <button
+              onClick={() => navigate(isAdmin ? '/my-kiosk' : '/dashboard')}
+              className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
+            >
+              <span className="text-xl group-hover:scale-110 transition-transform shrink-0">👥</span>
+              <div className="flex flex-col min-w-0">
+                <span className="font-bold text-xs text-surface-900 truncate">{isAdmin ? 'Personal' : 'Mi Cuenta'}</span>
+                <span className="text-[9px] text-surface-400 font-medium truncate">{isAdmin ? 'Invitaciones' : 'Detalles de perfil'}</span>
+              </div>
+            </button>
+          </div>
         </div>
       )}
 

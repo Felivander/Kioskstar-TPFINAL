@@ -21,6 +21,7 @@ export default function Products() {
   const [categoryId, setCategoryId] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   const canEdit = user?.role === 'ADMIN' || user?.role === 'EMPLEADO';
 
@@ -44,7 +45,7 @@ export default function Products() {
   };
 
   const resetForm = () => {
-    setName(''); setBarcode(''); setCategoryId(''); setPrice(''); setDescription('');
+    setName(''); setBarcode(''); setCategoryId(''); setPrice(''); setDescription(''); setImageUrl('');
     setEditingId(null); setShowForm(false);
   };
 
@@ -54,6 +55,7 @@ export default function Products() {
     setCategoryId(String(product.categoryId));
     setPrice(String(product.price));
     setDescription(product.description || '');
+    setImageUrl(product.imageUrl || '');
     setEditingId(product.id);
     setShowForm(true);
   };
@@ -67,6 +69,7 @@ export default function Products() {
       categoryId: parseInt(categoryId),
       price: parseFloat(price),
       description: description || undefined,
+      imageUrl: imageUrl || undefined,
     };
 
     try {
@@ -157,6 +160,12 @@ export default function Products() {
                 <textarea id="prod-desc" value={description} onChange={(e) => setDescription(e.target.value)} rows={2}
                   className="w-full px-4 py-2.5 rounded-xl border border-surface-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm resize-none" />
               </div>
+              <div>
+                <label htmlFor="prod-image" className="block text-sm font-medium text-surface-700 mb-1">URL de la Imagen</label>
+                <input id="prod-image" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}
+                  placeholder="https://ejemplo.com/imagen.jpg"
+                  className="w-full px-4 py-2.5 rounded-xl border border-surface-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm" />
+              </div>
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={resetForm}
                   className="flex-1 py-2.5 rounded-xl border border-surface-200 text-surface-600 font-medium text-sm hover:bg-surface-50 transition-colors">
@@ -197,10 +206,21 @@ export default function Products() {
                 {products.map((product) => (
                   <tr key={product.id} className="border-b border-surface-50 hover:bg-surface-50/50 transition-colors">
                     <td className="px-6 py-4">
-                      <p className="font-medium text-surface-900">{product.name}</p>
-                      {product.description && (
-                        <p className="text-xs text-surface-400 mt-0.5 truncate max-w-[200px]">{product.description}</p>
-                      )}
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-surface-100 border border-surface-200/50 flex items-center justify-center overflow-hidden shrink-0">
+                          {product.imageUrl ? (
+                            <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <span className="text-lg">📦</span>
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-medium text-surface-900">{product.name}</p>
+                          {product.description && (
+                            <p className="text-xs text-surface-400 mt-0.5 truncate max-w-[200px]">{product.description}</p>
+                          )}
+                        </div>
+                      </div>
                     </td>
                     <td className="px-6 py-4 hidden sm:table-cell">
                       <span className="text-xs bg-primary-50 text-primary-700 px-2 py-1 rounded-full font-medium">

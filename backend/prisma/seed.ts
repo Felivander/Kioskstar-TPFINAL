@@ -220,6 +220,19 @@ async function main() {
     { name: 'Preservativos Prime x3', barcode: '7791500005001', catIdx: 9, price: 3200 },
   ];
 
+  const categoryImages = [
+    'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400', // Bebidas
+    'https://images.unsplash.com/photo-1599490659213-e2b9527ec087?w=400', // Snacks
+    'https://images.unsplash.com/photo-1581798459219-318e76aecc7b?w=400', // Golosinas
+    'https://images.unsplash.com/photo-1527137341206-1aa2505af94b?w=400', // Cigarrillos
+    'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400', // Lácteos
+    'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400', // Fiambrería
+    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400', // Limpieza
+    'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400', // Panadería
+    'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400', // Helados
+    'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400', // Varios
+  ];
+
   const products = await Promise.all(
     productData.map((p) =>
       prisma.product.create({
@@ -229,6 +242,7 @@ async function main() {
           categoryId: cats[p.catIdx].id,
           price: p.price,
           description: p.name,
+          imageUrl: categoryImages[p.catIdx],
         },
       })
     )
