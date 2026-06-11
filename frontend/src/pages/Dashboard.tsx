@@ -356,9 +356,7 @@ export default function Dashboard() {
               onClick={() => navigate('/sales')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <div className="w-10 h-10 bg-surface-900 text-white rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                <Coins size={20} />
-              </div>
+              <Coins className="text-surface-300 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">Registrar Venta</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">Escanear o Manual</span>
@@ -369,9 +367,7 @@ export default function Dashboard() {
               onClick={() => navigate('/stock')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <div className="w-10 h-10 bg-surface-900 text-white rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                <Package size={20} />
-              </div>
+              <Package className="text-surface-300 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">Cargar Stock</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">Actualizar cantidades</span>
@@ -382,9 +378,7 @@ export default function Dashboard() {
               onClick={() => navigate('/map')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <div className="w-10 h-10 bg-surface-900 text-white rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                <Map size={20} />
-              </div>
+              <Map className="text-surface-300 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">Ver Mapa</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">Buscador y Kioscos</span>
@@ -395,9 +389,7 @@ export default function Dashboard() {
               onClick={() => navigate(isAdmin ? '/my-kiosk' : '/dashboard')}
               className="flex items-center gap-3 bg-white border border-surface-200/60 hover:border-primary-400 p-3 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group text-left min-w-0"
             >
-              <div className="w-10 h-10 bg-surface-900 text-white rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                <Users size={20} />
-              </div>
+              <Users className="text-surface-300 group-hover:scale-110 transition-transform shrink-0" size={24} />
               <div className="flex flex-col min-w-0">
                 <span className="font-bold text-xs text-surface-900 truncate">{isAdmin ? 'Personal' : 'Mi Cuenta'}</span>
                 <span className="text-[9px] text-surface-400 font-medium truncate">{isAdmin ? 'Invitaciones' : 'Detalles de perfil'}</span>
