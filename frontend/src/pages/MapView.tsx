@@ -109,17 +109,21 @@ export default function MapView() {
   };
 
   const recenterUserLocation = () => {
+    console.log('Solicitando ubicación de usuario...');
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          console.log('Ubicación obtenida:', loc);
           setUserLocation(loc);
           setMapCenter(loc);
           setZoom(16);
         },
-        () => {
-          alert('No se pudo acceder a tu ubicación. Por favor activa los permisos de GPS.');
-        }
+        (err) => {
+          console.error('Error de geolocalización:', err);
+          alert(`No se pudo acceder a tu ubicación (${err.message}). Por favor activa los permisos de GPS.`);
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
       );
     } else {
       alert('Tu navegador no soporta geolocalización.');
@@ -464,7 +468,7 @@ export default function MapView() {
           </div>
 
           {/* Sidebar list — sorted by distance when searching */}
-          <div className="w-full lg:w-1/6 space-y-2 overflow-y-auto max-h-[500px] lg:max-h-full pr-1 shrink-0">
+          <div className="w-full lg:w-1/6 space-y-2 overflow-y-auto max-h-[500px] lg:max-h-full pr-1 lg:pr-6 lg:-mr-6 shrink-0 custom-scrollbar">
             <p className="text-xs font-medium text-surface-400 uppercase tracking-wider px-1">
               {searchResults ? 'Ordenado por cercanía' : `${branches.length} kiosco${branches.length !== 1 ? 's' : ''}`}
             </p>
