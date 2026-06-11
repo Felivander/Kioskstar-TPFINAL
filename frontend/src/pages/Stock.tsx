@@ -7,6 +7,7 @@ import Spinner from '../components/Spinner';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import { Product } from '../types';
+import { Store, Package, MapPin } from 'lucide-react';
 
 export default function Stock() {
   const dispatch = useAppDispatch();
@@ -90,7 +91,10 @@ export default function Stock() {
         <div>
           <h1 className="text-2xl font-bold text-surface-900">Stock por Sucursal</h1>
           {selectedBranch ? (
-            <p className="text-surface-500 text-sm mt-1">📍 {selectedBranch.name}</p>
+            <p className="text-surface-500 text-sm mt-1 flex items-center gap-1">
+              <MapPin size={14} className="text-surface-400 shrink-0" />
+              <span>{selectedBranch.name}</span>
+            </p>
           ) : (
             <p className="text-surface-500 text-sm mt-1">Seleccioná una sucursal desde el Dashboard</p>
           )}
@@ -178,16 +182,16 @@ export default function Stock() {
 
       {/* Stock table */}
       {!branchId ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100">
-          <span className="text-5xl block mb-3">🏪</span>
+        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100 flex flex-col items-center">
+          <Store size={48} className="text-surface-400 mb-3" />
           <p className="text-surface-500 font-medium">No hay sucursal seleccionada</p>
           <p className="text-surface-400 text-sm mt-1">Volvé al Dashboard para elegir una sucursal</p>
         </div>
       ) : stockLoading ? (
         <SkeletonTable rows={6} />
       ) : items.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100">
-          <span className="text-5xl block mb-3">📦</span>
+        <div className="text-center py-16 bg-white rounded-2xl border border-surface-100 flex flex-col items-center">
+          <Package size={48} className="text-surface-400 mb-3" />
           <p className="text-surface-500">No hay stock cargado en esta sucursal</p>
           {canEdit && (
             <button onClick={() => setShowAddForm(true)} className="mt-3 text-sm text-primary-600 font-semibold hover:text-primary-700 transition-colors">

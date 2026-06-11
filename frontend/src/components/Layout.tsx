@@ -7,10 +7,10 @@ import api from '../services/api';
 import { Branch } from '../types';
 
 const navItems = [
-  { to: '/sales', label: 'Ventas', icon: '💰', roles: ['ADMIN', 'EMPLEADO'] },
-  { to: '/products', label: 'Productos', icon: '📦', roles: ['ADMIN', 'EMPLEADO'] },
-  { to: '/stock', label: 'Stock', icon: '🏪', roles: ['ADMIN', 'EMPLEADO'] },
-  { to: '/map', label: 'Mapa', icon: '🗺️', roles: ['ADMIN', 'EMPLEADO', 'CLIENTE'] },
+  { to: '/sales', label: 'Ventas', roles: ['ADMIN', 'EMPLEADO'] },
+  { to: '/products', label: 'Productos', roles: ['ADMIN', 'EMPLEADO'] },
+  { to: '/stock', label: 'Stock', roles: ['ADMIN', 'EMPLEADO'] },
+  { to: '/map', label: 'Mapa', roles: ['ADMIN', 'EMPLEADO', 'CLIENTE'] },
 ];
 
 export default function Layout() {

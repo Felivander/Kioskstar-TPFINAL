@@ -7,6 +7,7 @@ import Spinner from '../components/Spinner';
 import api from '../services/api';
 import { Kiosk, Branch } from '../types';
 import { toast } from 'react-hot-toast';
+import { Store, MapPin, Key, Copy, ShieldAlert } from 'lucide-react';
 
 export default function MyKiosk() {
   const { user, selectedBranch } = useAppSelector((s) => s.auth);
@@ -238,7 +239,7 @@ export default function MyKiosk() {
         {selectedBranch ? (
           <div className="bg-white border border-surface-200/60 rounded-2xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3">
-              <span className="text-3xl">🏪</span>
+              <Store size={32} className="text-primary-600" />
               <div>
                 <h3 className="text-lg font-bold text-surface-900">{kiosk?.name}</h3>
                 <p className="text-xs text-surface-400 mt-0.5">Sucursal: {selectedBranch.name}</p>
@@ -246,7 +247,10 @@ export default function MyKiosk() {
             </div>
             <div className="border-t border-surface-100 pt-4">
               <p className="text-xs font-semibold text-surface-400 uppercase tracking-wider">Dirección de Trabajo</p>
-              <p className="text-sm text-surface-800 mt-1 font-medium">📍 {selectedBranch.address}</p>
+              <p className="text-sm text-surface-800 mt-1 font-medium flex items-center gap-1">
+                <MapPin size={14} className="text-surface-400 shrink-0" />
+                <span>{selectedBranch.address}</span>
+              </p>
             </div>
           </div>
         ) : (
@@ -262,7 +266,7 @@ export default function MyKiosk() {
   if (!isAdmin) {
     return (
       <div className="max-w-xl mx-auto py-12 px-4 text-center">
-        <span className="text-4xl block mb-2">👤</span>
+        <ShieldAlert size={40} className="mx-auto mb-2 text-surface-400" />
         <p className="text-surface-700 font-medium text-sm">Área restringida</p>
         <p className="text-surface-400 text-xs mt-1">Solo administradores y empleados pueden acceder a esta sección.</p>
       </div>
@@ -281,8 +285,8 @@ export default function MyKiosk() {
 
       {/* Admin: No kiosk placeholder CTA */}
       {!kiosk ? (
-        <div className="rounded-2xl bg-white p-8 border border-surface-200/60 shadow-sm text-center max-w-md mx-auto my-8 space-y-4">
-          <span className="text-5xl block animate-float">🏪</span>
+        <div className="rounded-2xl bg-white p-8 border border-surface-200/60 shadow-sm text-center max-w-md mx-auto my-8 space-y-4 flex flex-col items-center">
+          <Store size={48} className="text-primary-600 animate-float" />
           <h2 className="text-lg font-bold text-surface-900">Registrá tu kiosco principal</h2>
           <p className="text-xs text-surface-500 leading-relaxed">
             Como administrador, necesitás registrar tu marca o local principal de kiosco para poder configurar sucursales, cargar stocks de productos y habilitar a tus empleados.
@@ -379,12 +383,15 @@ export default function MyKiosk() {
                 </div>
               ) : (
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    🏪
+                  <div className="w-12 h-12 bg-primary-50 text-primary-600 rounded-2xl flex items-center justify-center shadow-sm shrink-0">
+                    <Store size={24} />
                   </div>
                   <div className="space-y-1">
                     <p className="text-lg font-bold text-surface-900 leading-snug">{kiosk.name}</p>
-                    <p className="text-sm text-surface-500 font-medium">📍 {kiosk.address}</p>
+                    <p className="text-sm text-surface-500 font-medium flex items-center gap-1">
+                      <MapPin size={14} className="text-surface-400 shrink-0" />
+                      <span>{kiosk.address}</span>
+                    </p>
                     {(kiosk.city || kiosk.province || kiosk.postalCode) && (
                       <p className="text-xs text-surface-400">
                         {[kiosk.city, kiosk.province, kiosk.postalCode].filter(Boolean).join(', ')}
@@ -398,7 +405,10 @@ export default function MyKiosk() {
             {/* Branches Card */}
             <div className="bg-white border border-surface-200/60 rounded-2xl p-6 shadow-sm flex flex-col min-h-0">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-base font-bold text-surface-900">📍 Sucursales ({branches.length})</h3>
+                <h3 className="text-base font-bold text-surface-900 flex items-center gap-1.5">
+                  <MapPin size={18} className="text-surface-500 shrink-0" />
+                  <span>Sucursales ({branches.length})</span>
+                </h3>
                 <button
                   onClick={() => setShowBranchForm(!showBranchForm)}
                   className="text-xs text-primary-600 font-semibold hover:text-primary-700 transition-colors cursor-pointer"
@@ -475,7 +485,10 @@ export default function MyKiosk() {
                         <div className="flex items-start justify-between gap-2">
                           <div>
                             <h4 className="font-bold text-surface-900 text-sm">{b.name}</h4>
-                            <p className="text-xs text-surface-500 mt-1 font-medium">📍 {b.address}</p>
+                            <p className="text-xs text-surface-500 mt-1 font-medium flex items-center gap-1">
+                              <MapPin size={14} className="text-surface-400 shrink-0" />
+                              <span>{b.address}</span>
+                            </p>
                           </div>
                           <button
                             onClick={() => startEditBranch(b)}
@@ -500,7 +513,10 @@ export default function MyKiosk() {
           <div className="space-y-6">
             <div className="bg-white border border-surface-200/60 rounded-2xl p-6 shadow-sm space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-surface-900">🔑 Códigos de Empleado</h3>
+                <h3 className="text-base font-bold text-surface-900 flex items-center gap-1.5">
+                  <Key size={18} className="text-surface-500 shrink-0" />
+                  <span>Códigos de Empleado</span>
+                </h3>
                 {branches.length > 0 && (
                   <button
                     onClick={() => {
@@ -609,9 +625,10 @@ export default function MyKiosk() {
                       navigator.clipboard.writeText(generatedCode);
                       toast.success('Código copiado al portapapeles');
                     }}
-                    className="text-xs text-primary-600 font-bold hover:text-primary-700 transition-colors py-1 cursor-pointer"
+                    className="text-xs text-primary-600 font-bold hover:text-primary-700 transition-colors py-1 cursor-pointer flex items-center justify-center gap-1"
                   >
-                    📋 Copiar al portapapeles
+                    <Copy size={14} />
+                    <span>Copiar al portapapeles</span>
                   </button>
                   <button
                     onClick={() => {
