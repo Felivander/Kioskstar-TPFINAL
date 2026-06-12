@@ -348,7 +348,7 @@ export default function MapView() {
           </span>
           {closestBranchId && (
             <span className="bg-orange-50 text-orange-700 px-2.5 py-1 rounded-full font-medium flex items-center gap-1">
-              <Flame size={12} className="w-3.5 h-3.5 text-orange-700 fill-current inline mr-0.5" /> Más cercano destacado
+              <Flame size={12} className="w-3.5 h-3.5 text-orange-700 fill-current inline mr-0.5" /> Cerca destacado
             </span>
           )}
         </div>
@@ -512,7 +512,7 @@ export default function MapView() {
                     >
                       {isClosest && (
                         <div className="absolute top-0 right-0 bg-gradient-to-l from-orange-500 to-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-bl-lg flex items-center gap-0.5">
-                          <Flame size={10} className="w-2.5 h-2.5 fill-current" /> MÁS CERCANO
+                          <Flame size={10} className="w-2.5 h-2.5 fill-current" /> CERCA
                         </div>
                       )}
                       <div className="flex items-start justify-between mb-0.5">
