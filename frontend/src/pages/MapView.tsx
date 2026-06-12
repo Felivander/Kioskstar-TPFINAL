@@ -98,12 +98,16 @@ export default function MapView() {
       // Offset center coordinate so the marker is not hidden behind the floating panel
       const isLargeScreen = window.innerWidth >= 1024;
       if (mapRef.current) {
-        if (isLargeScreen) {
-          mapRef.current.panTo({ lat: b.lat, lng: b.lng - 0.0035 });
-        } else {
-          mapRef.current.panTo({ lat: b.lat - 0.0018, lng: b.lng });
+        const targetCenter = isLargeScreen
+          ? { lat: b.lat, lng: b.lng - 0.0035 }
+          : { lat: b.lat - 0.0018, lng: b.lng };
+
+        mapRef.current.panTo(targetCenter);
+
+        const currentZoom = mapRef.current.getZoom();
+        if (currentZoom !== 16) {
+          mapRef.current.setZoom(16);
         }
-        mapRef.current.setZoom(16);
       }
     }
   };
