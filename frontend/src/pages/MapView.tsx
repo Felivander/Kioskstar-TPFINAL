@@ -3,6 +3,7 @@ import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow, useMap } fro
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import Spinner from '../components/Spinner';
+import { StockItem } from '../types';
 import { Locate, Flame, Store, Search, MapPin, Package, Compass, Navigation, X } from 'lucide-react';
 
 const containerVariants: Variants = {
@@ -85,6 +86,8 @@ export default function MapView() {
   const [searching, setSearching] = useState(false);
   const [closestBranchId, setClosestBranchId] = useState<number | null>(null);
   const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
+  const [selectedBranchStock, setSelectedBranchStock] = useState<StockItem[]>([]);
+  const [stockLoading, setStockLoading] = useState(false);
   const mapRef = useRef<any>(null);
 
   const selectBranchAndZoom = (b: MapBranch) => {
@@ -157,6 +160,49 @@ export default function MapView() {
       setClosestBranchId(null);
     } catch { /* silent */ }
     setLoading(false);
+  };
+
+  useEffect(() => {
+    if (selectedBranch) {
+      loadSelectedBranchStock(selectedBranch.id);
+    } else {
+      setSelectedBranchStock([]);
+    }
+  }, [selectedBranch]);
+
+  const loadSelectedBranchStock = async (branchId: number) => {
+    setStockLoading(true);
+    try {
+      const stockRes = await api.get<StockItem[]>(`/branches/${branchId}/stock`);
+      const stockData = stockRes.data || [];
+      
+      let sortedStock = [...stockData];
+      try {
+        const salesRes = await api.get(`/sales/branch/${branchId}`);
+        const salesData = salesRes.data || [];
+        const counts: Record<number, number> = {};
+        salesData.forEach((sale: any) => {
+          if (sale.items) {
+            sale.items.forEach((item: any) => {
+              counts[item.productId] = (counts[item.productId] || 0) + item.quantity;
+            });
+          }
+        });
+        
+        sortedStock.sort((a, b) => {
+          const salesA = counts[a.productId] || 0;
+          const salesB = counts[b.productId] || 0;
+          return salesB - salesA;
+        });
+      } catch (err) {
+        console.error('Error fetching sales to rank stock:', err);
+      }
+      
+      setSelectedBranchStock(sortedStock);
+    } catch (err) {
+      console.error('Error loading branch stock:', err);
+    }
+    setStockLoading(false);
   };
 
   const performSearch = useCallback(async (query: string) => {
@@ -265,27 +311,54 @@ export default function MapView() {
 
           {/* Stock Section */}
           <div className="flex-1 flex flex-col min-h-0">
-            <h3 className="text-[10px] font-bold text-surface-500 uppercase tracking-wider mb-1.5">
-              Stock Disponible ({results?.length || 0})
-            </h3>
-            {results && results.length > 0 ? (
-              <div className="flex flex-col gap-1.5 overflow-y-auto pr-0.5">
-                {results.map((r) => (
-                  <div key={r.id} className="flex items-center justify-between text-xs bg-white p-2.5 rounded-xl border border-surface-100 hover:border-primary-100 transition-colors shadow-sm">
-                    <span className="text-surface-800 font-semibold truncate mr-2">{r.product.name}</span>
-                    <div className="flex gap-2 shrink-0 items-center">
-                      <span className="text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded-md text-[10px]">{r.quantity} uds</span>
-                      <span className="text-primary-600 font-extrabold">${r.product.price}</span>
+            {(() => {
+              const isSearching = searchResults !== null && search.trim() !== '';
+              const itemsToShow = isSearching
+                ? (results || []).map(r => ({
+                    id: r.id,
+                    name: r.product.name,
+                    quantity: r.quantity,
+                    price: r.product.price,
+                  }))
+                : selectedBranchStock.map(s => ({
+                    id: s.id,
+                    name: s.product?.name || 'Producto Desconocido',
+                    quantity: s.quantity,
+                    price: s.product?.price || 0,
+                  }));
+
+              return (
+                <>
+                  <h3 className="text-[10px] font-bold text-surface-500 uppercase tracking-wider mb-1.5">
+                    {isSearching ? 'Stock Disponible' : 'Más Vendidos del Local'} ({itemsToShow.length})
+                  </h3>
+                  {stockLoading ? (
+                    <div className="flex justify-center py-6 flex-1 items-center">
+                      <Spinner size="sm" />
                     </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-5 bg-surface-50 rounded-xl border border-surface-100 border-dashed">
-                <Package size={18} className="mx-auto mb-1 text-surface-400" />
-                <p className="text-[10px] text-surface-400">No hay stock registrado para búsqueda</p>
-              </div>
-            )}
+                  ) : itemsToShow.length > 0 ? (
+                    <div className="flex flex-col gap-1.5 overflow-y-auto pr-0.5">
+                      {itemsToShow.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between text-xs bg-white p-2.5 rounded-xl border border-surface-100 hover:border-primary-100 transition-colors shadow-sm">
+                          <span className="text-surface-800 font-semibold truncate mr-2">{item.name}</span>
+                          <div className="flex gap-2 shrink-0 items-center">
+                            <span className="text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded-md text-[10px]">{item.quantity} uds</span>
+                            <span className="text-primary-600 font-extrabold">${item.price}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-5 bg-surface-50 rounded-xl border border-surface-100 border-dashed">
+                      <Package size={18} className="mx-auto mb-1 text-surface-400" />
+                      <p className="text-[10px] text-surface-400">
+                        {isSearching ? 'No hay stock registrado para búsqueda' : 'No hay productos en stock'}
+                      </p>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </div>
         </div>
       </>
