@@ -347,7 +347,7 @@ export default function Layout() {
         )}
 
         <motion.main
-          animate={{ x: nudge === 'right' ? 16 : nudge === 'left' ? -16 : 0 }}
+          animate={{ x: nudge === 'right' ? 8 : nudge === 'left' ? -8 : 0 }}
           transition={{ type: 'spring', stiffness: 220, damping: 18 }}
           className="flex-1 p-4 lg:p-6 w-full overflow-y-auto"
         >
