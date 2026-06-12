@@ -516,20 +516,20 @@ export default function MapView() {
                         </div>
                       )}
                       <div className="flex items-start justify-between mb-0.5">
-                        <h3 className={`font-semibold text-sm ${isClosest ? 'text-orange-900' : 'text-surface-900'}`}>
+                        <h3 className={`font-semibold text-sm ${isClosest ? 'text-orange-900 pr-20' : 'text-surface-900'}`}>
                           {searchResults && <span className="text-surface-400 mr-1.5">#{idx + 1}</span>}
                           {b.kiosk?.name || b.name}
                         </h3>
-                        {b.distance !== undefined && (
-                          <span className={`text-xs font-medium shrink-0 ml-2 ${isClosest ? 'text-orange-600 pr-24' : 'text-surface-400'}`}>
-                            {formatDistance(b.distance)}
-                          </span>
-                        )}
                       </div>
                       <p className="text-xs text-surface-600">{b.name}</p>
-                      <p className="text-xs text-surface-400 mt-0.5 flex items-center gap-1">
+                      <p className="text-xs text-surface-400 mt-0.5 flex items-center gap-1.5">
                         <MapPin size={12} className="text-surface-400 shrink-0" />
-                        <span>{b.address}</span>
+                        <span className="truncate">{b.address}</span>
+                        {b.distance !== undefined && (
+                          <span className={`shrink-0 font-semibold ${isClosest ? 'text-orange-600' : 'text-surface-500'}`}>
+                            · {formatDistance(b.distance)}
+                          </span>
+                        )}
                       </p>
                       {results && results.length > 0 && (
                         <div className="mt-2 flex flex-wrap gap-1">
