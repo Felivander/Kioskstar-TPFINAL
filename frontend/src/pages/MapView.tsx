@@ -3,7 +3,7 @@ import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow, useMap } fro
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import Spinner from '../components/Spinner';
-import { Locate, Flame, Store, Search, MapPin, Package, Compass, Navigation } from 'lucide-react';
+import { Locate, Flame, Store, Search, MapPin, Package, Compass, Navigation, X } from 'lucide-react';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -84,6 +84,7 @@ export default function MapView() {
   const [initialCenter, setInitialCenter] = useState<{ lat: number; lng: number } | undefined>(undefined);
   const [searching, setSearching] = useState(false);
   const [closestBranchId, setClosestBranchId] = useState<number | null>(null);
+  const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
   const mapRef = useRef<any>(null);
 
   const selectBranchAndZoom = (b: MapBranch) => {
@@ -215,47 +216,50 @@ export default function MapView() {
 
   const renderDetailsContent = (b: MapBranch) => {
     const results = getResultsForBranch(b.id);
+    const hasImage = b.kiosk?.imageUrl && !failedImages[b.id];
     return (
       <>
         {/* Header / Photo Banner */}
-        <div className="relative w-full h-40 bg-gradient-to-br from-primary-500/10 to-primary-600/5 flex items-center justify-center overflow-hidden shrink-0">
-          {b.kiosk?.imageUrl ? (
+        <div className="relative w-full h-28 lg:h-36 bg-gradient-to-br from-primary-500/10 to-primary-600/5 flex items-center justify-center overflow-hidden shrink-0">
+          {hasImage ? (
             <img
-              src={b.kiosk.imageUrl}
+              src={b.kiosk.imageUrl || undefined}
               alt={b.kiosk.name}
+              onError={() => setFailedImages((prev) => ({ ...prev, [b.id]: true }))}
               className="w-full h-full object-cover"
             />
           ) : (
-            <Store size={40} className="text-surface-400" />
+            <Store size={36} className="text-surface-400" />
           )}
           {/* Close Button */}
           <button
             onClick={() => setSelectedBranch(null)}
-            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/55 text-white flex items-center justify-center hover:bg-black/75 transition-colors text-lg font-bold shadow-sm cursor-pointer"
+            className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-black/55 text-white flex items-center justify-center hover:bg-black/75 transition-colors shadow-sm cursor-pointer"
           >
-            ×
+            <X size={15} />
           </button>
         </div>
 
         {/* Content Container (Scrollable) */}
         <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0">
           <div>
-            <span className="text-[9px] font-bold text-primary-600 uppercase tracking-widest bg-primary-50 px-2 py-0.5 rounded-full">Kiosco Seleccionado</span>
-            <h2 className="font-extrabold text-surface-900 text-base mt-1.5 leading-tight">{b.kiosk?.name || b.name}</h2>
-            <p className="text-xs text-surface-500 mt-0.5 font-medium">{b.name}</p>
-          </div>
-
-          {/* Location Pill */}
-          <div className="bg-surface-50 rounded-xl p-3 border border-surface-100 flex flex-col gap-2 text-xs text-surface-700">
-            <div className="flex items-start gap-2">
-              <MapPin size={14} className="text-surface-500 shrink-0 mt-0.5" />
-              <span className="leading-relaxed">{b.address}</span>
-            </div>
-            {b.distance !== undefined && (
-              <div className="flex items-center gap-2 text-orange-600 font-semibold pt-1.5 border-t border-surface-100/70">
-                <Navigation size={14} className="text-primary-600 rotate-45 shrink-0" />
-                <span>A {formatDistance(b.distance)} de tu ubicación</span>
+            <div className="flex items-baseline justify-between gap-3">
+              <h2 className="font-extrabold text-surface-900 text-base leading-tight truncate flex-1">{b.kiosk?.name || b.name}</h2>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-xs text-surface-500 font-medium truncate flex items-center gap-0.5 max-w-[120px]" title={b.address}>
+                  <MapPin size={11} className="text-surface-400 shrink-0" />
+                  {b.address}
+                </span>
+                {b.distance !== undefined && (
+                  <span className="text-[10px] text-orange-600 font-extrabold bg-orange-50 px-1.5 py-0.5 rounded-md flex items-center gap-0.5 shrink-0" title={`A ${formatDistance(b.distance)} de tu ubicación`}>
+                    <Navigation size={9} className="text-primary-600 rotate-45 shrink-0" />
+                    {formatDistance(b.distance)}
+                  </span>
+                )}
               </div>
+            </div>
+            {b.kiosk?.name && b.kiosk.name !== b.name && (
+              <p className="text-[10px] text-surface-400 font-medium mt-0.5">{b.name}</p>
             )}
           </div>
 
@@ -267,7 +271,7 @@ export default function MapView() {
             {results && results.length > 0 ? (
               <div className="flex flex-col gap-1.5 overflow-y-auto pr-0.5">
                 {results.map((r) => (
-                  <div key={r.id} className="flex items-center justify-between text-xs bg-white p-2 rounded-lg border border-surface-100 hover:border-primary-100 transition-colors shadow-sm">
+                  <div key={r.id} className="flex items-center justify-between text-xs bg-white p-2.5 rounded-xl border border-surface-100 hover:border-primary-100 transition-colors shadow-sm">
                     <span className="text-surface-800 font-semibold truncate mr-2">{r.product.name}</span>
                     <div className="flex gap-2 shrink-0 items-center">
                       <span className="text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded-md text-[10px]">{r.quantity} uds</span>
@@ -277,22 +281,12 @@ export default function MapView() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-6 bg-surface-50 rounded-xl border border-surface-100 border-dashed">
-                <Package size={20} className="mx-auto mb-1 text-surface-400" />
+              <div className="text-center py-5 bg-surface-50 rounded-xl border border-surface-100 border-dashed">
+                <Package size={18} className="mx-auto mb-1 text-surface-400" />
                 <p className="text-[10px] text-surface-400">No hay stock registrado para búsqueda</p>
               </div>
             )}
           </div>
-        </div>
-
-        {/* Footer Action */}
-        <div className="p-3 border-t border-surface-100 bg-surface-50 shrink-0">
-          <button
-            onClick={() => setSelectedBranch(null)}
-            className="w-full py-2 rounded-xl gradient-primary text-white font-semibold text-xs hover:opacity-90 active:scale-[0.98] transition-all shadow-sm cursor-pointer"
-          >
-            Cerrar Detalles
-          </button>
         </div>
       </>
     );
@@ -435,7 +429,7 @@ export default function MapView() {
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: '-105%', opacity: 0 }}
                   transition={{ type: 'spring', stiffness: 240, damping: 28 }}
-                  className="hidden lg:flex absolute left-10 top-6 bottom-6 w-[360px] z-10 bg-white/80 backdrop-blur-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.2)] border border-white/50 rounded-3xl flex flex-col overflow-hidden transition-all duration-300"
+                  className="hidden lg:flex absolute left-10 top-6 bottom-6 w-[320px] z-10 bg-white/80 backdrop-blur-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.2)] border border-white/50 rounded-3xl flex flex-col overflow-hidden transition-all duration-300"
                 >
                   {renderDetailsContent(selectedBranch)}
                 </motion.div>
@@ -451,7 +445,7 @@ export default function MapView() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: '105%', opacity: 0 }}
                   transition={{ type: 'spring', stiffness: 240, damping: 28 }}
-                  className="lg:hidden absolute left-4 right-4 bottom-4 h-[330px] z-10 bg-white/80 backdrop-blur-xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] border border-white/50 rounded-3xl flex flex-col overflow-hidden"
+                  className="lg:hidden absolute left-4 bottom-4 w-[calc(100%-2rem)] max-w-[320px] h-[360px] z-10 bg-white/80 backdrop-blur-xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] border border-white/50 rounded-3xl flex flex-col overflow-hidden"
                 >
                   {renderDetailsContent(selectedBranch)}
                 </motion.div>
