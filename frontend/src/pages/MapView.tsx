@@ -410,7 +410,7 @@ export default function MapView() {
                         ) : (
                           <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full shadow-lg text-xs font-bold cursor-pointer transition-transform hover:scale-110
                             ${selectedBranch?.id === b.id
-                              ? 'bg-primary-600 text-white scale-110'
+                              ? 'bg-gradient-to-r from-orange-500 to-primary-600 text-white scale-110 border border-white shadow-lg shadow-orange-500/30 font-extrabold'
                               : hasResults
                                 ? 'bg-emerald-500 text-white'
                                 : 'bg-white text-surface-900 border border-surface-200'}`}>
