@@ -238,9 +238,9 @@ export default function MapView() {
           {/* Close Button */}
           <button
             onClick={() => setSelectedBranch(null)}
-            className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-black/55 text-white flex items-center justify-center hover:bg-black/75 transition-colors shadow-sm cursor-pointer"
+            className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white text-surface-700 hover:text-primary-600 flex items-center justify-center transition-all duration-200 shadow-md hover:scale-105 active:scale-95 cursor-pointer z-10"
           >
-            <X size={15} />
+            <X size={16} />
           </button>
         </div>
 
