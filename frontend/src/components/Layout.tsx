@@ -130,7 +130,7 @@ export default function Layout() {
                 `relative px-4 py-2 text-sm transition-colors duration-300 rounded-full select-none
                 ${isActive
                   ? 'font-bold text-white z-10'
-                  : 'font-medium text-surface-500 hover:text-primary-600 hover:bg-surface-100'}`
+                  : 'font-medium text-surface-500 hover:text-orange-600 hover:bg-surface-100'}`
               }
             >
               {({ isActive }) => (
@@ -138,7 +138,7 @@ export default function Layout() {
                   {isActive && (
                     <motion.div
                       layoutId="active-nav-tab"
-                      className="absolute inset-0 bg-primary-500 rounded-full -z-10 shadow-md shadow-primary-500/20"
+                      className="absolute inset-0 bg-gradient-to-r from-orange-700 via-orange-500 to-orange-700 border border-orange-800/80 rounded-full -z-10 shadow-lg shadow-orange-500/30"
                       transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
                     />
                   )}
@@ -239,7 +239,7 @@ export default function Layout() {
               `relative text-sm transition-colors duration-300 px-4 py-3 rounded-md block select-none
               ${isActive
                 ? 'font-bold text-white z-10'
-                : 'font-medium text-surface-500 hover:bg-surface-50'}`
+                : 'font-medium text-surface-500 hover:text-orange-600 hover:bg-surface-55'}`
             }
           >
             {({ isActive }) => (
@@ -247,7 +247,7 @@ export default function Layout() {
                 {isActive && (
                   <motion.div
                     layoutId="active-mobile-nav-tab"
-                    className="absolute inset-0 bg-primary-500 rounded-md -z-10 shadow-sm"
+                    className="absolute inset-0 bg-gradient-to-r from-orange-700 via-orange-500 to-orange-700 border border-orange-800/80 rounded-md -z-10 shadow-md shadow-orange-500/20"
                     transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
                   />
                 )}
@@ -281,7 +281,7 @@ export default function Layout() {
                 `relative text-sm transition-colors duration-300 px-4 py-3 rounded-md block select-none
                 ${isActive
                   ? 'font-bold text-white z-10'
-                  : 'font-medium text-surface-500 hover:bg-surface-50'}`
+                  : 'font-medium text-surface-500 hover:text-orange-600 hover:bg-surface-55'}`
               }
             >
               {({ isActive }) => (
@@ -289,7 +289,7 @@ export default function Layout() {
                   {isActive && (
                     <motion.div
                       layoutId="active-mobile-nav-tab"
-                      className="absolute inset-0 bg-primary-500 rounded-md -z-10 shadow-sm"
+                      className="absolute inset-0 bg-gradient-to-r from-orange-700 via-orange-500 to-orange-700 border border-orange-800/80 rounded-md -z-10 shadow-md shadow-orange-500/20"
                       transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
                     />
                   )}
@@ -328,7 +328,7 @@ export default function Layout() {
             title={`Ir a ${prevPage.label}`}
           >
             {/* Vertical orange line hint */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-500 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-4px] group-hover:translate-x-0 shadow-[0_0_10px_rgba(249,115,22,0.4)]" />
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-orange-700 via-orange-500 to-orange-700 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-4px] group-hover:translate-x-0 shadow-[0_0_10px_rgba(249,115,22,0.6)]" />
           </button>
         )}
 
@@ -342,7 +342,7 @@ export default function Layout() {
             title={`Ir a ${nextPage.label}`}
           >
             {/* Vertical orange line hint */}
-            <div className="absolute right-0 top-0 bottom-0 w-1 bg-primary-500 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[4px] group-hover:translate-x-0 shadow-[0_0_10px_rgba(249,115,22,0.4)]" />
+            <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-orange-700 via-orange-500 to-orange-700 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[4px] group-hover:translate-x-0 shadow-[0_0_10px_rgba(249,115,22,0.6)]" />
           </button>
         )}
 
