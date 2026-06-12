@@ -126,7 +126,7 @@ export default function Layout() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `relative px-4 py-3 text-sm transition-colors duration-300 rounded-md select-none
+                `relative px-4 py-2 text-sm transition-colors duration-300 rounded-full select-none
                 ${isActive
                   ? 'font-bold text-white z-10'
                   : 'font-medium text-surface-500 hover:text-primary-600 hover:bg-surface-100'}`
@@ -137,7 +137,7 @@ export default function Layout() {
                   {isActive && (
                     <motion.div
                       layoutId="active-nav-tab"
-                      className="absolute inset-0 bg-primary-500 rounded-md -z-10 shadow-md shadow-primary-500/20"
+                      className="absolute inset-0 bg-primary-500 rounded-full -z-10 shadow-md shadow-primary-500/20"
                       transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
                     />
                   )}
@@ -325,8 +325,8 @@ export default function Layout() {
             title={`Ir a ${prevPage.label}`}
           >
             {/* Stretching orange vertical handle */}
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-24 bg-primary-500 rounded-r-full transition-all duration-300 ease-out group-hover:h-40 group-hover:w-8 group-hover:bg-primary-600 shadow-[0_0_20px_rgba(249,115,22,0.5)] flex items-center justify-center text-white overflow-hidden group-hover:rounded-r-[40px]">
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs font-black -translate-x-[2px]">‹</span>
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-20 bg-primary-500 rounded-r-full transition-all duration-300 ease-out group-hover:h-28 group-hover:w-3.5 group-hover:bg-primary-600 shadow-[0_0_15px_rgba(249,115,22,0.4)] flex items-center justify-center text-white overflow-hidden group-hover:rounded-r-xl">
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-black -translate-x-[0.5px]">‹</span>
             </div>
           </button>
         )}
@@ -339,8 +339,8 @@ export default function Layout() {
             title={`Ir a ${nextPage.label}`}
           >
             {/* Stretching orange vertical handle */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-24 bg-primary-500 rounded-l-full transition-all duration-300 ease-out group-hover:h-40 group-hover:w-8 group-hover:bg-primary-600 shadow-[0_0_20px_rgba(249,115,22,0.5)] flex items-center justify-center text-white overflow-hidden group-hover:rounded-l-[40px]">
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs font-black translate-x-[2px]">›</span>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-20 bg-primary-500 rounded-l-full transition-all duration-300 ease-out group-hover:h-28 group-hover:w-3.5 group-hover:bg-primary-600 shadow-[0_0_15px_rgba(249,115,22,0.4)] flex items-center justify-center text-white overflow-hidden group-hover:rounded-l-xl">
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-black translate-x-[0.5px]">›</span>
             </div>
           </button>
         )}
