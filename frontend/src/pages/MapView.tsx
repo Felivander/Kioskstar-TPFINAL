@@ -521,7 +521,7 @@ export default function MapView() {
                           {b.kiosk?.name || b.name}
                         </h3>
                         {b.distance !== undefined && (
-                          <span className={`text-xs font-medium shrink-0 ml-2 ${isClosest ? 'text-orange-600' : 'text-surface-400'}`}>
+                          <span className={`text-xs font-medium shrink-0 ml-2 ${isClosest ? 'text-orange-600 pr-24' : 'text-surface-400'}`}>
                             {formatDistance(b.distance)}
                           </span>
                         )}
