@@ -327,10 +327,8 @@ export default function Layout() {
             aria-label={`Ir a ${prevPage.label}`}
             title={`Ir a ${prevPage.label}`}
           >
-            {/* Soft chevron hint */}
-            <div className="pl-3 text-primary-500 opacity-0 group-hover:opacity-100 transition-all duration-300 text-2xl font-black select-none translate-x-[-4px] group-hover:translate-x-0">
-              ‹
-            </div>
+            {/* Vertical orange line hint */}
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-500 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-4px] group-hover:translate-x-0 shadow-[0_0_10px_rgba(249,115,22,0.4)]" />
           </button>
         )}
 
@@ -343,10 +341,8 @@ export default function Layout() {
             aria-label={`Ir a ${nextPage.label}`}
             title={`Ir a ${nextPage.label}`}
           >
-            {/* Soft chevron hint */}
-            <div className="pr-3 text-primary-500 opacity-0 group-hover:opacity-100 transition-all duration-300 text-2xl font-black select-none translate-x-[4px] group-hover:translate-x-0">
-              ›
-            </div>
+            {/* Vertical orange line hint */}
+            <div className="absolute right-0 top-0 bottom-0 w-1 bg-primary-500 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[4px] group-hover:translate-x-0 shadow-[0_0_10px_rgba(249,115,22,0.4)]" />
           </button>
         )}
 
