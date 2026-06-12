@@ -18,6 +18,7 @@ export default function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [branchDropdownOpen, setBranchDropdownOpen] = useState(false);
+  const [nudge, setNudge] = useState<'left' | 'right' | null>(null);
   const [branches, setBranches] = useState<Branch[]>([]);
   const { user, selectedBranch } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -320,13 +321,15 @@ export default function Layout() {
         {prevPage && (
           <button
             onClick={() => navigate(prevPage.to)}
-            className="absolute left-0 top-0 bottom-0 w-8 z-30 group cursor-pointer flex items-center justify-start focus:outline-none select-none"
+            onMouseEnter={() => setNudge('right')}
+            onMouseLeave={() => setNudge(null)}
+            className="absolute left-0 top-0 bottom-0 w-12 z-30 group cursor-pointer flex items-center justify-start focus:outline-none select-none"
             aria-label={`Ir a ${prevPage.label}`}
             title={`Ir a ${prevPage.label}`}
           >
-            {/* Stretching orange vertical handle */}
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-20 bg-primary-500 rounded-r-full transition-all duration-300 ease-out group-hover:h-28 group-hover:w-3.5 group-hover:bg-primary-600 shadow-[0_0_15px_rgba(249,115,22,0.4)] flex items-center justify-center text-white overflow-hidden group-hover:rounded-r-xl">
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-black -translate-x-[0.5px]">‹</span>
+            {/* Soft chevron hint */}
+            <div className="pl-3 text-primary-500 opacity-0 group-hover:opacity-100 transition-all duration-300 text-2xl font-black select-none translate-x-[-4px] group-hover:translate-x-0">
+              ‹
             </div>
           </button>
         )}
@@ -334,20 +337,26 @@ export default function Layout() {
         {nextPage && (
           <button
             onClick={() => navigate(nextPage.to)}
-            className="absolute right-0 top-0 bottom-0 w-8 z-30 group cursor-pointer flex items-center justify-end focus:outline-none select-none"
+            onMouseEnter={() => setNudge('left')}
+            onMouseLeave={() => setNudge(null)}
+            className="absolute right-0 top-0 bottom-0 w-12 z-30 group cursor-pointer flex items-center justify-end focus:outline-none select-none"
             aria-label={`Ir a ${nextPage.label}`}
             title={`Ir a ${nextPage.label}`}
           >
-            {/* Stretching orange vertical handle */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-20 bg-primary-500 rounded-l-full transition-all duration-300 ease-out group-hover:h-28 group-hover:w-3.5 group-hover:bg-primary-600 shadow-[0_0_15px_rgba(249,115,22,0.4)] flex items-center justify-center text-white overflow-hidden group-hover:rounded-l-xl">
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-black translate-x-[0.5px]">›</span>
+            {/* Soft chevron hint */}
+            <div className="pr-3 text-primary-500 opacity-0 group-hover:opacity-100 transition-all duration-300 text-2xl font-black select-none translate-x-[4px] group-hover:translate-x-0">
+              ›
             </div>
           </button>
         )}
 
-        <main className="flex-1 p-4 lg:p-6 w-full overflow-y-auto">
+        <motion.main
+          animate={{ x: nudge === 'right' ? 16 : nudge === 'left' ? -16 : 0 }}
+          transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+          className="flex-1 p-4 lg:p-6 w-full overflow-y-auto"
+        >
           <Outlet />
-        </main>
+        </motion.main>
       </div>
     </div>
   );
