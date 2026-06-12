@@ -130,11 +130,11 @@ export default function Register() {
                   value={password}
                   onChange={(e) => { setPassword(e.target.value); dispatch(clearError()); }}
                   required
-                  minLength={6}
+                  minLength={8}
                   autoComplete="new-password"
                   className="w-full rounded-2xl border border-surface-200 bg-surface-50 text-sm text-surface-900 placeholder-surface-400 transition-all focus:bg-white focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none"
                   style={{ padding: '0.625rem 1rem' }}
-                  placeholder="Mínimo 6 caracteres"
+                  placeholder="Mínimo 8 caracteres, 1 mayúscula y 1 número"
                 />
               </div>
 

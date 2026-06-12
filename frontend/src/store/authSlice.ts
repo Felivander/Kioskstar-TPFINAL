@@ -27,7 +27,12 @@ export const loginUser = createAsyncThunk<AuthResponse, { email: string; passwor
       localStorage.setItem('user', JSON.stringify(data.user));
       return data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error || 'Error al iniciar sesión');
+      const errorData = error.response?.data;
+      if (errorData?.details && Array.isArray(errorData.details)) {
+        const detailMsg = errorData.details.map((d: any) => d.message).join('. ');
+        return rejectWithValue(`${errorData.error}: ${detailMsg}`);
+      }
+      return rejectWithValue(errorData?.error || 'Error al iniciar sesión');
     }
   }
 );
@@ -41,7 +46,12 @@ export const registerUser = createAsyncThunk<AuthResponse, { name: string; email
       localStorage.setItem('user', JSON.stringify(data.user));
       return data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error || 'Error al registrarse');
+      const errorData = error.response?.data;
+      if (errorData?.details && Array.isArray(errorData.details)) {
+        const detailMsg = errorData.details.map((d: any) => d.message).join('. ');
+        return rejectWithValue(`${errorData.error}: ${detailMsg}`);
+      }
+      return rejectWithValue(errorData?.error || 'Error al registrarse');
     }
   }
 );
@@ -55,7 +65,12 @@ export const onboardUser = createAsyncThunk<AuthResponse, any>(
       localStorage.setItem('user', JSON.stringify(data.user));
       return data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error || 'Error en el onboarding');
+      const errorData = error.response?.data;
+      if (errorData?.details && Array.isArray(errorData.details)) {
+        const detailMsg = errorData.details.map((d: any) => d.message).join('. ');
+        return rejectWithValue(`${errorData.error}: ${detailMsg}`);
+      }
+      return rejectWithValue(errorData?.error || 'Error en el onboarding');
     }
   }
 );
@@ -72,7 +87,12 @@ export const joinKiosk = createAsyncThunk<AuthResponse & { branch?: Branch }, { 
       }
       return data;
     } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error || 'Código inválido');
+      const errorData = error.response?.data;
+      if (errorData?.details && Array.isArray(errorData.details)) {
+        const detailMsg = errorData.details.map((d: any) => d.message).join('. ');
+        return rejectWithValue(`${errorData.error}: ${detailMsg}`);
+      }
+      return rejectWithValue(errorData?.error || 'Código inválido');
     }
   }
 );
