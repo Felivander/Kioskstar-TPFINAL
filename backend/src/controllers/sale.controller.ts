@@ -6,6 +6,13 @@ export const createSale = async (req: AuthRequest, res: Response): Promise<void>
   try {
     const { branchId, paymentMethod, payments, items } = req.body;
 
+    // IDOR Check
+    const user = await prisma.user.findUnique({ where: { id: req.userId } });
+    if (!user || (user.role !== 'ADMIN' && user.branchId !== branchId)) {
+      res.status(403).json({ error: 'No autorizado para registrar ventas en esta sucursal' });
+      return;
+    }
+
     // Verificar si existe una caja abierta en esta sucursal
     const activeSession = await prisma.cashSession.findFirst({
       where: { branchId, status: 'OPEN' },
@@ -53,31 +60,40 @@ export const createSale = async (req: AuthRequest, res: Response): Promise<void>
       });
 
       for (const item of items) {
-        // MED-7: Verificar stock disponible antes de decrementar
-        const stockRecord = await tx.stock.findFirst({
-          where: { branchId, productId: item.productId },
+        // Concurrency Stock update
+        const updateResult = await tx.stock.updateMany({
+          where: {
+            branchId,
+            productId: item.productId,
+            quantity: { gte: item.quantity },
+          },
+          data: {
+            quantity: { decrement: item.quantity },
+          },
         });
 
-        if (!stockRecord || stockRecord.quantity < item.quantity) {
+        if (updateResult.count === 0) {
+          const product = await tx.product.findUnique({
+            where: { id: item.productId },
+            select: { name: true },
+          });
           throw new Error(
-            `Stock insuficiente para el producto ID ${item.productId}. ` +
-            `Disponible: ${stockRecord?.quantity ?? 0}, solicitado: ${item.quantity}`
+            `Stock insuficiente para el producto "${product?.name || item.productId}".`
           );
         }
-
-        await tx.stock.updateMany({
-          where: { branchId, productId: item.productId },
-          data: { quantity: { decrement: item.quantity } },
-        });
       }
 
       return newSale;
     });
 
     res.status(201).json(sale);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error en createSale:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
   }
 };
 
@@ -85,6 +101,13 @@ export const getTopProducts = async (req: AuthRequest, res: Response): Promise<v
   try {
     const { branchId } = req.params;
     const branchIdNum = parseInt(branchId as string);
+
+    // IDOR Check
+    const user = await prisma.user.findUnique({ where: { id: req.userId } });
+    if (!user || (user.role !== 'ADMIN' && user.branchId !== branchIdNum)) {
+      res.status(403).json({ error: 'No autorizado para ver estadísticas de esta sucursal' });
+      return;
+    }
 
     // Top products by total quantity sold in this branch
     const topProducts = await prisma.saleItem.groupBy({
@@ -146,9 +169,17 @@ export const getTopProducts = async (req: AuthRequest, res: Response): Promise<v
 export const getSalesByBranch = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { branchId } = req.params;
+    const branchIdNum = parseInt(branchId as string);
+
+    // IDOR Check
+    const user = await prisma.user.findUnique({ where: { id: req.userId } });
+    if (!user || (user.role !== 'ADMIN' && user.branchId !== branchIdNum)) {
+      res.status(403).json({ error: 'No autorizado para ver ventas de esta sucursal' });
+      return;
+    }
 
     const sales = await prisma.sale.findMany({
-      where: { branchId: parseInt(branchId as string) },
+      where: { branchId: branchIdNum },
       include: {
         items: {
           include: { product: true },

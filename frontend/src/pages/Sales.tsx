@@ -16,7 +16,6 @@ interface CartItem {
   name: string;
   quantity: number;
   unitPrice: number;
-  maxStock: number;
 }
 
 interface TopProduct {
@@ -144,7 +143,10 @@ export default function Sales() {
     }
   };
 
-  const addToCart = (pId: number, product: Product, maxStock: number) => {
+  const addToCart = (pId: number, product: Product) => {
+    const stockItem = stockItems.find((s) => s.productId === pId);
+    const maxStock = stockItem ? stockItem.quantity : 0;
+
     setCart((prev) => {
       const existing = prev.find((item) => item.productId === pId);
       if (existing) {
@@ -160,7 +162,6 @@ export default function Sales() {
           name: product.name,
           quantity: 1,
           unitPrice: product.price,
-          maxStock,
         },
       ];
     });
@@ -171,10 +172,13 @@ export default function Sales() {
       removeFromCart(pId);
       return;
     }
+    const stockItem = stockItems.find((s) => s.productId === pId);
+    const maxStock = stockItem ? stockItem.quantity : 0;
+
     setCart((prev) =>
       prev.map((item) =>
         item.productId === pId
-          ? { ...item, quantity: Math.min(qty, item.maxStock) }
+          ? { ...item, quantity: Math.min(qty, maxStock) }
           : item
       )
     );
@@ -241,18 +245,7 @@ export default function Sales() {
     item.product?.barcode?.includes(search)
   );
 
-  // Expected balance calculation for display in close modal
-  const cashSalesTotal = activeSession?.sales?.reduce((sum, sale) => {
-    if (sale.paymentMethod === 'EFECTIVO') {
-      return sum + sale.total;
-    } else if (sale.paymentMethod === 'MIXTO' && Array.isArray(sale.payments)) {
-      const cashPay = sale.payments.find((p: any) => p.method === 'EFECTIVO');
-      return sum + (cashPay ? cashPay.amount : 0);
-    }
-    return sum;
-  }, 0) || 0;
-  
-  const expectedBalance = (activeSession?.openingBalance || 0) + cashSalesTotal;  // Render logic
+  const expectedBalance = activeSession?.currentExpectedBalance ?? (activeSession?.openingBalance ?? 0);
 
   return (
     <div className="space-y-6 animate-fade-in-up">
@@ -446,7 +439,7 @@ export default function Sales() {
                               {item.product?.barcode && <span className="ml-2 text-surface-300 font-semibold">({item.product.barcode})</span>}
                             </p>
                           </div>
-                          <button onClick={() => item.product && addToCart(item.productId, item.product, item.quantity)}
+                          <button onClick={() => item.product && addToCart(item.productId, item.product)}
                             disabled={item.quantity <= 0 || (!!inCart && inCart.quantity >= item.quantity)}
                             className="px-3.5 py-1.5 rounded-xl bg-primary-50 hover:bg-primary-100 text-primary-700 text-xs font-bold transition-colors cursor-pointer disabled:opacity-40">
                             {inCart ? `(${inCart.quantity})` : '+ Agregar'}

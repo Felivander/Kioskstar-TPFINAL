@@ -5,16 +5,52 @@ import { AuthRequest } from '../middlewares/auth.middleware';
 export const getActiveSession = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { branchId } = req.params;
+    const bId = parseInt(branchId as string);
+
+    // IDOR Check
+    const user = await prisma.user.findUnique({ where: { id: req.userId } });
+    if (!user || (user.role !== 'ADMIN' && user.branchId !== bId)) {
+      res.status(403).json({ error: 'No autorizado para acceder a esta sucursal' });
+      return;
+    }
+
     const active = await prisma.cashSession.findFirst({
       where: {
-        branchId: parseInt(branchId as string),
+        branchId: bId,
         status: 'OPEN',
       },
       include: {
         openedBy: { select: { id: true, name: true, email: true } },
+        sales: true,
       },
     });
-    res.json(active);
+
+    if (active) {
+      let cashSalesTotal = 0;
+      active.sales.forEach((sale) => {
+        if (sale.paymentMethod === 'EFECTIVO') {
+          cashSalesTotal += sale.total;
+        } else if (sale.paymentMethod === 'MIXTO' && sale.payments) {
+          try {
+            const paymentsArray = sale.payments as any[];
+            const cashPayment = paymentsArray.find((p) => p.method === 'EFECTIVO');
+            if (cashPayment) {
+              cashSalesTotal += cashPayment.amount || 0;
+            }
+          } catch (e) {
+            console.error('Error parsing mixed payment JSON:', e);
+          }
+        }
+      });
+      const currentExpectedBalance = active.openingBalance + cashSalesTotal;
+      const { sales, ...activeWithoutSales } = active;
+      res.json({
+        ...activeWithoutSales,
+        currentExpectedBalance,
+      });
+    } else {
+      res.json(null);
+    }
   } catch (error) {
     console.error('Error en getActiveSession:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
@@ -24,6 +60,13 @@ export const getActiveSession = async (req: AuthRequest, res: Response): Promise
 export const openSession = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { branchId, openingBalance } = req.body;
+
+    // IDOR Check
+    const user = await prisma.user.findUnique({ where: { id: req.userId } });
+    if (!user || (user.role !== 'ADMIN' && user.branchId !== branchId)) {
+      res.status(403).json({ error: 'No autorizado para abrir caja en esta sucursal' });
+      return;
+    }
 
     const existing = await prisma.cashSession.findFirst({
       where: { branchId, status: 'OPEN' },
@@ -67,6 +110,13 @@ export const closeSession = async (req: AuthRequest, res: Response): Promise<voi
     }
     if (session.status === 'CLOSED') {
       res.status(400).json({ error: 'Esta caja ya está cerrada' });
+      return;
+    }
+
+    // IDOR Check
+    const user = await prisma.user.findUnique({ where: { id: req.userId } });
+    if (!user || (user.role !== 'ADMIN' && user.branchId !== session.branchId)) {
+      res.status(403).json({ error: 'No autorizado para cerrar caja en esta sucursal' });
       return;
     }
 
@@ -117,17 +167,22 @@ export const closeSession = async (req: AuthRequest, res: Response): Promise<voi
 export const getHistoryByBranch = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { branchId } = req.params;
+    const bId = parseInt(branchId as string);
+
+    // IDOR Check
+    const user = await prisma.user.findUnique({ where: { id: req.userId } });
+    if (!user || (user.role !== 'ADMIN' && user.branchId !== bId)) {
+      res.status(403).json({ error: 'No autorizado para acceder al historial de esta sucursal' });
+      return;
+    }
+
     const history = await prisma.cashSession.findMany({
-      where: { branchId: parseInt(branchId as string) },
+      where: { branchId: bId },
       include: {
         openedBy: { select: { id: true, name: true } },
         closedBy: { select: { id: true, name: true } },
-        sales: {
-          include: {
-            items: { include: { product: true } },
-            user: { select: { id: true, name: true } },
-          },
-          orderBy: { createdAt: 'desc' },
+        _count: {
+          select: { sales: true },
         },
       },
       orderBy: { openedAt: 'desc' },

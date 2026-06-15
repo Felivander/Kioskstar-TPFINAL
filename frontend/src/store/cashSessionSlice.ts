@@ -18,11 +18,16 @@ export interface SaleItemSummary {
   };
 }
 
+export interface PaymentSummary {
+  method: string;
+  amount: number;
+}
+
 export interface SaleSummary {
   id: number;
   total: number;
   paymentMethod: string;
-  payments: any;
+  payments: PaymentSummary[] | null;
   createdAt: string;
   user: UserSummary;
   items: SaleItemSummary[];
@@ -36,8 +41,9 @@ export interface CashSession {
   status: 'OPEN' | 'CLOSED';
   openingBalance: number;
   expectedBalance: number | null;
+  currentExpectedBalance?: number | null;
   actualBalance: number | null;
-  cashCount: any; // Record<string, number> or null
+  cashCount: Record<string, number> | null;
   notes: string | null;
   openedAt: string;
   closedAt: string | null;
