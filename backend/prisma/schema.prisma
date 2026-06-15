@@ -40,6 +40,8 @@ model User {
   sales          Sale[]
   inviteCodes    InviteCode[]
   passwordResets PasswordReset[]
+  openedSessions CashSession[] @relation("OpenedSessions")
+  closedSessions CashSession[] @relation("ClosedSessions")
 
   @@map("users")
 }
@@ -80,6 +82,7 @@ model Branch {
   sales       Sale[]
   employees   User[]
   inviteCodes InviteCode[]
+  cashSessions CashSession[]
 
   @@map("branches")
 }
@@ -142,6 +145,8 @@ model Sale {
   branch Branch     @relation(fields: [branchId], references: [id], onDelete: Cascade)
   user   User       @relation(fields: [userId], references: [id])
   items  SaleItem[]
+  cashSessionId Int?
+  cashSession   CashSession? @relation(fields: [cashSessionId], references: [id], onDelete: SetNull)
 
   @@map("sales")
 }
@@ -188,4 +193,31 @@ model PasswordReset {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("password_resets")
+}
+
+enum CashSessionStatus {
+  OPEN
+  CLOSED
+}
+
+model CashSession {
+  id              Int               @id @default(autoincrement())
+  branchId        Int
+  openedById      Int
+  closedById      Int?
+  status          CashSessionStatus @default(OPEN)
+  openingBalance  Float             // Saldo inicial en efectivo
+  expectedBalance Float?            // Saldo esperado (inicial + efectivo ventas)
+  actualBalance   Float?            // Saldo real ingresado al cerrar
+  cashCount       Json?             // Desglose de billetes: {"20000": 3, "10000": 2, ...}
+  notes           String?
+  openedAt        DateTime          @default(now())
+  closedAt        DateTime?
+
+  branch   Branch  @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  openedBy User    @relation("OpenedSessions", fields: [openedById], references: [id])
+  closedBy User?   @relation("ClosedSessions", fields: [closedById], references: [id])
+  sales    Sale[]
+
+  @@map("cash_sessions")
 }
