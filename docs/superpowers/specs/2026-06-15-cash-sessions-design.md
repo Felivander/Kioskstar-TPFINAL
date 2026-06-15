@@ -37,6 +37,7 @@ model CashSession {
   openingBalance  Float             // Efectivo inicial
   expectedBalance Float?            // Saldo esperado (saldo inicial + efectivo de ventas)
   actualBalance   Float?            // Saldo físico real contado
+  cashCount       Json?             // Desglose de billetes contados: {"20000": X, "10000": Y, ...}
   notes           String?
   openedAt        DateTime          @default(now())
   closedAt        DateTime?
@@ -101,6 +102,7 @@ Todos los endpoints requerirán autenticación y validación de esquemas (Zod).
     sessionId: z.number().int().positive(),
     actualBalance: z.number().nonnegative("El saldo final debe ser mayor o igual a 0"),
     notes: z.string().max(500).optional(),
+    cashCount: z.record(z.string(), z.number().int().nonnegative()).optional(),
   });
   ```
 * **Lógica:**
@@ -110,7 +112,7 @@ Todos los endpoints requerirán autenticación y validación de esquemas (Zod).
      * Ventas con `paymentMethod = 'EFECTIVO'`: se suma el total de la venta.
      * Ventas con `paymentMethod = 'MIXTO'`: se suma el monto especificado con `method = 'EFECTIVO'` dentro del JSON de pagos.
   4. Calcula `expectedBalance = openingBalance + totalEfectivoCobrado`.
-  5. Cambia el estado a `CLOSED`, asigna `closedById = req.userId`, `closedAt = new Date()`, guarda `expectedBalance`, `actualBalance` y calcula la diferencia.
+  5. Cambia el estado a `CLOSED`, asigna `closedById = req.userId`, `closedAt = new Date()`, guarda `expectedBalance`, `actualBalance`, `cashCount` y calcula la diferencia.
 
 ### 3.4 `GET /api/cash-sessions/branch/:branchId`
 * **Descripción:** Devuelve el historial de sesiones de caja de una sucursal con sus ventas asociadas ordenadas por fecha descendente.
