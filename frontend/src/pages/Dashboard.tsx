@@ -248,7 +248,10 @@ export default function Dashboard() {
             </h2>
             
             {/* Sales revenue */}
-            <div className="bg-white border border-surface-200/60 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
+            <div
+              onClick={() => navigate('/sales', { state: { activeTab: 'history' } })}
+              className="bg-white border border-surface-200/60 hover:border-emerald-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm cursor-pointer transition-colors"
+            >
               <div className="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg font-bold">
                 $
               </div>
