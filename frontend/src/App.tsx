@@ -19,7 +19,7 @@ import Account from './pages/Account';
 import MyKiosk from './pages/MyKiosk';
 
 export default function App() {
-  const { token, user } = useAppSelector((s) => s.auth);
+  const { token, user, welcomeSplashActive } = useAppSelector((s) => s.auth);
   const needsOnboarding = token && user && !user.onboarded;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function App() {
   return (
     <Routes>
       {/* Public routes */}
-      <Route path="/login" element={token ? <Navigate to={needsOnboarding ? '/onboarding' : '/dashboard'} /> : <Login />} />
+      <Route path="/login" element={token && !welcomeSplashActive ? <Navigate to={needsOnboarding ? '/onboarding' : '/dashboard'} /> : <Login />} />
       <Route path="/register" element={token ? <Navigate to={needsOnboarding ? '/onboarding' : '/dashboard'} /> : <Register />} />
       <Route path="/forgot-password" element={token ? <Navigate to="/dashboard" /> : <ForgotPassword />} />
       <Route path="/reset-password" element={token ? <Navigate to="/dashboard" /> : <ResetPassword />} />

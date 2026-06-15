@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Sparkles, AlertTriangle, ArrowRight } from 'lucide-react';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { loginUser, clearError } from '../store/authSlice';
+import { loginUser, clearError, finishSplash } from '../store/authSlice';
 import Spinner from '../components/Spinner';
 
 export default function Login() {
@@ -27,6 +27,7 @@ export default function Login() {
         setSplashFadeOut(true);
       }, 2600);
       setTimeout(() => {
+        dispatch(finishSplash());
         navigate('/dashboard');
       }, 3000);
     } else {

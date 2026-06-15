@@ -8,6 +8,7 @@ interface AuthState {
   selectedBranch: Branch | null;
   loading: boolean;
   error: string | null;
+  welcomeSplashActive: boolean;
 }
 
 const initialState: AuthState = {
@@ -16,6 +17,7 @@ const initialState: AuthState = {
   selectedBranch: JSON.parse(localStorage.getItem('selectedBranch') || 'null'),
   loading: false,
   error: null,
+  welcomeSplashActive: false,
 };
 
 export const loginUser = createAsyncThunk<AuthResponse, { email: string; password: string }>(
@@ -106,6 +108,7 @@ const authSlice = createSlice({
       state.token = null;
       state.selectedBranch = null;
       state.error = null;
+      state.welcomeSplashActive = false;
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('selectedBranch');
@@ -125,6 +128,9 @@ const authSlice = createSlice({
         localStorage.removeItem('selectedBranch');
       }
     },
+    finishSplash(state) {
+      state.welcomeSplashActive = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -133,6 +139,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.welcomeSplashActive = true;
         // Clear branch selection on new login to force re-selection
         state.selectedBranch = null;
         localStorage.removeItem('selectedBranch');
@@ -177,5 +184,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearError, setSelectedBranch, updateAuthUser } = authSlice.actions;
+export const { logout, clearError, setSelectedBranch, updateAuthUser, finishSplash } = authSlice.actions;
 export default authSlice.reducer;
