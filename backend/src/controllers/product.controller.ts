@@ -78,10 +78,19 @@ export const createProduct = async (req: AuthRequest, res: Response): Promise<vo
 export const updateProduct = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
+    // HIGH-2: Desestructurar solo los campos permitidos (anti-mass-assignment)
+    const { name, barcode, categoryId, imageUrl, description, price } = req.body;
+    const updateData: Record<string, unknown> = {};
+    if (name !== undefined) updateData.name = name;
+    if (barcode !== undefined) updateData.barcode = barcode;
+    if (categoryId !== undefined) updateData.categoryId = categoryId;
+    if (imageUrl !== undefined) updateData.imageUrl = imageUrl;
+    if (description !== undefined) updateData.description = description;
+    if (price !== undefined) updateData.price = price;
 
     const product = await prisma.product.update({
-      where: { id: parseInt(id as string) },
-      data: req.body,
+      where: { id: parseInt(id as string, 10) },
+      data: updateData,
       include: { category: true },
     });
 
@@ -151,10 +160,15 @@ export const createCategory = async (req: AuthRequest, res: Response): Promise<v
 export const updateCategory = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
+    // HIGH-2: Desestructurar solo los campos permitidos (anti-mass-assignment)
+    const { name, description } = req.body;
+    const updateData: Record<string, unknown> = {};
+    if (name !== undefined) updateData.name = name;
+    if (description !== undefined) updateData.description = description;
 
     const category = await prisma.category.update({
-      where: { id: parseInt(id as string) },
-      data: req.body,
+      where: { id: parseInt(id as string, 10) },
+      data: updateData,
     });
 
     res.json(category);

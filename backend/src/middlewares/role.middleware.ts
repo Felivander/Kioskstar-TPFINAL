@@ -11,8 +11,6 @@ export const roleMiddleware = (...allowedRoles: string[]) => {
     if (!allowedRoles.includes(req.userRole)) {
       res.status(403).json({ 
         error: 'No tienes permisos para realizar esta acción',
-        requiredRoles: allowedRoles,
-        currentRole: req.userRole
       });
       return;
     }

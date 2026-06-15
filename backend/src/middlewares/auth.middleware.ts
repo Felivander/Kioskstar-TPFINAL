@@ -22,7 +22,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'default-secret') as {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
       userId: number;
       role: string;
     };

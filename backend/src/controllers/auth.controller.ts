@@ -44,7 +44,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     // Generar token
     const token = jwt.sign(
       { userId: user.id, role: user.role },
-      process.env.JWT_SECRET || 'default-secret',
+      process.env.JWT_SECRET as string,
       { expiresIn: '7d' }
     );
 
@@ -190,7 +190,7 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
       // Regenerar token con rol actualizado
       const token = jwt.sign(
         { userId: user.id, role: user.role },
-        process.env.JWT_SECRET || 'default-secret',
+        process.env.JWT_SECRET as string,
         { expiresIn: '7d' }
       );
 
@@ -302,7 +302,7 @@ export const onboard = async (req: AuthRequest, res: Response): Promise<void> =>
     // Regenerar token con nuevo rol ADMIN
     const token = jwt.sign(
       { userId: result.user.id, role: result.user.role },
-      process.env.JWT_SECRET || 'default-secret',
+      process.env.JWT_SECRET as string,
       { expiresIn: '7d' }
     );
 
@@ -418,7 +418,7 @@ export const joinKiosk = async (req: AuthRequest, res: Response): Promise<void> 
     // Regenerar token con nuevo rol
     const token = jwt.sign(
       { userId: result.id, role: result.role },
-      process.env.JWT_SECRET || 'default-secret',
+      process.env.JWT_SECRET as string,
       { expiresIn: '7d' }
     );
 
@@ -442,8 +442,8 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
 
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      console.log(`⚠️ forgot-password: usuario no encontrado para ${email}`);
-      res.status(404).json({ error: 'No existe una cuenta con ese email' });
+      // HIGH-5: No revelar si el email existe o no (anti-enumeración)
+      res.json({ message: 'Si el email está registrado, recibirás un enlace de recuperación' });
       return;
     }
 
@@ -595,75 +595,55 @@ export const deleteUser = async (req: AuthRequest, res: Response): Promise<void>
       return;
     }
 
-    // 1. Borrar invite codes creados por el usuario
-    await prisma.inviteCode.deleteMany({
-      where: { createdBy: userId }
-    });
+    // HIGH-4: Envolver toda la operación de borrado en una transacción atómica
+    await prisma.$transaction(async (tx) => {
+      // 1. Borrar invite codes creados por el usuario
+      await tx.inviteCode.deleteMany({ where: { createdBy: userId } });
 
-    // 2. Borrar solicitudes de restablecimiento de contraseña
-    await prisma.passwordReset.deleteMany({
-      where: { userId }
-    });
+      // 2. Borrar solicitudes de restablecimiento de contraseña
+      await tx.passwordReset.deleteMany({ where: { userId } });
 
-    // 3. Borrar detalles de venta de las ventas realizadas por el usuario
-    await prisma.saleItem.deleteMany({
-      where: {
-        sale: { userId }
-      }
-    });
+      // 3. Obtener kioscos del usuario
+      const userKiosks = await tx.kiosk.findMany({
+        where: { ownerId: userId },
+        select: { id: true },
+      });
+      const kioskIds = userKiosks.map((k) => k.id);
 
-    // 4. Borrar ventas realizadas por el usuario
-    await prisma.sale.deleteMany({
-      where: { userId }
-    });
+      const userBranches = await tx.branch.findMany({
+        where: { kioskId: { in: kioskIds } },
+        select: { id: true },
+      });
+      const branchIds = userBranches.map((b) => b.id);
 
-    // 5. Obtener kioscos del usuario para limpiar sus ventas asociadas y dependencias
-    const userKiosks = await prisma.kiosk.findMany({
-      where: { ownerId: userId },
-      select: { id: true }
-    });
-    const kioskIds = userKiosks.map((k) => k.id);
+      // 4. Borrar items de venta del usuario y de sus sucursales
+      await tx.saleItem.deleteMany({ where: { sale: { userId } } });
+      await tx.saleItem.deleteMany({ where: { sale: { branchId: { in: branchIds } } } });
 
-    const userBranches = await prisma.branch.findMany({
-      where: { kioskId: { in: kioskIds } },
-      select: { id: true }
-    });
-    const branchIds = userBranches.map((b) => b.id);
+      // 5. Borrar ventas
+      await tx.sale.deleteMany({ where: { userId } });
+      await tx.sale.deleteMany({ where: { branchId: { in: branchIds } } });
 
-    // Borrar items de venta y ventas asociadas a las sucursales del usuario
-    await prisma.saleItem.deleteMany({
-      where: {
-        sale: { branchId: { in: branchIds } }
-      }
-    });
-    await prisma.sale.deleteMany({
-      where: { branchId: { in: branchIds } }
-    });
+      // 6. Desasociar empleados de las sucursales a borrar
+      await tx.user.updateMany({
+        where: { branchId: { in: branchIds } },
+        data: { branchId: null },
+      });
 
-    // 6. Desasociar empleados de las sucursales a borrar (poner branchId a null)
-    await prisma.user.updateMany({
-      where: { branchId: { in: branchIds } },
-      data: { branchId: null }
-    });
+      // 7. Borrar stock de esas sucursales
+      await tx.stock.deleteMany({ where: { branchId: { in: branchIds } } });
 
-    // 7. Borrar stock de esas sucursales
-    await prisma.stock.deleteMany({
-      where: { branchId: { in: branchIds } }
-    });
+      // 8. Borrar las sucursales
+      await tx.branch.deleteMany({ where: { kioskId: { in: kioskIds } } });
 
-    // 8. Borrar las sucursales directamente
-    await prisma.branch.deleteMany({
-      where: { kioskId: { in: kioskIds } }
-    });
+      // 9. Borrar invite codes de esas sucursales y kioscos
+      await tx.inviteCode.deleteMany({ where: { kioskId: { in: kioskIds } } });
 
-    // 9. Borrar los kioscos
-    await prisma.kiosk.deleteMany({
-      where: { ownerId: userId }
-    });
+      // 10. Borrar los kioscos
+      await tx.kiosk.deleteMany({ where: { ownerId: userId } });
 
-    // 10. Finalmente borrar el usuario
-    await prisma.user.delete({
-      where: { id: userId }
+      // 11. Finalmente borrar el usuario
+      await tx.user.delete({ where: { id: userId } });
     });
 
     res.json({ message: 'Cuenta eliminada exitosamente' });

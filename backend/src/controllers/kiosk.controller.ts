@@ -333,7 +333,23 @@ export const deleteBranch = async (req: AuthRequest, res: Response): Promise<voi
   try {
     const { id } = req.params;
 
-    await prisma.branch.delete({ where: { id: parseInt(id as string) } });
+    // HIGH-3: Verificar propiedad antes de eliminar (igual que updateBranch)
+    const existingBranch = await prisma.branch.findUnique({
+      where: { id: parseInt(id as string, 10) },
+      include: { kiosk: true },
+    });
+
+    if (!existingBranch) {
+      res.status(404).json({ error: 'Sucursal no encontrada' });
+      return;
+    }
+
+    if (existingBranch.kiosk.ownerId !== req.userId && req.userRole !== 'ADMIN') {
+      res.status(403).json({ error: 'No tienes permisos para eliminar esta sucursal' });
+      return;
+    }
+
+    await prisma.branch.delete({ where: { id: parseInt(id as string, 10) } });
 
     res.json({ message: 'Sucursal eliminada correctamente' });
   } catch (error) {
