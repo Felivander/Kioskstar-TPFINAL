@@ -31,7 +31,7 @@ export default function Sales() {
   const { items: stockItems, loading: stockLoading } = useAppSelector((s) => s.stock);
   const { activeSession, history, loading: sessionLoading, error: sessionError } = useAppSelector((s) => s.cashSessions);
 
-  const [activeTab, setActiveTab] = useState<'register' | 'history'>('register');
+  const [activeTab, setActiveTab] = useState<'register' | 'history' | 'arqueo'>('register');
 
   // Register state
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -576,116 +576,39 @@ export default function Sales() {
         </div>
       )}
 
-      {/* CLOSE CAJA MODAL (WITH DETAILED ARQUEO BILL COUNTER) */}
+      {/* CONFIRMATION CLOSE MODAL */}
       {showCloseModal && activeSession && (
-        <div className="fixed inset-0 bg-surface-950/40 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl border border-surface-200/60 w-full max-w-4xl p-6 shadow-2xl animate-scale-in my-8">
-            <div className="flex justify-between items-center pb-3 border-b border-surface-100 mb-4">
-              <h3 className="text-lg font-bold text-surface-950 flex items-center gap-2">
-                <Lock className="w-5 h-5 text-red-500" /> Cierre y Arqueo de Caja #{activeSession.id}
-              </h3>
-              <button onClick={() => setShowCloseModal(false)} className="text-surface-400 hover:text-surface-600 text-sm font-bold cursor-pointer">✕</button>
+        <div className="fixed inset-0 bg-surface-950/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl border border-surface-200/60 w-full max-w-md p-6 shadow-2xl animate-scale-in">
+            <div className="text-center mb-6">
+              <div className="w-12 h-12 bg-red-50 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Lock className="w-6 h-6 animate-pulse" />
+              </div>
+              <h3 className="text-lg font-bold text-surface-950">¿Cerrar Caja Actual?</h3>
+              <p className="text-xs text-surface-500 mt-2">
+                ¿Estás seguro de cerrar la caja #{activeSession.id}? Para completar el cierre de tu turno, deberás realizar el arqueo físico de billetes en la siguiente pantalla.
+              </p>
             </div>
 
-            {sessionError && (
-              <div className="mb-4 p-2.5 rounded-xl bg-red-50 border border-red-100 text-red-600 text-xs font-semibold">
-                ⚠️ {sessionError}
-              </div>
-            )}
-
-            <form onSubmit={handleCloseCaja} className="grid grid-cols-1 md:grid-cols-5 gap-6 text-left">
-              {/* Planilla de Arqueo (Billetes) */}
-              <div className="md:col-span-3 space-y-3">
-                <h4 className="text-xs font-bold text-surface-500 uppercase tracking-wider">Planilla de Arqueo Físico</h4>
-                <p className="text-[10px] text-surface-400 -mt-1.5">Ingresá la cantidad de billetes contados por denominación.</p>
-                
-                <div className="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                  {DENOMINATIONS.map((denom) => {
-                    const count = parseInt(billCounts[denom]) || 0;
-                    const subtotal = count * denom;
-                    return (
-                      <div key={denom} className="flex items-center justify-between p-2 rounded-xl bg-surface-50 border border-surface-150">
-                        <span className="text-xs font-bold text-surface-800 w-20">${denom.toLocaleString()}</span>
-                        <input
-                          type="number"
-                          min="0"
-                          value={billCounts[denom]}
-                          onChange={(e) => {
-                            const val = e.target.value;
-                            if (val === '' || (parseInt(val) >= 0)) {
-                              setBillCounts(prev => ({ ...prev, [denom]: val }));
-                              dispatch(clearSessionError());
-                            }
-                          }}
-                          placeholder="0"
-                          className="w-20 text-center px-2 py-1 rounded-lg border border-surface-200 bg-white font-bold text-xs outline-none focus:ring-1 focus:ring-primary-500"
-                        />
-                        <span className="text-xs font-bold text-surface-600 text-right w-24">${subtotal.toLocaleString()}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Resumen de Arqueo */}
-              <div className="md:col-span-2 space-y-4 flex flex-col justify-between">
-                <div className="bg-surface-50/50 border border-surface-200/50 p-4 rounded-2xl space-y-3">
-                  <h4 className="text-xs font-bold text-surface-700 uppercase tracking-wider">Resultado</h4>
-                  
-                  <div className="space-y-1.5 text-xs">
-                    <div className="flex justify-between font-semibold text-surface-500">
-                      <span>Saldo Inicial</span>
-                      <span>${activeSession.openingBalance.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between font-semibold text-surface-500 pb-1.5 border-b border-surface-150">
-                      <span>Efectivo Esperado</span>
-                      <span className="text-surface-700 font-bold">
-                        ${expectedBalance.toFixed(2)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between font-extrabold text-surface-900 pt-1">
-                      <span>Total Contado</span>
-                      <span className="text-primary-600">${computedActualBalance.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between font-semibold text-surface-500 pt-1">
-                      <span>Diferencia</span>
-                      <span className={`font-bold ${computedActualBalance - expectedBalance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        ${(computedActualBalance - expectedBalance).toFixed(2)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <label className="block text-xs font-bold text-surface-700">
-                    Notas de Cierre (Opcional)
-                  </label>
-                  <textarea
-                    value={closingNotes}
-                    onChange={(e) => setClosingNotes(e.target.value)}
-                    placeholder="Diferencias detectadas, observaciones de turnos, etc..."
-                    rows={3}
-                    className="w-full px-3 py-2 rounded-xl border border-surface-200 bg-surface-50 text-xs font-semibold outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all resize-none"
-                  />
-                </div>
-
-                <div className="flex gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowCloseModal(false)}
-                    className="flex-1 py-2.5 rounded-xl border-2 border-surface-200 text-surface-600 font-bold text-xs hover:bg-surface-50 transition-colors cursor-pointer"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-red-500/10"
-                  >
-                    Confirmar Cierre
-                  </button>
-                </div>
-              </div>
-            </form>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setShowCloseModal(false)}
+                className="flex-1 py-2.5 rounded-xl border border-surface-200 text-surface-600 font-bold text-xs hover:bg-surface-50 transition-colors cursor-pointer"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowCloseModal(false);
+                  setActiveTab('arqueo');
+                }}
+                className="flex-1 py-2.5 rounded-xl bg-red-650 hover:bg-red-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-red-500/10"
+              >
+                Sí, ir al Arqueo
+              </button>
+            </div>
           </div>
         </div>
       )}
