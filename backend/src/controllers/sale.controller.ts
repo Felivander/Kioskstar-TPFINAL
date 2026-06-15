@@ -6,6 +6,16 @@ export const createSale = async (req: AuthRequest, res: Response): Promise<void>
   try {
     const { branchId, paymentMethod, payments, items } = req.body;
 
+    // Verificar si existe una caja abierta en esta sucursal
+    const activeSession = await prisma.cashSession.findFirst({
+      where: { branchId, status: 'OPEN' },
+    });
+
+    if (!activeSession) {
+      res.status(400).json({ error: 'La caja está cerrada. Debe abrir la caja para poder registrar ventas.' });
+      return;
+    }
+
     const total = items.reduce(
       (sum: number, item: { quantity: number; unitPrice: number }) =>
         sum + item.quantity * item.unitPrice,
@@ -20,6 +30,7 @@ export const createSale = async (req: AuthRequest, res: Response): Promise<void>
           total,
           paymentMethod,
           payments: paymentMethod === 'MIXTO' ? payments : undefined,
+          cashSessionId: activeSession.id,
           items: {
             create: items.map((item: { productId: number; quantity: number; unitPrice: number }) => ({
               productId: item.productId,
@@ -42,16 +53,21 @@ export const createSale = async (req: AuthRequest, res: Response): Promise<void>
       });
 
       for (const item of items) {
+        // MED-7: Verificar stock disponible antes de decrementar
+        const stockRecord = await tx.stock.findFirst({
+          where: { branchId, productId: item.productId },
+        });
+
+        if (!stockRecord || stockRecord.quantity < item.quantity) {
+          throw new Error(
+            `Stock insuficiente para el producto ID ${item.productId}. ` +
+            `Disponible: ${stockRecord?.quantity ?? 0}, solicitado: ${item.quantity}`
+          );
+        }
+
         await tx.stock.updateMany({
-          where: {
-            branchId,
-            productId: item.productId,
-          },
-          data: {
-            quantity: {
-              decrement: item.quantity,
-            },
-          },
+          where: { branchId, productId: item.productId },
+          data: { quantity: { decrement: item.quantity } },
         });
       }
 
