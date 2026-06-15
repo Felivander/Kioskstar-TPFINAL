@@ -9,6 +9,7 @@ import api from '../services/api';
 import toast from 'react-hot-toast';
 import { Product } from '../types';
 import { Flame, Search, Trash2, Calendar, Lock, Unlock, DollarSign } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface CartItem {
   productId: number;
@@ -267,21 +268,33 @@ export default function Sales() {
         </div>
 
         {branchId && (
-          <div className="flex bg-surface-200/50 p-1 rounded-2xl border border-surface-200/40">
+          <div className="flex bg-surface-200/50 p-1 rounded-2xl border border-surface-200/40 relative">
             <button
               onClick={() => setActiveTab('register')}
-              className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'register' ? 'gradient-primary text-white shadow-md' : 'text-surface-600 hover:text-surface-900'
-              }`}
+              className={`relative px-4 py-1.5 rounded-xl text-xs font-bold transition-colors duration-300 cursor-pointer select-none
+                ${activeTab === 'register' ? 'text-white z-10' : 'text-surface-600 hover:text-surface-900'}`}
             >
+              {activeTab === 'register' && (
+                <motion.div
+                  layoutId="active-sales-tab"
+                  className="absolute inset-0 bg-gradient-to-r from-orange-700 via-orange-500 to-orange-700 border border-orange-800/80 rounded-xl -z-10 shadow-md shadow-orange-500/20"
+                  transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
+                />
+              )}
               Registrar Venta
             </button>
             <button
               onClick={() => setActiveTab('history')}
-              className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'history' ? 'gradient-primary text-white shadow-md' : 'text-surface-600 hover:text-surface-900'
-              }`}
+              className={`relative px-4 py-1.5 rounded-xl text-xs font-bold transition-colors duration-300 cursor-pointer select-none
+                ${activeTab === 'history' ? 'text-white z-10' : 'text-surface-600 hover:text-surface-900'}`}
             >
+              {activeTab === 'history' && (
+                <motion.div
+                  layoutId="active-sales-tab"
+                  className="absolute inset-0 bg-gradient-to-r from-orange-700 via-orange-500 to-orange-700 border border-orange-800/80 rounded-xl -z-10 shadow-md shadow-orange-500/20"
+                  transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
+                />
+              )}
               Historial de Caja
             </button>
           </div>
