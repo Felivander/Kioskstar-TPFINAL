@@ -180,74 +180,113 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Splashscreen de Bienvenida */}
+      {/* Splashscreen de Bienvenida Cinematográfico */}
       <AnimatePresence>
         {showSplash && (
-          <div
-            className={`fixed inset-0 z-50 bg-gradient-to-br from-primary-500 via-primary-600 to-autumn-leaf-600 flex flex-col items-center justify-center text-white transition-opacity duration-500 ${
-              splashFadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
-            }`}
-          >
-            {/* Contenedor del Logo con animación de entrada elástica */}
+          <div className="fixed inset-0 z-50 bg-radial from-surface-950 via-surface-900 to-black flex flex-col items-center justify-center text-white overflow-hidden select-none">
+            {/* Defs para Gradientes y Filtros SVG */}
+            <svg className="w-0 h-0 absolute">
+              <defs>
+                {/* Degradado lineal para el relleno (Navbar Princeton Orange) */}
+                <linearGradient id="neon-star-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#c2410c" />   {/* Orange 700 */}
+                  <stop offset="50%" stopColor="#f97316" />  {/* Orange 500 */}
+                  <stop offset="100%" stopColor="#c2410c" /> {/* Orange 700 */}
+                </linearGradient>
+                {/* Degradado lineal para el contorno brillante */}
+                <linearGradient id="neon-stroke-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#ea580c" />   {/* Orange 600 */}
+                  <stop offset="100%" stopColor="#fb923c" />  {/* Orange 400 */}
+                </linearGradient>
+              </defs>
+            </svg>
+
+            {/* Contenedor Principal de la Estrella Portal */}
             <motion.div
-              initial={{ scale: 0.3, rotate: -15, opacity: 0 }}
-              animate={{ scale: 1, rotate: 0, opacity: 1 }}
-              transition={{
-                type: 'spring',
-                stiffness: 120,
-                damping: 12,
-                delay: 0.1,
-              }}
-              className="flex flex-col items-center gap-4"
+              animate={splashFadeOut ? { scale: 18, rotate: 15, opacity: 0 } : { scale: [1, 1.03, 1] }}
+              transition={
+                splashFadeOut 
+                  ? { type: 'spring', stiffness: 100, damping: 15 } 
+                  : { repeat: Infinity, duration: 2.2, ease: 'easeInOut' }
+              }
+              className="flex flex-col items-center justify-center relative"
             >
-              <div className="relative">
-                <Star className="w-20 h-20 text-white fill-white/20 animate-float" />
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: [0, 1, 0], scale: [0.5, 1.5, 0.5] }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 2.5,
-                    ease: 'easeInOut',
+              {/* Estrella SVG con Efecto Dibujo de Contorno y Relleno */}
+              <svg 
+                viewBox="0 0 24 24" 
+                className="w-44 h-44 md:w-56 md:h-56 filter drop-shadow-[0_0_25px_rgba(249,115,22,0.65)]"
+                fill="none"
+              >
+                {/* Trazado de estrella geométrica de 5 puntas */}
+                <motion.path
+                  d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"
+                  stroke="url(#neon-stroke-gradient)"
+                  strokeWidth="0.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  
+                  // Animación secuencial con Framer Motion
+                  initial={{ pathLength: 0, fill: "rgba(249, 115, 22, 0)", fillOpacity: 0 }}
+                  animate={{ 
+                    pathLength: 1, 
+                    fill: "url(#neon-star-gradient)",
+                    fillOpacity: 1
                   }}
-                  className="absolute -top-1 -right-1 text-yellow-300"
-                >
-                  <Sparkles className="w-6 h-6 fill-current" />
-                </motion.div>
-              </div>
-              <h1 className="text-5xl font-extrabold tracking-tight">
-                Kiosk<span className="text-primary-200">Star</span>
-              </h1>
+                  transition={{
+                    pathLength: { duration: 1.3, ease: "easeInOut" },
+                    fillOpacity: { delay: 1.2, duration: 0.6, ease: "easeIn" },
+                    fill: { delay: 1.2, duration: 0.6 }
+                  }}
+                />
+              </svg>
+
+              {/* Logo textual KioskStar */}
+              <motion.h1 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.4, duration: 0.5 }}
+                className="text-4xl font-extrabold tracking-tight mt-6"
+              >
+                Kiosk<span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-amber-500">Star</span>
+              </motion.h1>
             </motion.div>
 
-            {/* Línea divisora animada */}
+            {/* Separador brillante */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 0.6, delay: 0.6, ease: 'easeInOut' }}
-              className="w-40 h-[1.5px] bg-white/30 my-8 origin-center"
+              transition={{ duration: 0.6, delay: 1.6, ease: 'easeInOut' }}
+              className="w-32 h-[1px] bg-gradient-to-r from-transparent via-orange-500/50 to-transparent my-6 origin-center"
             />
 
-            {/* Mensaje de Bienvenida personalizado */}
+            {/* Bienvenida y Subtítulo */}
             <motion.div
-              initial={{ y: 24, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.8, ease: 'easeOut' }}
-              className="text-center"
+              animate={splashFadeOut ? { y: 35, opacity: 0 } : {}}
+              transition={{ duration: 0.4, ease: 'easeIn' }}
+              className="text-center flex flex-col items-center gap-1.5"
             >
-              <h2 className="text-2xl font-bold tracking-tight mb-2">
+              <motion.h2 
+                initial={{ y: 12, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.7, ease: 'easeOut' }}
+                className="text-xl font-bold tracking-tight text-white/95"
+              >
                 ¡Hola, {user?.name || 'de nuevo'}!
-              </h2>
-              <p className="text-white/70 text-sm font-medium animate-pulse-soft">
+              </motion.h2>
+              <motion.p 
+                initial={{ y: 12, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.9, ease: 'easeOut' }}
+                className="text-orange-400 text-xs font-semibold uppercase tracking-wider animate-pulse-soft"
+              >
                 Preparando tu sesión...
-              </p>
+              </motion.p>
             </motion.div>
 
-            {/* Decoraciones flotantes de fondo */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-              <div className="absolute top-[20%] left-[15%] w-3 h-3 bg-white/20 rounded-full blur-[1px] animate-float" style={{ animationDelay: '0.5s' }} />
-              <div className="absolute bottom-[25%] right-[20%] w-4 h-4 bg-white/10 rounded-full blur-[2px] animate-float" style={{ animationDelay: '1.2s' }} />
-              <div className="absolute top-[60%] left-[80%] w-2 h-2 bg-white/30 rounded-full blur-[0.5px] animate-float" style={{ animationDelay: '0.8s' }} />
+            {/* Decoración ambiental */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+              <div className="absolute top-[20%] left-[10%] w-2 h-2 bg-orange-500 rounded-full blur-[1px] animate-float" style={{ animationDelay: '0.2s' }} />
+              <div className="absolute bottom-[30%] right-[15%] w-3 h-3 bg-orange-400 rounded-full blur-[2px] animate-float" style={{ animationDelay: '0.8s' }} />
             </div>
           </div>
         )}
