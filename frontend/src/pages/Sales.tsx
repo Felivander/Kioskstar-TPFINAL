@@ -95,7 +95,7 @@ export default function Sales() {
   const handleOpenCaja = async (e: FormEvent) => {
     e.preventDefault();
     if (!branchId) return;
-    const balance = parseFloat(openingBalance);
+    const balance = openingBalance.trim() === '' ? 0 : parseFloat(openingBalance);
     if (isNaN(balance) || balance < 0) {
       toast.error('Monto inicial inválido');
       return;
@@ -324,7 +324,6 @@ export default function Sales() {
                       type="number"
                       min="0"
                       step="0.01"
-                      required
                       value={openingBalance}
                       onChange={(e) => setOpeningBalance(e.target.value)}
                       placeholder="0.00"
@@ -387,7 +386,7 @@ export default function Sales() {
                   dispatch(clearSessionError());
                   setShowCloseModal(true);
                 }}
-                className="px-4 py-2.5 rounded-xl border border-red-200 text-red-650 font-bold text-sm hover:bg-red-50 transition-colors flex items-center gap-2 shrink-0 justify-center cursor-pointer"
+                className="px-4 py-2.5 rounded-xl border border-red-200 text-red-600 font-bold text-sm hover:bg-red-50 transition-colors flex items-center gap-2 shrink-0 justify-center cursor-pointer"
               >
                 <Lock className="w-4 h-4" />
                 Cerrar Caja
@@ -462,7 +461,7 @@ export default function Sales() {
                             <button onClick={() => updateCartQty(item.productId, item.quantity - 1)} className="w-6 h-6 rounded border border-surface-200 text-xs font-bold flex items-center justify-center hover:bg-surface-100 cursor-pointer">−</button>
                             <span className="text-xs font-bold w-6 text-center">{item.quantity}</span>
                             <button onClick={() => updateCartQty(item.productId, item.quantity + 1)} className="w-6 h-6 rounded border border-surface-200 text-xs font-bold flex items-center justify-center hover:bg-surface-100 cursor-pointer">+</button>
-                            <button onClick={() => removeFromCart(item.productId)} className="text-red-400 hover:text-red-650 transition-colors p-1 cursor-pointer">
+                            <button onClick={() => removeFromCart(item.productId)} className="text-red-400 hover:text-red-600 transition-colors p-1 cursor-pointer">
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           </div>
@@ -569,7 +568,7 @@ export default function Sales() {
             </div>
 
             {sessionError && (
-              <div className="mb-4 p-2.5 rounded-xl bg-red-50 border border-red-100 text-red-650 text-xs font-semibold">
+              <div className="mb-4 p-2.5 rounded-xl bg-red-50 border border-red-100 text-red-600 text-xs font-semibold">
                 ⚠️ {sessionError}
               </div>
             )}
@@ -626,11 +625,11 @@ export default function Sales() {
                     </div>
                     <div className="flex justify-between font-extrabold text-surface-950 text-sm pt-1.5">
                       <span>Total Contado</span>
-                      <span className="text-primary-650">${computedActualBalance.toLocaleString()}</span>
+                      <span className="text-primary-600">${computedActualBalance.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between font-semibold text-surface-500 pt-1">
                       <span>Diferencia</span>
-                      <span className={`font-bold ${computedActualBalance - expectedBalance >= 0 ? 'text-green-600' : 'text-red-650'}`}>
+                      <span className={`font-bold ${computedActualBalance - expectedBalance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                         ${(computedActualBalance - expectedBalance).toFixed(2)}
                       </span>
                     </div>
@@ -660,7 +659,7 @@ export default function Sales() {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-3 rounded-xl bg-red-650 hover:bg-red-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-red-500/10"
+                    className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-red-500/10"
                   >
                     Confirmar Cierre de Caja
                   </button>
@@ -672,7 +671,7 @@ export default function Sales() {
           <div className="text-center py-16 bg-white rounded-3xl border border-surface-200 shadow-sm">
             <span className="text-5xl block mb-3">⚠️</span>
             <p className="text-surface-500 font-medium">No hay caja activa para cerrar</p>
-            <button onClick={() => setActiveTab('register')} className="mt-4 px-4 py-2 bg-primary-50 hover:bg-primary-100 text-primary-650 font-bold text-xs rounded-xl cursor-pointer">
+            <button onClick={() => setActiveTab('register')} className="mt-4 px-4 py-2 bg-primary-50 hover:bg-primary-100 text-primary-600 font-bold text-xs rounded-xl cursor-pointer">
               Volver a Ventas
             </button>
           </div>
@@ -731,7 +730,7 @@ export default function Sales() {
                   setShowCloseModal(false);
                   setActiveTab('arqueo');
                 }}
-                className="flex-1 py-2.5 rounded-xl bg-red-650 hover:bg-red-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-red-500/10"
+                className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-red-500/10"
               >
                 Sí, ir al Arqueo
               </button>
