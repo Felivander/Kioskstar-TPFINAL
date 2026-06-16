@@ -31,7 +31,7 @@ export default function Sales() {
   const { items: stockItems, loading: stockLoading } = useAppSelector((s) => s.stock);
   const { activeSession, history, loading: sessionLoading, error: sessionError } = useAppSelector((s) => s.cashSessions);
 
-  const [activeTab, setActiveTab] = useState<'register' | 'history' | 'arqueo'>('register');
+  const [activeTab, setActiveTab] = useState<'register' | 'history' | 'sales_history' | 'arqueo'>('register');
 
   // Register state
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -275,6 +275,20 @@ export default function Sales() {
                 />
               )}
               Registrar Venta
+            </button>
+            <button
+              onClick={() => setActiveTab('sales_history')}
+              className={`relative px-4 py-1.5 rounded-xl text-xs font-bold transition-colors duration-300 cursor-pointer select-none
+                ${activeTab === 'sales_history' ? 'text-white z-10' : 'text-surface-600 hover:text-surface-900'}`}
+            >
+              {activeTab === 'sales_history' && (
+                <motion.div
+                  layoutId="active-sales-tab"
+                  className="absolute inset-0 bg-gradient-to-r from-orange-700 via-orange-500 to-orange-700 border border-orange-800/80 rounded-xl -z-10 shadow-md shadow-orange-500/20"
+                  transition={{ type: 'spring', bounce: 0.32, duration: 0.45 }}
+                />
+              )}
+              Historial de Ventas
             </button>
             <button
               onClick={() => setActiveTab('history')}
@@ -642,6 +656,37 @@ export default function Sales() {
                   </div>
                 </div>
 
+                {/* Sales of the active session */}
+                <div className="bg-white border border-surface-200/50 p-5 rounded-2xl space-y-3 shadow-sm flex-1 flex flex-col min-h-0">
+                  <h4 className="text-xs font-bold text-surface-700 uppercase tracking-wider">Ventas de esta Sesión</h4>
+                  {!activeSession.sales || activeSession.sales.length === 0 ? (
+                    <p className="text-xs text-surface-400 font-semibold py-4 text-center">No se registraron ventas en esta caja.</p>
+                  ) : (
+                    <div className="space-y-2 max-h-[220px] overflow-y-auto pr-1 custom-scrollbar">
+                      {activeSession.sales.map((sale: any) => (
+                        <div key={sale.id} className="p-2.5 rounded-xl border border-surface-100 bg-surface-50/50 text-xs">
+                          <div className="flex justify-between items-baseline font-bold text-surface-800">
+                            <span>Venta #{sale.id}</span>
+                            <span className="text-primary-600">${sale.total.toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between text-[10px] text-surface-400 mt-0.5">
+                            <span>{new Date(sale.createdAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}hs · {sale.paymentMethod}</span>
+                            <span>Por: {sale.user?.name}</span>
+                          </div>
+                          <div className="mt-1.5 pt-1.5 border-t border-surface-150/40 space-y-0.5 text-[10px] text-surface-600">
+                            {sale.items.map((item: any) => (
+                              <div key={item.id} className="flex justify-between">
+                                <span className="truncate pr-4">{item.product?.name} x{item.quantity}</span>
+                                <span className="font-semibold shrink-0">${(item.quantity * item.unitPrice).toFixed(2)}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
                 <div className="space-y-3">
                   <label className="block text-xs font-bold text-surface-700">
                     Notas de Cierre (Opcional)
@@ -682,6 +727,82 @@ export default function Sales() {
             </button>
           </div>
         )
+      ) : activeTab === 'sales_history' ? (
+        /* TAB: HISTORIAL DE VENTAS DETALLADAS */
+        <div className="space-y-4">
+          <div className="bg-white rounded-2xl border border-surface-100 p-5 shadow-sm">
+            <h3 className="font-bold text-surface-900 mb-2 flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-primary-500" /> Ventas de la Caja Actual
+            </h3>
+            <p className="text-xs text-surface-500">Listado de las ventas registradas durante el turno de la caja abierta actualmente.</p>
+          </div>
+
+          {!activeSession ? (
+            <div className="text-center py-16 bg-white rounded-3xl border border-surface-200/50 shadow-sm animate-scale-in">
+              <span className="text-4xl block mb-3">🔒</span>
+              <p className="text-surface-600 font-bold">Caja Cerrada</p>
+              <p className="text-surface-400 text-xs mt-1">Debés abrir la caja para poder visualizar las ventas de la sesión actual.</p>
+              <button 
+                onClick={() => setActiveTab('register')} 
+                className="mt-4 px-4 py-2 bg-primary-50 hover:bg-primary-100 text-primary-600 font-bold text-xs rounded-xl cursor-pointer transition-colors"
+              >
+                Ir a Apertura de Caja
+              </button>
+            </div>
+          ) : !activeSession.sales || activeSession.sales.length === 0 ? (
+            <div className="text-center py-16 bg-white rounded-3xl border border-surface-200/50 shadow-sm animate-scale-in">
+              <span className="text-4xl block mb-2">📋</span>
+              <p className="text-surface-500 font-medium">Sin ventas</p>
+              <p className="text-surface-400 text-sm mt-0.5">Aún no registraste ventas en esta sesión de caja.</p>
+            </div>
+          ) : (
+            <div className="space-y-3 animate-fade-in-up">
+              {activeSession.sales.map((sale: any) => (
+                <div key={sale.id} className="bg-white border border-surface-200 rounded-2xl p-4 shadow-sm text-left space-y-3">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-bold text-surface-900">Venta #{sale.id}</span>
+                        <span className="text-xs text-surface-400 font-bold">
+                          {new Date(sale.createdAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}hs
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-surface-400 font-bold uppercase tracking-wider mt-0.5">Vendedor: {sale.user?.name}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-base font-extrabold text-primary-600">${sale.total.toFixed(2)}</p>
+                      <p className="text-[9px] text-surface-400 font-bold uppercase tracking-wider">{sale.paymentMethod}</p>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-surface-100 pt-2.5 space-y-1.5 text-xs text-surface-700">
+                    <span className="text-[10px] font-bold text-surface-400 uppercase tracking-wider block mb-1">Productos vendidos:</span>
+                    {sale.items.map((item: any) => (
+                      <div key={item.id} className="flex justify-between items-center font-semibold">
+                        <span>
+                          {item.product?.name} <span className="text-[10px] text-surface-400 font-bold">x{item.quantity}</span>
+                        </span>
+                        <span>${(item.quantity * item.unitPrice).toFixed(2)}</span>
+                      </div>
+                    ))}
+                    {sale.paymentMethod === 'MIXTO' && sale.payments && (
+                      <div className="border-t border-surface-100 pt-1.5 mt-1.5 text-[10px] font-bold text-surface-500 flex justify-between uppercase">
+                        <span>Desglose de pagos:</span>
+                        <span className="text-surface-700">
+                          {Array.isArray(sale.payments) 
+                            ? sale.payments.map((p: any) => `${p.method}: $${p.amount}`).join(' + ')
+                            : typeof sale.payments === 'string'
+                              ? JSON.parse(sale.payments).map((p: any) => `${p.method}: $${p.amount}`).join(' + ')
+                              : ''}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       ) : (
         /* TAB: HISTORIAL DE CAJA */
         <div className="space-y-4">
@@ -857,13 +978,42 @@ function AccordionSession({ session }: { session: CashSession }) {
           )}
 
           {/* Sales listing inside session */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <h4 className="text-xs font-bold text-surface-500 uppercase tracking-wider mb-2">Ventas de esta Caja:</h4>
             {!session.sales || session.sales.length === 0 ? (
               <p className="text-center text-xs text-surface-400 py-4 font-semibold bg-white rounded-xl border border-surface-100">Sin ventas en esta sesión</p>
             ) : (
               session.sales.map((sale) => (
-                <AccordionSale key={sale.id} sale={sale} />
+                <div key={sale.id} className="bg-white border border-surface-200 rounded-xl p-3.5 shadow-sm text-left space-y-2">
+                  <div className="flex justify-between items-baseline font-bold text-surface-900 text-xs">
+                    <span>Venta #{sale.id} - {new Date(sale.createdAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}hs</span>
+                    <span className="text-primary-600">${sale.total.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between text-[10px] text-surface-400">
+                    <span>Método: {sale.paymentMethod}</span>
+                    <span>Vendedor: {sale.user?.name}</span>
+                  </div>
+                  <div className="pt-2 border-t border-surface-100 space-y-1 text-[11px] text-surface-700">
+                    {sale.items.map((item) => (
+                      <div key={item.id} className="flex justify-between font-semibold">
+                        <span>{item.product?.name} <span className="text-[10px] text-surface-400 font-bold">x{item.quantity}</span></span>
+                        <span>${(item.quantity * item.unitPrice).toFixed(2)}</span>
+                      </div>
+                    ))}
+                    {sale.paymentMethod === 'MIXTO' && sale.payments && (
+                      <div className="border-t border-surface-100 pt-1.5 mt-1.5 text-[10px] font-bold text-surface-500 flex justify-between uppercase">
+                        <span>Desglose de pagos:</span>
+                        <span className="text-surface-700">
+                          {Array.isArray(sale.payments) 
+                            ? sale.payments.map((p: any) => `${p.method}: $${p.amount}`).join(' + ')
+                            : typeof sale.payments === 'string'
+                              ? JSON.parse(sale.payments).map((p: any) => `${p.method}: $${p.amount}`).join(' + ')
+                              : ''}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
               ))
             )}
           </div>

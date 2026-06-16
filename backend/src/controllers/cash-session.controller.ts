@@ -21,7 +21,17 @@ export const getActiveSession = async (req: AuthRequest, res: Response): Promise
       },
       include: {
         openedBy: { select: { id: true, name: true, email: true } },
-        sales: true,
+        sales: {
+          include: {
+            user: { select: { id: true, name: true, email: true } },
+            items: {
+              include: {
+                product: { select: { id: true, name: true, price: true } }
+              }
+            }
+          },
+          orderBy: { createdAt: 'desc' },
+        },
       },
     });
 
@@ -43,9 +53,8 @@ export const getActiveSession = async (req: AuthRequest, res: Response): Promise
         }
       });
       const currentExpectedBalance = active.openingBalance + cashSalesTotal;
-      const { sales, ...activeWithoutSales } = active;
       res.json({
-        ...activeWithoutSales,
+        ...active,
         currentExpectedBalance,
       });
     } else {
@@ -176,11 +185,30 @@ export const getHistoryByBranch = async (req: AuthRequest, res: Response): Promi
       return;
     }
 
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
     const history = await prisma.cashSession.findMany({
-      where: { branchId: bId },
+      where: { 
+        branchId: bId,
+        openedAt: {
+          gte: todayStart,
+        },
+      },
       include: {
         openedBy: { select: { id: true, name: true } },
         closedBy: { select: { id: true, name: true } },
+        sales: {
+          include: {
+            user: { select: { id: true, name: true, email: true } },
+            items: {
+              include: {
+                product: { select: { id: true, name: true, price: true } }
+              }
+            }
+          },
+          orderBy: { createdAt: 'desc' },
+        },
         _count: {
           select: { sales: true },
         },

@@ -178,8 +178,16 @@ export const getSalesByBranch = async (req: AuthRequest, res: Response): Promise
       return;
     }
 
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
     const sales = await prisma.sale.findMany({
-      where: { branchId: branchIdNum },
+      where: { 
+        branchId: branchIdNum,
+        createdAt: {
+          gte: todayStart,
+        },
+      },
       include: {
         items: {
           include: { product: true },
