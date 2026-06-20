@@ -17,7 +17,15 @@ export function Directions({ origin, destination, onRouteCalculated }: Direction
   useEffect(() => {
     if (!routesLib || !map) return;
     setDirectionsService(new routesLib.DirectionsService());
-    setDirectionsRenderer(new routesLib.DirectionsRenderer({ map, suppressMarkers: true }));
+    setDirectionsRenderer(new routesLib.DirectionsRenderer({
+      map,
+      suppressMarkers: true,
+      polylineOptions: {
+        strokeColor: '#f97316',
+        strokeOpacity: 0.8,
+        strokeWeight: 6
+      }
+    }));
   }, [routesLib, map]);
 
   useEffect(() => {
