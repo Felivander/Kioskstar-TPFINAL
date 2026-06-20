@@ -3,6 +3,7 @@ import { APIProvider, Map as GoogleMap, AdvancedMarker, InfoWindow, useMap } fro
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import Spinner from '../components/Spinner';
+import { Directions } from '../components/Directions';
 import { Locate, Flame, Store, Search, MapPin, Package, Compass, Navigation, X } from 'lucide-react';
 
 const containerVariants: Variants = {
@@ -86,8 +87,12 @@ export default function MapView() {
   const [closestBranchId, setClosestBranchId] = useState<number | null>(null);
   const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
   const mapRef = useRef<any>(null);
+  const [routeDestination, setRouteDestination] = useState<{ lat: number; lng: number } | null>(null);
+  const [routeInfo, setRouteInfo] = useState<{ duration: string; distance: string } | null>(null);
 
   const selectBranchAndZoom = (b: MapBranch) => {
+    setRouteDestination(null);
+    setRouteInfo(null);
     if (selectedBranch?.id === b.id) {
       setSelectedBranch(null);
       if (mapRef.current) {
@@ -164,7 +169,12 @@ export default function MapView() {
   };
 
   const performSearch = useCallback(async (query: string) => {
-    if (!query.trim()) { loadBranches(); return; }
+    if (!query.trim()) {
+      loadBranches();
+      setRouteDestination(null);
+      setRouteInfo(null);
+      return;
+    }
     setSearching(true);
     try {
       const { data } = await api.get(`/map/search?product=${encodeURIComponent(query)}&lat=${userLocation.lat}&lng=${userLocation.lng}`);
@@ -192,6 +202,7 @@ export default function MapView() {
       // Mark closest
       if (sortedBranches.length > 0) {
         setClosestBranchId(sortedBranches[0].id);
+        setRouteDestination({ lat: sortedBranches[0].lat, lng: sortedBranches[0].lng });
         if (mapRef.current) {
           mapRef.current.panTo({ lat: sortedBranches[0].lat, lng: sortedBranches[0].lng });
         }
@@ -221,6 +232,7 @@ export default function MapView() {
   const renderDetailsContent = (b: MapBranch) => {
     const results = getResultsForBranch(b.id);
     const hasImage = b.kiosk?.imageUrl && !failedImages[b.id];
+    const isRouteActive = routeDestination && routeDestination.lat === b.lat && routeDestination.lng === b.lng;
     return (
       <>
         {/* Header / Photo Banner */}
@@ -237,7 +249,7 @@ export default function MapView() {
           )}
           {/* Close Button */}
           <button
-            onClick={() => setSelectedBranch(null)}
+            onClick={() => { setSelectedBranch(null); setRouteDestination(null); setRouteInfo(null); }}
             className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white text-surface-700 hover:text-primary-600 flex items-center justify-center transition-all duration-200 shadow-md hover:scale-105 active:scale-95 cursor-pointer z-10"
           >
             <X size={16} />
@@ -291,6 +303,32 @@ export default function MapView() {
               </div>
             )}
           </div>
+
+          {/* Walking Route Information */}
+          {isRouteActive && routeInfo && (
+            <div className="bg-orange-50 text-orange-700 px-3 py-2 rounded-xl text-[11px] font-bold border border-orange-100/30 flex items-center gap-1.5 animate-scale-in">
+              <span>🚶 {routeInfo.duration} ({routeInfo.distance}) caminando</span>
+            </div>
+          )}
+
+          {/* Action button */}
+          <div className="flex gap-2 shrink-0">
+            {!isRouteActive ? (
+              <button
+                onClick={() => setRouteDestination({ lat: b.lat, lng: b.lng })}
+                className="flex-1 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold text-[11px] rounded-xl transition-all shadow-md shadow-primary-500/10 cursor-pointer"
+              >
+                🚶 Cómo llegar caminando
+              </button>
+            ) : (
+              <button
+                onClick={() => { setRouteDestination(null); setRouteInfo(null); }}
+                className="flex-1 py-2 border border-surface-200 text-surface-600 hover:bg-surface-50 font-bold text-[11px] rounded-xl transition-all cursor-pointer"
+              >
+                ❌ Cancelar Ruta
+              </button>
+            )}
+          </div>
         </div>
       </>
     );
@@ -332,7 +370,7 @@ export default function MapView() {
             {searching ? <Spinner size="sm" /> : 'Buscar'}
           </button>
           {searchResults && (
-            <button onClick={() => { setSearch(''); loadBranches(); }}
+            <button onClick={() => { setSearch(''); loadBranches(); setRouteDestination(null); setRouteInfo(null); }}
               className="px-3 py-1.5 rounded-xl border border-surface-200 text-xs text-surface-600 hover:bg-surface-50 transition-colors shrink-0">
               Limpiar
             </button>
@@ -368,6 +406,13 @@ export default function MapView() {
                   className="w-full h-full"
                 >
                   <MapHandler mapRef={mapRef} initialCenter={initialCenter} />
+                  {routeDestination && (
+                    <Directions
+                      origin={userLocation}
+                      destination={routeDestination}
+                      onRouteCalculated={(duration, distance) => setRouteInfo({ duration, distance })}
+                    />
+                  )}
                   {/* User location */}
                   <AdvancedMarker position={userLocation}>
                     <div className="relative flex items-center justify-center">
